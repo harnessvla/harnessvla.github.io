@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta
+      name="description"
+      content="Harness VLA steers frozen vision-language-action models into reliable manipulation primitives through a memory-guided agentic harness."
+    >
+    <meta property="og:title" content="Harness VLA">
+    <meta property="og:description" content="Memory-guided primitive composition for reliable manipulation with frozen VLAs.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Harness VLA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/styles.css">
+  </head>
+  <body>
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <nav class="navbar navbar-over" id="navbar" aria-label="Main navigation">
+      <a class="nav-brand" href="#top">Harness VLA</a>
+      <div class="nav-links">
+        <a class="nav-link" href="#overview">Overview</a>
+        <a class="nav-link" href="#method">Method</a>
+        <a class="nav-link" href="#gallery">Task Gallery</a>
+        <a class="nav-link" href="#benchmarks">Benchmarks</a>
+        <a class="nav-link" href="#analysis">Analysis</a>
+        <a class="nav-link" href="#limitations">Limitations</a>
+        <a class="nav-link" href="#citation">BibTeX</a>
+        <a class="nav-link nav-cta" href="HarnessVLA.pdf" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </nav>
+
+    <main id="top">
+      <section class="hero hero-cover">
+        <div class="hero-wall" aria-hidden="true">
+          <div class="hero-wall-track">
+            <img src="HarnessVLA/figures/spatial_t3_std.png" alt="" width="3235" height="3235">
+            <img src="HarnessVLA/figures/spatial_t3_pi0pert.png" alt="" width="3235" height="3235">
+            <img src="HarnessVLA/figures/spatial_t3_hybpert.png" alt="" width="3235" height="3235">
+            <img src="HarnessVLA/figures/goal_t9_std.png" alt="" width="3235" height="3235">
+            <img src="HarnessVLA/figures/goal_t9_pi0pert.png" alt="" width="3235" height="3235">
+            <img src="HarnessVLA/figures/goal_t9_hybpert.png" alt="" width="3235" height="3235">
+            <img src="HarnessVLA/figures/exp_analysis/frame_0014.png" alt="" width="1024" height="1024">
+            <img src="HarnessVLA/figures/exp_analysis/frame_0023.png" alt="" width="1024" height="1024">
+            <img src="HarnessVLA/figures/exp_analysis/cmd_68_pi0_pick.png" alt="" width="1024" height="1024">
+            <img src="HarnessVLA/figures/exp_analysis/cmd_70_move_to.png" alt="" width="1024" height="1024">
+            <img src="HarnessVLA/figures/exp_analysis/cmd_71_move_to.png" alt="" width="1024" height="1024">
+            <img src="HarnessVLA/figures/exp_analysis/cmd_72_release.png" alt="" width="1024" height="1024">
+          </div>
+        </div>
+        <div class="hero-scrim"></div>
+        <div class="hero-content">
+          <p class="hero-kicker">Memory-guided primitive composition</p>
+          <h1>
+            <span>Harness frozen VLAs</span>
+            <span class="accent-line">into reliable robot primitives.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Harness VLA keeps the VLA frozen and turns it into a retryable contact-rich primitive.
+            A planner handles semantic grounding, spatial re-binding, staging, transport, and
+            recovery through a fixed analytic primitive library.
+          </p>
+          <div class="hero-claims" aria-label="Core design claims">
+            <span>Frozen VLA, no finetuning</span>
+            <span>Fixed primitive vocabulary</span>
+            <span>Memory-guided retry</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="HarnessVLA.pdf" target="_blank" rel="noopener">Paper PDF</a>
+            <a class="btn btn-ghost" href="#overview">Overview</a>
+            <a class="btn btn-ghost" href="#gallery">Task Gallery</a>
+          </div>
+        </div>
+        <pre class="hero-code" aria-hidden="true">{"action":"vla_act","prompt":"grasp the target","max_chunks":4}
+{"action":"move_to","xyz":[x,y,z]}
+{"action":"move_pose","xyz":[x,y,z],"pose":"pre_contact"}
+{"action":"vla_act","prompt":"retry local contact","max_chunks":3}
+{"action":"release"}</pre>
+        <a class="hero-scroll" href="#overview" aria-label="Scroll to overview">
+          <span>Scroll</span>
+          <i></i>
+        </a>
+      </section>
+
+      <section class="section" id="overview">
+        <div class="container intro-block">
+          <p class="eyebrow">Anonymous submission to CoRL 2026</p>
+          <h2 class="paper-title">
+            Harness VLA: Steering Frozen VLAs into Reliable Manipulation Primitives via Memory-Guided Agents
+          </h2>
+          <p class="paper-authors">Anonymous Author(s)</p>
+          <div class="intro-actions">
+            <a class="btn btn-primary" href="HarnessVLA.pdf" target="_blank" rel="noopener">Paper</a>
+            <a class="btn btn-ghost" href="#citation">BibTeX</a>
+            <span class="btn btn-muted">Code coming soon</span>
+          </div>
+
+          <div class="abstract-card" data-source="HarnessVLA/example.tex:66-69">
+            <p>
+              Language-conditioned manipulation requires both precise contact-rich control and
+              robust reasoning over language, scenes, and long horizons. End-to-end VLA models
+              provide strong local visuomotor skills, but often fail under semantic retargeting,
+              goal re-binding, spatial-layout shifts, and unstable local contacts.
+            </p>
+            <p>
+              Harness VLA exposes a frozen VLA as a retryable contact-rich primitive and composes
+              it with a fixed analytic primitive library for grounding, staging, transport,
+              navigation, and release. The harness learns the operating range of these primitives
+              from task-specific traces, global success rules, and failure models.
+            </p>
+            <p>
+              The central claim is asymmetric delegation: the VLA remains a local contact specialist,
+              while the planner owns task binding, non-contact execution, and recovery after failed
+              or incomplete local attempts.
+            </p>
+          </div>
+
+          <div class="glance-heading">
+            <span>At a glance</span>
+            <h3>What changes when a VLA becomes a primitive?</h3>
+          </div>
+
+          <div class="headline-results" aria-label="Headline benchmark results">
+            <article data-source="HarnessVLA/example.tex:230-258">
+              <span>LIBERO-Pro</span>
+              <strong>50% -> 82%</strong>
+              <p>RLinf to Harness VLA (CC), aggregate perturbation success.</p>
+            </article>
+            <article data-source="HarnessVLA/example.tex:263-283">
+              <span>RoboCasa365</span>
+              <strong>30% -> 55%</strong>
+              <p>RLDX-1 weighted overall to Harness VLA (Codex).</p>
+            </article>
+            <article data-source="HarnessVLA/example.tex:311-327">
+              <span>RoboTwin C2R</span>
+              <strong>58%</strong>
+              <p>Harness VLA (Codex) and Harness VLA (CC).</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="method">
+        <div class="container container-wide">
+          <header class="section-header">
+            <h2>How Harness VLA Works</h2>
+            <p>
+              The planner conditions on task language, RGB-D observations, proprioception, Task
+              Specific Memory, and Global Memory. It emits structured calls to a fixed primitive
+              library rather than expanding the primitive set at deployment time.
+            </p>
+          </header>
+
+          <figure class="figure-full method-overview" data-source="HarnessVLA/example.tex:59-64,107-129">
+            <img src="HarnessVLA/figures/scheme.png" alt="Harness VLA framework diagram." width="2048" height="1152">
+            <figcaption>
+              Harness VLA composes sparse VLA calls with analytic actions inside a memory-guided
+              primitive program.
+            </figcaption>
+          </figure>
+
+          <div class="method-pillars">
+            <article>
+              <span>01</span>
+              <h3>Freeze the VLA as a contact specialist</h3>
+              <p>
+                VLA ACT is the only learned primitive. It is invoked for grasping, constrained
+                placement, fixture actuation, insertion, and other local contact-rich phases.
+              </p>
+            </article>
+
+            <article>
+              <span>02</span>
+              <h3>Keep the action interface fixed</h3>
+              <p>
+                The planner emits JSON calls to predefined VLA, composite analytic, and atomic
+                analytic primitives. It never writes new deployment-time skills or low-level actions.
+              </p>
+            </article>
+
+            <article>
+              <span>03</span>
+              <h3>Use memory to re-ground and retry</h3>
+              <p>
+                Task traces preserve the solution skeleton, while Global Memory records success
+                rules and failure models such as empty grasps and false completion checks.
+              </p>
+            </article>
+          </div>
+
+          <div class="lifecycle-grid" aria-label="Harness VLA execution lifecycle">
+            <article>
+              <span>Bootstrapping</span>
+              <h3>Explore on a reference seed</h3>
+              <p>
+                RESET is available only during exploration. The planner tries staging orders,
+                pre-contact poses, VLA invocation timing, and stop predicates until it finds a
+                successful primitive program.
+              </p>
+            </article>
+            <article>
+              <span>Memory</span>
+              <h3>Store a reusable solution skeleton</h3>
+              <p>
+                Task Specific Memory stores a JSONL trace and summary. Concrete coordinates are
+                treated as reference bindings, so deployment must re-ground objects and targets from
+                live RGB-D observations.
+              </p>
+            </article>
+            <article>
+              <span>Evaluation</span>
+              <h3>Deploy without reset or new skills</h3>
+              <p>
+                During formal evaluation, RESET is disabled and the budget is shorter. The planner
+                retrieves the trace, uses Global Memory, and executes through the same fixed
+                primitive interface.
+              </p>
+            </article>
+          </div>
+
+          <figure class="figure-full compact-figure" data-source="HarnessVLA/example.tex:77-82">
+            <img src="HarnessVLA/figures/Abstract_figure.png" alt="Deployment perturbations and Harness VLA rollout paths." width="9219" height="5707">
+            <figcaption>
+              Analytic primitives route through semantic retargeting and spatial-layout shifts,
+              while the frozen VLA is invoked near VLA-compatible local contact states.
+            </figcaption>
+          </figure>
+
+          <div class="primitive-board" aria-label="Fixed primitive vocabulary">
+            <article>
+              <span>VLA primitive</span>
+              <strong>vla_act</strong>
+              <p>Short-burst frozen VLA execution for local contact-rich interaction.</p>
+            </article>
+            <article>
+              <span>Composite analytic</span>
+              <strong>move_to · move_pose · navigate_to</strong>
+              <p>Deterministic transport, pose co-variation, and mobile-base staging.</p>
+            </article>
+            <article>
+              <span>Atomic analytic</span>
+              <strong>rotate_wrist · rotate_pitch · set_gripper · release · move_base</strong>
+              <p>Single-channel wrist, gripper, release, and fine base adjustments.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft" id="gallery">
+        <div class="container container-wide">
+          <header class="section-header">
+            <h2>Task Gallery</h2>
+            <p>
+              Representative rollouts from the Overleaf source show how the planner re-stages
+              contact attempts and uses analytic primitives around VLA execution.
+            </p>
+          </header>
+
+          <div class="gallery-grid">
+            <article class="task-card" data-source="HarnessVLA/example.tex:399-416">
+              <div class="task-strip">
+                <img src="HarnessVLA/figures/exp_analysis/frame_0118.png" alt="LIBERO-Pro Object rollout frame 1" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/frame_0212.png" alt="LIBERO-Pro Object rollout frame 2" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/frame_0328.png" alt="LIBERO-Pro Object rollout frame 3" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/frame_0351.png" alt="LIBERO-Pro Object rollout frame 4" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/frame_0987.png" alt="LIBERO-Pro Object rollout frame 5" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/frame_1089.png" alt="LIBERO-Pro Object rollout frame 6" width="1024" height="1024">
+              </div>
+              <h3>LIBERO-Pro Object task 4</h3>
+              <p>
+                The planner repeatedly invokes VLA ACT around the milk carton after intermediate
+                grasping or placement attempts leave the object outside or partially inside the basket.
+              </p>
+            </article>
+
+            <article class="task-card" data-source="HarnessVLA/example.tex:399-416">
+              <div class="task-strip">
+                <img src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_07_rldx_skill.png" alt="RoboCasa365 PreSoakPan rollout frame 1" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_10_move_base.png" alt="RoboCasa365 PreSoakPan rollout frame 2" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_12_rldx_skill.png" alt="RoboCasa365 PreSoakPan rollout frame 3" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_13_rldx_skill.png" alt="RoboCasa365 PreSoakPan rollout frame 4" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_16_navigate_to.png" alt="RoboCasa365 PreSoakPan rollout frame 5" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_17_rldx_skill.png" alt="RoboCasa365 PreSoakPan rollout frame 6" width="1024" height="1024">
+              </div>
+              <h3>RoboCasa365 PreSoakPan</h3>
+              <p>
+                The planner adjusts the mobile base and arm pose, retries VLA ACT until a stable
+                grasp is obtained, places the pan into the sink, and actuates the faucet.
+              </p>
+            </article>
+
+            <article class="task-card" data-source="HarnessVLA/example.tex:443-462">
+              <div class="task-strip">
+                <img src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_10_pi0_pick.png" alt="LIBERO-10-Pro swap rollout frame 1" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_32_move_to.png" alt="LIBERO-10-Pro swap rollout frame 2" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_68_pi0_pick.png" alt="LIBERO-10-Pro swap rollout frame 3" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_70_move_to.png" alt="LIBERO-10-Pro swap rollout frame 4" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_71_move_to.png" alt="LIBERO-10-Pro swap rollout frame 5" width="1024" height="1024">
+                <img src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_72_release.png" alt="LIBERO-10-Pro swap rollout frame 6" width="1024" height="1024">
+              </div>
+              <h3>LIBERO-10-Pro swap</h3>
+              <p>
+                The agent detects that the VLA did not actually grasp the object, moves back,
+                retries VLA ACT, then completes the subtask with MOVE TO and RELEASE.
+              </p>
+            </article>
+
+            <article class="task-card" data-source="HarnessVLA/example.tex:443-462">
+              <div class="task-strip">
+                <img src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0159.png" alt="RoboCasa SteamInMicrowave rollout frame 1" width="384" height="384">
+                <img src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0231.png" alt="RoboCasa SteamInMicrowave rollout frame 2" width="384" height="384">
+                <img src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0450.png" alt="RoboCasa SteamInMicrowave rollout frame 3" width="384" height="384">
+                <img src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0591.png" alt="RoboCasa SteamInMicrowave rollout frame 4" width="384" height="384">
+                <img src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0645.png" alt="RoboCasa SteamInMicrowave rollout frame 5" width="384" height="384">
+                <img src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0834.png" alt="RoboCasa SteamInMicrowave rollout frame 6" width="384" height="384">
+              </div>
+              <h3>RoboCasa SteamInMicrowave</h3>
+              <p>
+                The planner combines VLA grasping and placement with analytic search,
+                repositioning, door operation, navigation, and switch pressing.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="benchmarks">
+        <div class="container container-wide">
+          <header class="section-header">
+            <h2>Benchmark Results</h2>
+            <p>
+              We evaluate Harness VLA across standard LIBERO suites, perturbed LIBERO-Pro tasks,
+              RoboCasa365, and RoboTwin C2R.
+            </p>
+          </header>
+
+          <div class="benchmark-gallery" data-source="HarnessVLA/example.tex:699-711">
+            <figure><img src="HarnessVLA/figures/libero.png" alt="Representative LIBERO environment." width="1024" height="1024"><figcaption>LIBERO</figcaption></figure>
+            <figure><img src="HarnessVLA/figures/liberopro.png" alt="Representative LIBERO-Pro environment." width="1024" height="1024"><figcaption>LIBERO-Pro</figcaption></figure>
+            <figure><img src="HarnessVLA/figures/robocasa.png" alt="Representative RoboCasa365 environment." width="512" height="512"><figcaption>RoboCasa365</figcaption></figure>
+            <figure><img src="HarnessVLA/figures/robotwin.png" alt="Representative RoboTwin environment." width="1024" height="1024"><figcaption>RoboTwin C2R</figcaption></figure>
+          </div>
+
+          <div class="benchmark-cards">
+            <article><span>Standard LIBERO</span><strong>96.0%</strong><p>Harness VLA (CC) overall success.</p></article>
+            <article><span>LIBERO-Pro</span><strong>82%</strong><p>Harness VLA (CC) aggregate success under perturbations.</p></article>
+            <article><span>RoboCasa365</span><strong>55%</strong><p>Harness VLA (Codex) weighted overall success.</p></article>
+            <article><span>RoboTwin C2R</span><strong>58%</strong><p>Harness VLA (Codex) and Harness VLA (CC).</p></article>
+          </div>
+
+          <div class="result-stack">
+            <article class="table-card" data-source="HarnessVLA/example.tex:210-227">
+              <h3>Standard LIBERO success rate (%)</h3>
+              <p class="table-note">RLinf and Harness VLA (CC) are evaluated on 100 trials per suite.</p>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Method</th><th>Spatial</th><th>Object</th><th>Goal</th><th>LIBERO-10</th><th>Overall</th></tr></thead>
+                  <tbody>
+                    <tr><td>OpenVLA</td><td>84.7</td><td>88.4</td><td>79.2</td><td>53.7</td><td>76.5</td></tr>
+                    <tr><td>NORA</td><td>85.6</td><td>89.4</td><td>80.0</td><td>63.0</td><td>79.5</td></tr>
+                    <tr><td>pi0</td><td>96.8</td><td>98.8</td><td>95.8</td><td>85.2</td><td>94.2</td></tr>
+                    <tr><td>RLinf</td><td>99.0</td><td>96.0</td><td>97.0</td><td>89.0</td><td>95.3</td></tr>
+                    <tr><td>AtomVLA</td><td>96.4</td><td>99.6</td><td>97.6</td><td>94.4</td><td>97.0</td></tr>
+                    <tr class="best"><td>Harness VLA (CC)</td><td>97.0</td><td>100.0</td><td>94.0</td><td>93.0</td><td>96.0</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="table-card" data-source="HarnessVLA/example.tex:230-258">
+              <h3>LIBERO-Pro aggregate success rate (%)</h3>
+              <p class="table-note">T = instruction-redirection; S = position-swap. Each cell aggregates 100 trials except the noted LIBERO-10-S recording issue in the source caption.</p>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Method</th><th>Spat-T</th><th>Spat-S</th><th>Obj-T</th><th>Obj-S</th><th>Goal-T</th><th>Goal-S</th><th>L10-T</th><th>L10-S</th><th>Overall</th></tr></thead>
+                  <tbody>
+                    <tr><td>OpenVLA</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.0</td></tr>
+                    <tr><td>pi0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.3</td></tr>
+                    <tr><td>pi0.5</td><td>1</td><td>20</td><td>1</td><td>17</td><td>2</td><td>38</td><td>1</td><td>8</td><td>11.0</td></tr>
+                    <tr><td>MolmoAct</td><td>0</td><td>0</td><td>0</td><td>6</td><td>0</td><td>0</td><td>6</td><td>0</td><td>1.5</td></tr>
+                    <tr><td>NORA</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.0</td></tr>
+                    <tr><td>X-VLA</td><td>0</td><td>0</td><td>8</td><td>2</td><td>9</td><td>1</td><td>10</td><td>0</td><td>3.8</td></tr>
+                    <tr><td>AtomVLA</td><td>1</td><td>16</td><td>0</td><td>10</td><td>11</td><td>2</td><td>9</td><td>1</td><td>6.3</td></tr>
+                    <tr><td>Cap-X</td><td>14</td><td>12</td><td>18</td><td>22</td><td>17</td><td>26</td><td>/</td><td>/</td><td>18.2</td></tr>
+                    <tr><td>RATS</td><td>31</td><td>29</td><td>63</td><td>61</td><td>36</td><td>43</td><td>/</td><td>/</td><td>43.8</td></tr>
+                    <tr><td>RLinf</td><td>42</td><td>59</td><td>71</td><td>78</td><td>45</td><td>42</td><td>49</td><td>14</td><td>50</td></tr>
+                    <tr><td>Harness VLA (Codex)</td><td>81</td><td>69</td><td>94</td><td>91</td><td>75</td><td>66</td><td>52</td><td>48</td><td>72</td></tr>
+                    <tr class="best"><td>Harness VLA (CC)</td><td>94</td><td>80</td><td>88</td><td>90</td><td>87</td><td>87</td><td>71</td><td>62</td><td>82</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="table-card" data-source="HarnessVLA/example.tex:263-283">
+              <h3>RoboCasa365 success rate (%)</h3>
+              <p class="table-note">Harness VLA uses 10 seeds per Atomic-Seen task and 5 seeds per Composite-Seen / Composite-Unseen task.</p>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Method</th><th>Atomic-Seen</th><th>Composite-Seen</th><th>Composite-Unseen</th></tr></thead>
+                  <tbody>
+                    <tr><td>RLDX-1</td><td>60</td><td>21</td><td>5</td></tr>
+                    <tr><td>WorldDreamer</td><td>66.3</td><td>26.7</td><td>9.0</td></tr>
+                    <tr><td>pi0.5</td><td>39.6</td><td>7.1</td><td>1.2</td></tr>
+                    <tr><td>pi0</td><td>34.6</td><td>6.1</td><td>1.1</td></tr>
+                    <tr class="best"><td>Harness VLA (Codex)</td><td>92</td><td>56</td><td>14</td></tr>
+                    <tr><td>Harness VLA (CC)</td><td>79</td><td>48</td><td>15</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="table-card" data-source="HarnessVLA/example.tex:287-306">
+              <h3>Zero-shot LIBERO-Pro Goal success rate (%)</h3>
+              <p class="table-note">No target-setting Task Specific Memory retrieval; 10 seeds per task.</p>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Setting</th><th>Method</th><th>Task 0</th><th>Task 1</th><th>Task 2</th><th>Task 3</th><th>Task 4</th><th>Task 5</th><th>Task 6</th><th>Task 7</th><th>Task 8</th><th>Task 9</th><th>Average</th></tr></thead>
+                  <tbody>
+                    <tr><td>Pos (S)</td><td>Cap-X</td><td>0</td><td>4</td><td>0</td><td>36</td><td>22</td><td>60</td><td>4</td><td>2</td><td>62</td><td>66</td><td>25.6</td></tr>
+                    <tr class="best"><td>Pos (S)</td><td>Harness VLA (CC)</td><td>0</td><td>10</td><td>0</td><td>20</td><td>90</td><td>0</td><td>10</td><td>80</td><td>100</td><td>0</td><td>31.0</td></tr>
+                    <tr><td>Task (T)</td><td>Cap-X</td><td>0</td><td>0</td><td>10</td><td>38</td><td>12</td><td>4</td><td>34</td><td>12</td><td>40</td><td>18</td><td>16.8</td></tr>
+                    <tr class="best"><td>Task (T)</td><td>Harness VLA (CC)</td><td>10</td><td>100</td><td>90</td><td>100</td><td>20</td><td>80</td><td>90</td><td>100</td><td>100</td><td>100</td><td>79.0</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="table-card" data-source="HarnessVLA/example.tex:311-327">
+              <h3>RoboTwin C2R success rate (%)</h3>
+              <p class="table-note">Harness VLA is evaluated on 50 tasks with 5 randomized seeds per task.</p>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Benchmark</th><th>GR00T-N1.7</th><th>pi0.5</th><th>StarVLA</th><th>Harness VLA (Codex)</th><th>Harness VLA (CC)</th></tr></thead>
+                  <tbody><tr class="best"><td>RoboTwin C2R</td><td>20.7</td><td>47.9</td><td>10.6</td><td>58</td><td>58</td></tr></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="analysis">
+        <div class="container container-wide">
+          <header class="section-header">
+            <h2>Why It Works</h2>
+            <p>
+              The source paper analyzes three mechanisms: semantic re-grounding, planner-staged VLA
+              invocation, and analytic decomposition around contact-rich control.
+            </p>
+          </header>
+
+          <article class="analysis-panel" data-source="HarnessVLA/example.tex:334-352">
+            <h3>Planner-level semantic re-grounding restores task-conditioned behavior</h3>
+            <p>
+              In perturbed LIBERO-Pro cells, RLinf may repeat the standard behavior even when the
+              instruction or layout changes. Harness VLA re-grounds targets through the planner.
+            </p>
+            <div class="comparison-grid">
+              <figure><img src="HarnessVLA/figures/object_t4_std.png" alt="Object standard terminal state." width="3234" height="3235"><figcaption>Obj Std</figcaption></figure>
+              <figure><img src="HarnessVLA/figures/object_t4_pi0pert.png" alt="Object task-perturbed RLinf terminal state." width="3235" height="3234"><figcaption>Obj-T RLinf</figcaption></figure>
+              <figure><img src="HarnessVLA/figures/object_t4_hybpert.png" alt="Object task-perturbed Harness VLA terminal state." width="3235" height="3235"><figcaption>Obj-T Ours</figcaption></figure>
+              <figure><img src="HarnessVLA/figures/goal_t2_std.png" alt="Goal standard terminal state." width="3235" height="3238"><figcaption>Goal Std</figcaption></figure>
+              <figure><img src="HarnessVLA/figures/goal_t2_pi0pert.png" alt="Goal swap-perturbed RLinf terminal state." width="3235" height="3235"><figcaption>Goal-S RLinf</figcaption></figure>
+              <figure><img src="HarnessVLA/figures/goal_t2_hybpert.png" alt="Goal swap-perturbed Harness VLA terminal state." width="3235" height="3235"><figcaption>Goal-S Ours</figcaption></figure>
+            </div>
+          </article>
+
+          <article class="analysis-panel" data-source="HarnessVLA/example.tex:355-377">
+            <h3>Planner-staged VLA invocation improves frozen-policy reliability</h3>
+            <p>
+              Each panel plots cumulative task success as the maximum number of VLA primitive
+              invocations per episode increases.
+            </p>
+            <div class="chart-grid">
+              <figure><img src="HarnessVLA/figures/exp_analysis/vla_invoke_success.png" alt="LIBERO-Pro cumulative task success as VLA invocations increase." width="1491" height="1346"><figcaption>LIBERO-Pro</figcaption></figure>
+              <figure><img src="HarnessVLA/figures/exp_analysis/robocasa_vla_invoke.png" alt="RoboCasa365 cumulative task success as VLA invocations increase." width="1383" height="1320"><figcaption>RoboCasa365</figcaption></figure>
+              <figure><img src="HarnessVLA/figures/exp_analysis/robotwin_vla_invoke.png" alt="RoboTwin C2R cumulative task success as VLA invocations increase." width="1372" height="1320"><figcaption>RoboTwin C2R</figcaption></figure>
+            </div>
+          </article>
+
+          <article class="analysis-panel" data-source="HarnessVLA/example.tex:419-461">
+            <h3>Analytic primitives isolate non-contact execution</h3>
+            <p>
+              Analytic primitives handle transport, staging, base/wrist adjustment, retreat, and
+              release. The VLA remains responsible for contact-rich local phases.
+            </p>
+            <figure class="figure-full attribution">
+              <img src="HarnessVLA/figures/exp_analysis/all_finisher.png" alt="Task completion attribution across benchmarks." width="2806" height="927">
+              <figcaption>Task completion attribution across benchmarks.</figcaption>
+            </figure>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="limitations">
+        <div class="container">
+          <header class="section-header">
+            <h2>Conclusion and Limitations</h2>
+            <p data-source="HarnessVLA/example.tex:466-475">
+              Harness VLA casts a frozen VLA as a single contact-rich primitive interface within an
+              LLM-driven agent, delegating transport, posture, navigation, and release phases to the
+              planner.
+            </p>
+          </header>
+          <div class="limitation-list" data-source="HarnessVLA/example.tex:473-475">
+            <article><h3>Open feedback loop</h3><p>The current framework is limited by an open feedback loop between the high-level planner and low-level VLA.</p></article>
+            <article><h3>No joint fine-tuning</h3><p>The system lacks joint fine-tuning via environmental rewards and human preferences.</p></article>
+            <article><h3>Captioning bottleneck</h3><p>The absence of fine-grained image captioning constrains structural reasoning in highly cluttered, long-horizon tasks.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="citation">
+        <div class="container citation-grid">
+          <div>
+            <header class="section-header citation-header">
+              <h2>BibTeX</h2>
+              <p>
+                The current source is an anonymous CoRL 2026 submission. Update author, venue, and
+                publication metadata before public release.
+              </p>
+            </header>
+          </div>
+          <div class="bibtex-panel">
+            <button class="copy-button" type="button" data-copy-target="bibtex">Copy</button>
+            <pre id="bibtex"><code>@inproceedings{anonymous2026harnessvla,
+  title     = {Harness VLA: Steering Frozen VLAs into Reliable Manipulation Primitives via Memory-Guided Agents},
+  author    = {Anonymous},
+  booktitle = {Submitted to the 10th Conference on Robot Learning},
+  year      = {2026}
+}</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Harness VLA</p>
+      <p>Companion website for the anonymous CoRL 2026 submission.</p>
+    </footer>
+
+    <script src="static/js/main.js"></script>
+  </body>
+</html>

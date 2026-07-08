@@ -1,0 +1,227 @@
+# Harness VLA Website TODO: Task Gallery Video Module
+
+## 背景
+
+参考 ASPIRE 的 Task Gallery：
+
+https://research.nvidia.com/labs/gear/aspire/#gallery
+
+ASPIRE 的 gallery 是一个数据驱动的视频对比库。每张卡片展示 baseline / initial attempt 与 ASPIRE final behavior 的 before-after 对比；顶部有 domain filter、搜索框、计数器、分页；视频进入视口后自动播放；hover 视频区域会出现 `View code` 按钮；点击后弹出左右代码对比 modal。
+
+我们后续也想在 Harness VLA 项目主页里做类似模块，但内容语义需要换成 Harness VLA 自己的故事。
+
+## ASPIRE Gallery 的关键设计
+
+1. 每个 task card 是一个 before-after pair：
+   - 左侧：CaP-Agent0 baseline 或 initial task attempt。
+   - 右侧：ASPIRE 诊断 rollout 并重写程序后的 final behavior。
+
+2. 顶部有交互控件：
+   - `All / Real / BEHAVIOR-1K / LIBERO / Robosuite` filters。
+   - 搜索框。
+   - `88/88` 计数器。
+   - `Prev / Page 1 of 8 / Next` 分页。
+
+3. 视频交互：
+   - muted、loop、playsinline。
+   - 使用 IntersectionObserver，只自动播放当前可见视频。
+   - 桌面端一页 12 个 task，手机端更少。
+
+4. 代码弹窗：
+   - hover card 后出现 `View code`。
+   - 点击后打开 modal。
+   - modal 左右展示 baseline/initial program 与 ASPIRE fix/final program。
+
+5. 数据结构：
+   - 每个 task 包含 `label`、`domain`、`before`、`after`。
+   - `before/after` 里分别放 video 路径、可选 code 路径、播放速度等信息。
+
+## Harness VLA 版本应该怎么改
+
+不要直接照搬 ASPIRE 的“修代码”叙事。Harness VLA 的 gallery 应该讲：
+
+> Frozen VLA / RLinf baseline 在 OOD 场景下怎么失败，Harness VLA 如何通过 semantic re-grounding、staging、simple primitives 和局部 `VLA ACT` 调用完成任务。
+
+推荐模块名称仍可用 `Task Gallery`，但卡片语义改成：
+
+- 左侧：`Frozen VLA` / `RLinf baseline` / `Initial attempt`
+- 右侧：`Harness VLA`
+- hover 按钮：不要叫 `View code`，建议叫：
+  - `View Trace`
+  - `View Primitive Program`
+  - `View Plan`
+
+弹窗内容也不应该展示“ASPIRE fix code”，而应该展示 Harness VLA 的 primitive trace / memory-guided plan：
+
+- Baseline：直接 VLA rollout 或失败摘要。
+- Harness VLA：`PERCEIVE -> MOVE_TO -> VLA_ACT -> MOVE_TO -> RELEASE` 等 primitive sequence。
+- 可附 Task Specific Memory / Global Memory 摘要。
+
+## 建议优先做的任务
+
+先做 6-12 个代表任务，不要一开始做 88 个。
+
+优先选择：
+
+1. LIBERO-Pro Object shift  
+   展示 baseline 在目标重定向下失败，Harness VLA 通过 planner-level re-grounding 完成。
+
+2. LIBERO-Pro Goal shift  
+   展示布局或目标区域变化后，baseline 重复训练时行为，Harness VLA 重新绑定当前目标。
+
+3. LIBERO-10-Pro swap  
+   展示 agent 检测 VLA 没有真正抓住物体，然后 re-ground / re-stage，再用 `MOVE_TO` 和 `RELEASE` 完成。
+
+4. RoboCasa365 PreSoakPan  
+   展示 mobile base / arm staging、VLA grasp、sink placement、faucet actuation 的组合。
+
+5. RoboCasa365 SteamInMicrowave  
+   展示 VLA grasp / placement 与 analytic search、door operation、navigation、switch pressing 的组合。
+
+6. RoboTwin C2R 代表任务  
+   展示同一套 fixed primitive interface 在双臂 randomized setting 中的迁移。
+
+## 当前资产状态
+
+本地仓库目前没有发现 `.mp4` / `.webm` / `.mov` 视频文件，只有图片帧和论文图。
+
+现有可用图片帧包括：
+
+- `HarnessVLA/figures/exp_analysis/frame_*.png`
+- `HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/*.png`
+- `HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/*.png`
+- `HarnessVLA/figures/exp_analysis/10_swap_t7/*.png`
+
+所以实现有两种路径：
+
+1. 有真实视频资产时：
+   - 直接做 before-after video gallery。
+   - 视频放到类似 `static/videos/gallery/`。
+   - 数据放到 `static/data/gallery.json` 或 `static/js/gallery-data.js`。
+
+2. 暂时没有视频资产时：
+   - 先用现有图片帧做 frame-sequence fallback。
+   - 可以用 CSS/JS 轮播帧模拟短视频。
+   - 后续拿到 mp4 后，只替换数据路径，不改组件结构。
+
+## 推荐实现计划
+
+第一步：重构 `index.html` 的 `#gallery` section。
+
+当前 `#gallery` 是静态图片 frame strip。后续替换为：
+
+- section header。
+- gallery filters。
+- search input。
+- count + pagination。
+- `<div id="task-gallery-grid">` 动态渲染 task cards。
+- trace modal。
+
+第二步：新增数据文件。
+
+建议：
+
+- `static/data/task-gallery.json`
+
+示例结构：
+
+```json
+[
+  {
+    "label": "LIBERO-Pro Object shift",
+    "domain": "LIBERO-Pro",
+    "tags": ["semantic re-grounding", "object shift"],
+    "before": {
+      "label": "RLinf baseline",
+      "video": "static/videos/gallery/libero_object_baseline.mp4",
+      "frames": [
+        "HarnessVLA/figures/object_t4_std.png",
+        "HarnessVLA/figures/object_t4_pi0pert.png"
+      ]
+    },
+    "after": {
+      "label": "Harness VLA",
+      "video": "static/videos/gallery/libero_object_harness.mp4",
+      "frames": [
+        "HarnessVLA/figures/object_t4_hybpert.png"
+      ]
+    },
+    "trace": {
+      "baseline": "Frozen VLA repeats a familiar behavior under task perturbation.",
+      "harness": [
+        "PERCEIVE target from live RGB-D observation",
+        "MOVE_TO pre-contact pose",
+        "VLA_ACT local grasp/contact",
+        "MOVE_TO target region",
+        "RELEASE and verify predicate"
+      ]
+    }
+  }
+]
+```
+
+第三步：新增 JS。
+
+建议：
+
+- `static/js/gallery.js`
+
+核心功能：
+
+- load task data。
+- render filters/search/pagination。
+- render before-after card。
+- 自动播放可见视频。
+- 没有视频时使用 frames fallback。
+- 点击 `View Trace` 打开 modal。
+
+第四步：新增 CSS。
+
+在 `static/css/styles.css` 里加：
+
+- `.gallery-shell`
+- `.gallery-toolbar`
+- `.gallery-filter`
+- `.gallery-search`
+- `.gallery-count`
+- `.gallery-pagination`
+- `.pair-grid`
+- `.ba-pair`
+- `.pair-videos`
+- `.pair-clip`
+- `.gallery-viewtrace`
+- `.trace-modal`
+
+风格不照搬 ASPIRE 的 NVIDIA 绿。需要匹配 Harness VLA 当前网站的深色、蓝橙、机器人论文主页风格。
+
+第五步：验证。
+
+- 本地打开 `index.html` 检查布局。
+- 桌面：一页 6 或 8 个 task。
+- 手机：一页 2 或 3 个 task。
+- 检查视频不一次性全播放。
+- 检查没有视频时 frame fallback 可用。
+- 检查 modal 和键盘 Esc 关闭。
+
+第六步：推送。
+
+用户确认本地效果后，再同步到 GitHub Pages 发布仓库并 push。
+
+## 注意事项
+
+1. 不要把 Harness VLA 写成 ASPIRE 式“rewrote the program”。  
+   Harness VLA 的故事是 agent 学会使用 frozen VLA 和 fixed primitive library。
+
+2. 不要强调“retry”成唯一核心机制。  
+   retry 在论文里更准确地服务于 Task Specific Memory / few-shot exploration 和局部 contact attempt 的调整，不能写成全局解释。
+
+3. Gallery 重点应突出三件事：
+   - planner-level semantic re-grounding；
+   - analytic primitives 做 staging / transport / release；
+   - `VLA ACT` 只负责局部 contact-rich phase。
+
+4. 如果没有真实视频，不要硬做成“大视频墙”。  
+   先用小卡片 + frame sequence，后续替换为 mp4。
+
+5. 卡片数量先少而精。  
+   目标是把核心机制讲清楚，不是堆任务数量。

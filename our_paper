@@ -1,0 +1,325 @@
+# Harness VLA 论文核心内容与卖点分析
+
+这篇论文最强的故事不是“我们又训练了一个更大的 VLA”，也不是“我们给 agent 加了很多新技能”，而是：
+
+> VLA 的局部接触能力本来就很强，问题在于它经常被当成端到端策略去承担太多职责。Harness VLA 让 agent 在 few-shot 探索和 memory 中学会如何使用 frozen VLA：什么时候调用它，调用前如何 staging/re-grounding/reframing，失败后如何重新调整，再用少量 simple analytic primitives 把这些局部 contact skills 连接成泛化任务。
+
+更短的主线是：
+
+> simple primitives + frozen VLA + memory-guided agent = strong OOD generalization。
+
+这里的重点不是改变 VLA 本身，而是改变 VLA 被调用的上下文。Harness VLA 把整体 OOD 长程任务拆成一串更接近 VLA 可处理范围的局部 contact-rich attempts，再用简单控制原语完成非接触连接。
+
+## 1. 论文主要内容
+
+Harness VLA 提出的是一个 memory-guided agentic harness。它把 frozen VLA 放进一个闭环 agent 执行框架里，让 planner 通过 JSON primitive interface 与环境交互。
+
+系统分工非常清楚：
+
+- Frozen VLA：通过统一接口 `VLA ACT` 被调用，只负责 contact-rich 操作，比如抓取、重抓、约束放置、fixture actuation、按钮、抽屉、门、插入、双臂接触等。
+- Simple analytic primitives：负责确定性、非接触或低风险控制，比如 `MOVE TO`、`MOVE POSE`、`ROTATE WRIST`、`ROTATE PITCH`、`SET GRIPPER`、`RELEASE`、`NAVIGATE TO`、`MOVE BASE`。
+- Agent planner：负责读任务语言、看 RGB-D/world map、做目标 grounding、决定 primitive 顺序、调整机器人位姿、调用 VLA、观察结果、诊断失败和恢复。
+- Task Specific Memory：记录某个任务 seed-0 成功探索得到的 primitive composition skeleton，部署到新 seed 或扰动时复用结构但重新 grounding。
+- Global Memory：记录跨任务的 success rules 和 failure models，例如空抓、假成功、错误目标、unstable staging、什么时候该重新定位或 retry。
+
+所以论文核心不是“VLA 更强了”，而是：
+
+> agent 学会了如何把 frozen VLA 用对地方。
+
+VLA 参数不更新，primitive library 也不在部署时扩展。真正被积累的是：VLA 的 operating range、simple primitives 的组合方式、失败恢复规则和任务结构记忆。
+
+## 2. 论文解决的核心问题
+
+当前 VLA 的关键矛盾是：
+
+> in-distribution local contact 操作强，但 out-of-distribution semantic grounding、spatial re-binding、long-horizon composition 和 failure recovery 弱。
+
+VLA 在训练轨迹附近通常能做好局部接触动作，比如抓一个熟悉物体、放进容器、操作常见 fixture。但部署时经常出现：
+
+- instruction redirection：任务语义被重定向；
+- goal re-binding：目标谓词或目标对象变了；
+- spatial-layout shift：物体位置或目标区域发生 swap；
+- long-horizon composition：短技能需要组合成长任务；
+- unstable local contact：一次抓取、放置或 fixture 操作失败；
+- mobile/bimanual setting：需要导航、双臂绑定或更复杂 staging。
+
+端到端 VLA 的问题是，它被迫在一个 policy 里同时承担语言理解、目标绑定、空间重定位、长程规划、局部接触控制和失败恢复。任何一个环节出错，整条 rollout 都可能偏掉。
+
+纯 LLM/coding agent 的问题则相反：它很会语义推理和工具组合，但 purely analytic primitives 很难稳定处理不规则抓取、狭窄放置、铰接物体交互和其它 contact-rich 操作。
+
+Harness VLA 的解决方式是 asymmetric decomposition：
+
+> VLA 只做最值钱、最难手写的 contact-rich 局部操作；agent + simple analytic primitives 负责 OOD 的连接、重定位、重试、组合和验证。
+
+这就是论文真正的结构性贡献。
+
+## 3. 主要卖点
+
+### 3.1 Simple primitive is enough
+
+论文没有让 agent 在部署时发明新 primitive，也没有堆一个越来越大的技能库。它使用的是小而固定的 primitive vocabulary。
+
+这个卖点很重要，因为它和很多 agentic robot 方法区分开了：Harness VLA 不是靠“工具越来越多”解决泛化，而是靠 agent 学会更好地组合少量稳定工具。
+
+很多对 VLA 来说 OOD 的轨迹，本质上只是几何连接问题。例如从一个物体移动到另一个物体、把抓到的物体搬到目标区域、调整腕部姿态、移动 base 到 fixture 前。这些不一定需要 VLA 学出来，用 simple analytic primitive 就能泛化。
+
+可以把这点包装成：
+
+> VLA 不需要学习所有 object-to-object 的完整轨迹。许多中间过程交给 simple primitives，VLA 只在真正需要 contact intelligence 的地方出场。
+
+### 3.2 Frozen VLA is not weak; it is misused
+
+论文不是说 frozen VLA 没能力，而是说它被 monolithic deployment 用错了。
+
+VLA 的强项是局部、视觉条件下的 contact-rich control；弱项是跨语义、跨布局、跨任务结构的全局泛化。Harness VLA 通过 planner 把语义和空间绑定从 VLA 身上拿出来，让 VLA 变成 reusable contact specialist。
+
+因此更准确的卖点是：
+
+> Harness VLA does not make the VLA larger; it makes the VLA easier to use correctly.
+
+中文可以写成：
+
+> Harness VLA 不是让 VLA 变大，而是让 agent 学会把 VLA 用在它最擅长的位置。
+
+### 3.3 Few-shot memory teaches the agent how to use VLA
+
+Few-shot 不是让 agent 记住 seed-0 的坐标，也不是训练一个新的低层策略。它学到的是任务结构和 VLA 使用规程：
+
+- 哪些阶段该调用 `VLA ACT`；
+- 调用 VLA 前应该如何 staging；
+- 哪些接触状态更像 VLA 熟悉的局部 observation；
+- VLA 失败后该如何 re-localize、re-stage、retry；
+- 哪些动作应该交给 analytic primitives；
+- 哪些失败模式需要避免。
+
+Task Specific Memory 保存的是 procedure skeleton，而不是 literal coordinate replay。部署时 agent 要重新从当前 RGB-D/world map 里定位物体、目标区域和 fixture。
+
+一句话：
+
+> replay structure, re-ground geometry。
+
+### 3.4 Reframe OOD task into VLA-compatible local attempts
+
+“把 VLA 拉回 in-distribution”是一个很好的传播说法，但写文章时要稍微严谨一点。论文没有直接测量 distribution distance，更准确的论文式表述是：
+
+> agent 通过 semantic re-grounding、pre-contact staging、viewpoint/pose adjustment 和 retry，把当前目标转化成 VLA-compatible local observation/contact state。
+
+也就是说，整体任务可能是 OOD，但其中很多 contact-rich 局部动作可以被 reframed 成 frozen VLA 可处理的局部尝试。
+
+### 3.5 Failure is localized, not globally propagated
+
+端到端 VLA 中，一次抓取或放置失败可能会污染后续所有动作。Harness VLA 把 `VLA ACT` 当成一个可观察、可重试的局部 attempt：失败后，agent 读新 observation 和 log，重新定位、调整 approach pose 或 base pose，再调用 VLA。
+
+这不能被说成是所有 benchmark 提升的唯一原因。更稳的表述是：
+
+> 失败局部化和可重试调用，是 Harness VLA 提升鲁棒性的关键机制之一。它和 planner-level semantic re-grounding、simple primitive 的几何连接能力、Task Specific Memory 的结构迁移共同解释了扰动和长程任务上的提升。
+
+## 4. 实验效果
+
+### 4.1 Standard LIBERO：保持强 in-distribution 能力
+
+在 standard LIBERO 上，Harness VLA (CC) 达到 96.0% overall，RLinf frozen VLA baseline 是 95.3%。这说明 harness 没有破坏 VLA 原有的 in-distribution 能力。
+
+需要注意：standard LIBERO 上不能主打“绝对 SOTA”，因为 AtomVLA 是 97.0%。这里更适合写：
+
+> Harness VLA preserves competitive standard LIBERO performance while exposing the frozen VLA through a controllable primitive interface.
+
+### 4.2 LIBERO-Pro：扰动场景显著提升
+
+LIBERO-Pro 是这篇论文最适合讲“VLA OOD 弱、Harness VLA 强”的 benchmark。它包含 instruction-redirection 和 position-swap perturbations。
+
+关键结果：
+
+- RLinf direct frozen VLA：50.0%
+- Harness VLA (Codex)：72.1%
+- Harness VLA (CC)：82.4%
+
+这个提升支撑的主线是：
+
+> frozen VLA 原本在 standard task 上强，但在语义重定向和空间 swap 下容易回到训练时行为；Harness VLA 通过 planner-level re-grounding 和 primitive composition，把 frozen VLA 变成可控 contact primitive。
+
+### 4.3 RoboCasa365：厨房长程任务提升明显
+
+RoboCasa365 不是简单桌面任务，而是 kitchen manipulation，包含 mobile staging、articulated fixtures 和 longer composite routines。
+
+关键结果：
+
+- RLDX-1：30.0% weighted overall
+- Harness VLA (Codex)：55.4%
+- Harness VLA (CC)：48.6%
+
+分项上：
+
+- Atomic-Seen：Harness VLA Codex 91.6%，CC 79.4%
+- Composite-Seen：Codex 56.3%，CC 47.5%
+- Composite-Unseen：Codex 13.8%，CC 15.0%
+
+这个结果说明：simple primitive 不只适用于桌面搬运，也能帮助 VLA 进入厨房长程任务，比如 base navigation、fixture-facing staging、重新定位和多阶段 contact。
+
+### 4.4 RoboTwin C2R：clean-to-randomized transfer
+
+RoboTwin C2R 是双臂 clean-to-randomized transfer。这里需要和 few-shot 说法区分开：
+
+- Task Specific Memory trace 来自 clean setting；
+- randomized setting 不再做 task-level bootstrapping；
+- 没有 randomized-setting finetuning 或 additional task-level exploration。
+
+关键结果：
+
+- GR00T-N1.7：20.7%
+- π0.5：47.9%
+- StarVLA：10.6%
+- Harness VLA (Codex)：58.0%
+- Harness VLA (CC)：58.4%
+
+这个结果支撑的是：
+
+> 同一套 “VLA contact primitive + simple analytic scaffold + memory-guided agent” 思路能迁移到双臂随机化场景。
+
+### 4.5 Zero-shot LIBERO-Pro Goal：不只是 recipe replay
+
+论文还有一个很重要的 zero-shot 证据，用来说明 Harness VLA 不只是靠 Task Specific Memory 复读。
+
+在没有 target-setting Task Specific Memory retrieval 的 LIBERO-Pro Goal 上：
+
+- Pos-S：Cap-X 25.6%，Harness VLA (CC) 31.0%
+- Task-T：Cap-X 16.8%，Harness VLA (CC) 79.0%
+
+这说明即使没有目标 setting 的 task-specific JSONL trace，planner 仍然可以从 live scene 和 task instruction 合成有效 primitive composition，尤其是在 instruction redirection 上优势很强。
+
+## 5. 为什么效果这么好
+
+论文自己的机制分析可以总结成三条 Key Findings。
+
+### 5.1 Planner-level semantic re-grounding restores task-conditioned behavior
+
+LIBERO-Pro 里，RLinf 在 standard task 上本来很强，但在 task-perturbed OBJECT-PRO 或 swap-perturbed GOAL-PRO 中会重复训练时行为。例如 instruction 已经把目标重定向了，VLA 仍可能去做原任务；位置 swap 了，它仍可能朝训练时区域移动。
+
+Harness VLA 把这部分放到 planner 里：
+
+- parse task description；
+- 从 live RGB-D observation 解析当前目标；
+- 用 analytic primitives 做 staging/repositioning；
+- 只在局部 contact-rich phase 调用 `VLA ACT`。
+
+所以 VLA 不再需要自己承担完整语义绑定，planner 负责把任务绑定成一个明确的局部 contact target。
+
+### 5.2 Planner-staged VLA invocation improves frozen-policy reliability
+
+Harness VLA 不把 VLA 当一次性黑盒 controller。每次 `VLA ACT` 都是 planner 选择的局部 contact attempt。planner 可以：
+
+- 先把机器人移动到更可行的 pre-contact pose；
+- 调用 VLA；
+- 观察 contact outcome；
+- 如果失败，改变 approach pose、viewpoint 或 local staging；
+- 再调用 VLA。
+
+论文 Figure 4 通过限制每个 episode 允许的 VLA invocation 数量说明：少量 planner-selected VLA calls 已经超过 frozen-policy baseline，更多调用在更长或更 contact-heavy 的任务上继续提升，最后接近 full harness performance。
+
+这里的核心不是“多叫几次 VLA”本身，而是：
+
+> VLA calls are sparse but staged, observed, diagnosed, and retryable.
+
+### 5.3 Analytic primitives isolate non-contact execution from contact-rich control
+
+解析原语不是替代 VLA 做接触操作，而是把非接触结构从 VLA 的负担中剥离出来：
+
+- free-space transport；
+- pre-contact staging；
+- wrist/base reorientation；
+- retreat；
+- post-contact repositioning；
+- release；
+- navigation。
+
+一旦 VLA 建立了稳定接触，planner 就可以用 analytic primitive 完成搬运、释放、重新定位；遇到下一个 contact-rich phase 时再调用 VLA。
+
+这正是 simple primitive + VLA 能泛化的原因：
+
+> analytic primitives expand the conditions under which the same frozen VLA can be reused.
+
+## 6. Primitive 使用统计为什么重要
+
+论文附录里的 primitive usage statistics 很适合支撑“simple but effective”的故事。
+
+按 primitive class：
+
+- LIBERO：analytic primitives 84.2%，VLA ACT 15.8%
+- RoboTwin C2R：analytic primitives 52.6%，VLA ACT 47.4%
+- RoboCasa365：analytic primitives 64.7%，VLA ACT 35.3%
+
+按具体 primitive：
+
+- LIBERO 里 `MOVE TO` 占 61.8%，`VLA ACT` 只占 15.8%；
+- RoboCasa365 里 `NAVIGATE TO` 和 `MOVE BASE` 合计 19.4%，`VLA ACT` 占 35.3%；
+- RoboTwin C2R 里 `VLA ACT` 占 47.4%，说明双臂任务更 contact-heavy，但 analytic primitives 仍占 52.6%。
+
+这说明 frozen VLA 并没有被当成 monolithic end-to-end controller。它只是被嵌入一个 analytic scaffold 里，作为 contact-rich specialist 被稀疏调用。
+
+这个统计可以作为文章中的一个很强卖点：
+
+> 在 LIBERO 中，超过 80% 的动作调用都是 simple analytic primitives；VLA 只在关键 contact-rich 阶段出场，却能把 frozen policy 的 OOD 表现大幅拉起来。
+
+## 7. 和现有 agentic VLA 的区别
+
+这篇论文最应该强调的区分点是：
+
+- 不是训练新 VLA；
+- 不是 finetune VLA；
+- 不是扩展大型 skill library；
+- 不是让 LLM 在部署时写新 primitive；
+- 不是把 VLA 当黑盒 end-to-end policy；
+- 不是纯 analytic/coding-agent manipulation；
+- 不是简单 VLA + planner 拼接。
+
+它真正做的是：
+
+> 固定一个小 primitive library，让 agent 在 few-shot memory 和 closed-loop execution 中学会如何组合 simple primitives 和 frozen VLA，尤其是如何把 VLA 调用前的局部状态调整到 VLA-compatible regime。
+
+这个定位可以叫：
+
+> learning to use frozen VLAs with simple primitives。
+
+或者更传播化：
+
+> simple but effective VLA harness。
+
+## 8. 适合写文章的主线
+
+如果要写成论文解读文章，建议主线这样写：
+
+> 现在的 VLA 在训练分布内很强，但一到语义重定向、空间 swap、长程组合或随机化场景就容易失效。问题不是 VLA 完全没有能力，而是它被要求独自承担语言理解、目标绑定、几何连接、接触控制和失败恢复。Harness VLA 的思路很简单：冻结 VLA，只把它当作 contact-rich primitive；让 agent 通过 few-shot 探索和 memory 学会什么时候调用它、调用前如何调整机器人位姿和观察上下文、失败后如何 re-stage；再用几个 simple analytic primitives 连接不同接触阶段。结果，在 LIBERO-Pro、RoboCasa365 和 RoboTwin C2R 上都取得强泛化表现。
+
+这个版本比“我们提出一个 memory-guided agentic framework”更容易传播，因为它把论文变成了一个清晰故事：
+
+> 不是让 VLA 变大，而是让 agent 学会把 VLA 用对。
+
+## 9. 可以强化的表达
+
+文章里可以反复使用这些短句：
+
+- Simple primitive is enough.
+- Frozen VLA is not weak; it is misused.
+- Learn to use VLA, not train another VLA.
+- Reframe OOD tasks into VLA-compatible local attempts.
+- Few-shot memory teaches the agent VLA's operating range.
+- Contact-rich by VLA, geometry by primitives, composition by agent.
+- Sparse VLA calls, strong generalization.
+- Fixed primitive library, learned orchestration.
+
+中文对应可以写：
+
+- 简单原语就够了；
+- VLA 不是不强，而是需要被正确调用；
+- 不训练新 VLA，而是学习如何使用 frozen VLA；
+- 把 OOD 长程任务拆成 VLA 可处理的局部接触尝试；
+- few-shot memory 学到的是 VLA 的使用边界；
+- 接触交给 VLA，几何连接交给原语，组合交给 agent；
+- 稀疏调用 VLA，却获得强泛化；
+- 原语库固定，学的是编排方式。
+
+## 10. 一句话总结
+
+Harness VLA 的核心卖点不是“VLA 更大”或“agent 工具更多”，而是：
+
+> 用一个 memory-guided agent 学会如何正确调用 frozen VLA；再用少量 simple analytic primitives 把 VLA 擅长的局部 contact skills 组合起来，从而把 in-distribution 局部能力扩展成 out-of-distribution 全局泛化。

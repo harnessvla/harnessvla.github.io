@@ -1,0 +1,307 @@
+\documentclass{article}
+
+\usepackage{corl_2026} % Use this for the initial submission.
+% \usepackage[final]{corl_2026} % Uncomment for the camera-ready ``final'' version.
+% \usepackage[preprint]{corl_2026} % Uncomment for pre-prints (e.g., arxiv); This is like ``final'', but will remove the CORL footnote.
+
+\title{Formatting Instructions for CoRL 2026 Camera-Ready}
+
+% The \author macro works with any number of authors. There are two
+% commands used to separate the names and addresses of multiple
+% authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to
+% break the lines. Using \AND forces a line break at that point. So,
+% if LaTeX puts 3 of 4 authors names on the first line, and the last
+% on the second line, try using \AND instead of \And before the third
+% author name.
+
+% NOTE: authors will be visible only in the camera-ready and preprint versions (i.e., when using the option 'final' or 'preprint'). 
+% 	For the initial submission the authors will be anonymized.
+
+\author{
+  Jane E.~Doe\\
+  Department of Electrical Engineering and Computer Sciences\\
+  University of California Berkeley 
+  United States\\
+  \texttt{janedoe@berkeley.edu} \\
+  %% examples of more authors
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \AND
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+}
+
+
+\begin{document}
+\maketitle
+
+%===============================================================================
+
+\begin{abstract}
+    The purpose of this document is to provide both the basic paper template and submission guidelines. Abstracts should be a single paragraph, between 4--6 sentences long, ideally. Gross violations will trigger corrections at the camera-ready phase.
+\end{abstract}
+
+% Two or three meaningful keywords should be added here
+\keywords{CoRL, Robots, Learning} 
+
+%===============================================================================
+
+\section{Introduction}
+	
+    Submission to CoRL 2026 will be entirely electronic, via a web site (not email). Information about the submission process and \LaTeX{} templates are available on the conference web site at \url{https://corl.org/}. For camera ready submission, use the \texttt{final} option for the \texttt{\textbackslash usepackage} command. 
+
+%===============================================================================
+
+\section{Citations}
+\label{sec:citations}
+
+	Citations can be made using either \textbackslash citep\{\} or \textbackslash citet\{\}, depending from the appropriateness. To avoid the citation moving to the next line, it is often a good practice to replace the space before with a tilde (\~{}) character.
+	Example 1: ``CoRL is the best conference ever~\citep{Gauss1857}.''
+	Example 2: ``\citet{Lagrange1788} proved, both theoretically and numerically, that CoRL is the best conference ever.''
+	
+%===============================================================================
+
+\section{Experiments}
+\label{sec:result}
+
+We organize our empirical study around three questions that progressively
+stress the proposed agentic VLA framework. (i) \emph{Closed-world
+composition}: can an LLM-in-the-loop agent, restricted to a fixed primitive
+vocabulary, solve standard manipulation benchmarks at high reliability and
+package its solutions as re-usable skills? (ii) \emph{Robustness to language
+and scene perturbations}: when the same task is presented with paraphrased
+instructions, distractor objects, or altered visual conditions, does the
+agentic decomposition recover the semantic-understanding deficit observed in
+monolithic VLA baselines? (iii) \emph{Cross-environment transfer}: does the
+framework generalize beyond LIBERO to other embodiments and controllers?
+Section~\ref{sec:exp:setup} describes the common experimental setup and
+Sections~\ref{sec:exp:libero}--\ref{sec:exp:transfer} address the three
+questions in turn.
+
+%-------------------------------------------------------------------------
+\subsection{Experimental Setup}
+\label{sec:exp:setup}
+
+	\paragraph{Frozen primitive vocabulary.} To prevent the agent from
+	trivializing a task by extending the action API on demand, we fix the
+	primitive set throughout all experiments. The vocabulary consists of
+	five core primitives---\textsc{move\_to}, \textsc{pi0\_pick},
+	\textsc{release}, \textsc{set\_gripper}, and \textsc{reset}---together
+	with four extended primitives that cover articulated-joint actuation
+	and joint-space motion:
+	\textsc{rotate\_wrist}, \textsc{rotate\_pitch},
+	\textsc{js\_move\_to}, and \textsc{articulate\_to}.
+	The LLM agent is permitted to compose these primitives via JSON
+	commands, but is \emph{not} permitted to define new primitives during
+	deployment. This constraint ensures that any reported success
+	generalizes through composition rather than through ad-hoc extension
+	of the action interface.
+
+	\paragraph{Backbone VLA.} For all experiments that involve a
+	visuomotor grasping primitive, we use a Pi0.5 checkpoint trained on
+	the full LIBERO-130 task pool (\textsc{pi05\_libero130\_fullshot})
+	as the grasping VLA. The agent invokes the VLA only through
+	\textsc{pi0\_pick}, which is hard-cut after the target object lifts
+	by a configurable threshold; all other motion is scripted by the
+	LLM.
+
+	\paragraph{Compliance audits.} Every successful rollout is recorded
+	as a self-contained audit file containing the full command sequence,
+	state and image logs, and pick/place diagnostics. We use these
+	records to verify that
+	(a)~the VLA call in each rollout exits before the goal predicate
+	fires, and
+	(b)~the goal predicate is fired by a subsequent scripted release or
+	articulation action.
+	A run that violates either condition is reclassified and reported
+	separately rather than counted as a strict success.
+
+%-------------------------------------------------------------------------
+\subsection{LIBERO: Closed-World Skill Composition}
+\label{sec:exp:libero}
+
+	\paragraph{Benchmark.} We evaluate on the four standard LIBERO
+	suites~\citep{Gauss1857}---\textsc{Spatial}, \textsc{Object},
+	\textsc{Goal}, and \textsc{LIBERO-10}---each containing ten
+	manipulation tasks instantiated from a shared kitchen/living-room
+	scene library.
+
+	\paragraph{Single-seed solution coverage.} For each of the 40
+	(suite, task) pairs we have the agent interactively discover a
+	command sequence on seed~0 of the official task ordering.
+	Table~\ref{tab:libero_main} summarizes the results.
+	Across all four suites, the agentic framework solves
+	$40/40$ tasks under the audit criteria above. Two of the
+	LIBERO-10 successes use a permitted ``doubled'' regime in which
+	the VLA additionally executes a non-grasp skill (knob turn, drawer
+	close) that cannot be reproduced in OSC space; the remaining 38
+	rollouts are strict, meaning the VLA only performs the grasp and
+	every other primitive call comes from the LLM.
+
+	\paragraph{Skill caching and multi-seed evaluation.} A central
+	claim of our framework is that exploration cost is amortized: once
+	the agent has produced a working command sequence on one seed,
+	the sequence should generalize to the remaining seeds of the same
+	task with only the per-seed object coordinates substituted in.
+	We compile each interactive solution into a Python callable
+	$\pi_\text{task}: s_0 \mapsto \mathcal{C}$ that consumes the
+	initial privileged state $s_0$ (object positions, articulation
+	angles) and emits a list of JSON commands $\mathcal{C}$.
+	The agent is no longer permitted to reason at deployment time;
+	only the cached callable is invoked.
+	Table~\ref{tab:libero_seeds} reports the across-seed success rate
+	of these cached skills on all $50$ official initial states per
+	task. The skills retain a success rate of $[\textit{XX.X}]\%$ on
+	the held-out seeds, validating the hypothesis that LLM-discovered
+	primitive compositions, conditioned on the runtime privileged
+	state, are reproducible without further model-in-the-loop
+	reasoning.
+
+%-------------------------------------------------------------------------
+\subsection{LIBERO-Pro and LIBERO-Plus: Robustness to Perturbations}
+\label{sec:exp:robustness}
+
+	A frequent failure mode of fullshot-trained VLAs is that they
+	overfit to the surface statistics of the training distribution:
+	even when the goal predicate is unchanged, paraphrased
+	instructions, distractor objects, or altered visual textures can
+	collapse the policy's success rate. The
+	LIBERO-Pro~\citep{Lagrange1788} and LIBERO-Plus~\citep{Lagrange1788}
+	benchmarks operationalize this by exposing each base task to
+	systematic perturbations along several axes:
+
+	\begin{itemize}
+	\item \textbf{Language perturbations.} Instructions are
+	rewritten with verbose paraphrases, irrelevant context, or
+	stylistic variations while preserving the underlying goal.
+	\item \textbf{Object/scene perturbations.} Distractor objects
+	are added to the scene; existing objects are repositioned outside
+	the training-state distribution; and visual conditions
+	(lighting, table texture, background) are altered.
+	\end{itemize}
+
+	\paragraph{Why the agentic decomposition is expected to help.}
+	The monolithic Pi0.5 backbone has been observed to behave in a
+	prompt-blind manner on LIBERO-Spatial: substituting the language
+	instruction with a semantically incorrect string produces
+	near-identical action distributions, indicating that the
+	policy's text channel is largely vestigial.
+	The agentic decomposition replaces the language channel
+	functionally: the LLM parses the perturbed instruction, extracts
+	the canonical target object and goal predicate, and then issues
+	a \textsc{pi0\_pick} call whose prompt and \texttt{track\_obj}
+	argument are derived from the canonical task rather than from
+	the perturbed surface form. Visual perturbations remain
+	challenging because they enter the VLA through the image
+	channel; we therefore expect a clean win on language and
+	distractor axes and a partial win on lighting/texture.
+
+	\paragraph{Evaluation protocol.} For each base task we evaluate
+	a fixed budget of perturbed instances per perturbation axis, with
+	the same cached agentic skill that succeeded on the unperturbed
+	task. We report success rate against the same Pi0.5 backbone
+	executed end-to-end as the baseline. Table~\ref{tab:libero_pro}
+	and Table~\ref{tab:libero_plus} provide the per-axis
+	breakdowns; Figure~\ref{fig:robustness_curve} aggregates the
+	results into success-vs-perturbation-strength curves.
+
+%-------------------------------------------------------------------------
+\subsection{Beyond LIBERO: Cross-Environment Generalization}
+\label{sec:exp:transfer}
+
+	The final experimental phase tests whether the agentic framework
+	transfers to environments that share neither LIBERO's action
+	space nor its primitive set. We evaluate on two contrasting
+	benchmarks:
+
+	\begin{itemize}
+	\item \textbf{CALVIN}~\citep{Gauss1857}, a single-arm
+	long-horizon language-conditioned manipulation benchmark with a
+	7-DoF controller that differs from LIBERO's OSC interface and a
+	separate set of articulated kitchen fixtures.
+	\item \textbf{RoboTwin}~\citep{Lagrange1788}, a bimanual
+	manipulation benchmark whose primitive vocabulary must include
+	bimanual coordination (object hand-off, two-handed grasps)
+	absent from the LIBERO primitive set.
+	\end{itemize}
+
+	\paragraph{Primitive-set transfer cost.} Because the LIBERO
+	primitive vocabulary is frozen, we must re-implement the
+	corresponding primitives against each new controller before
+	the agent can act. We report the lines-of-code overhead of this
+	re-implementation in Table~\ref{tab:primitive_transfer} as a
+	proxy for engineering cost, distinguishing primitives that
+	transferred unmodified (e.g.\@ release, set\_gripper) from
+	those that required controller-specific reimplementation
+	(\textsc{move\_to}, \textsc{articulate\_to}).
+
+	\paragraph{Task-level generalization.} Once the new primitive
+	set is in place, we measure whether the agent's compositional
+	pattern (frozen vocabulary, LLM-in-the-loop, VLA-only-for-grasp)
+	survives the embodiment change. Table~\ref{tab:cross_env}
+	reports success rates on a matched subset of CALVIN and
+	RoboTwin tasks against the corresponding monolithic baselines
+	on each benchmark.
+
+	\paragraph{Limitations.} For environments lacking a publicly
+	released VLA backbone, the \textsc{pi0\_pick} primitive is
+	replaced by an analytic grasp primitive
+	(\textsc{ik\_grasp}); this isolates the contribution of the
+	LLM-side scheduling from the contribution of the VLA grasping
+	model and is reported as a separate row in
+	Table~\ref{tab:cross_env}.
+
+%===============================================================================
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+	Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor lorem non justo.
+	Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus. Donec aliquet, tortor sed accumsan
+	bibendum, erat ligula aliquet magna, vitae ornare odio metus a mi. Morbi ac orci et nisl hendrerit
+	mollis. Suspendisse ut massa. Cras nec ante. Pellentesque a nulla. Cum sociis natoque penatibus
+	et magnis dis parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna. Nulla ullamcorper
+	vestibulum turpis. Pellentesque cursus luctus mauris.
+	Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat at, tincidunt tristique, libero.
+	Vivamus viverra fermentum felis. Donec nonummy pellentesque ante. Phasellus adipiscing semper
+	elit. Proin fermentum massa ac quam. Sed diam turpis, molestie vitae, placerat a, molestie nec, leo.
+	Maecenas lacinia. Nam ipsum ligula, eleifend at, accumsan nec, suscipit a, ipsum. Morbi blandit
+	ligula feugiat magna. Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim. Pellentesque tin-
+	cidunt purus vel magna. Integer non enim. Praesent euismod nunc eu purus. Donec bibendum quam
+	in tellus. Nullam cursus pulvinar lectus. Donec et mi. Nam vulputate metus eu enim. Vestibulum
+	pellentesque felis eu massa.
+	Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel justo vitae lacus tincidunt ultrices. Lorem
+	ipsum dolor sit amet, consectetuer adipiscing elit. In hac habitasse platea dictumst. Integer tempus
+	convallis augue. Etiam facilisis. Nunc elementum fermentum wisi. Aenean placerat. Ut imperdiet,
+	enim sed gravida sollicitudin, felis odio placerat quam, ac pulvinar elit purus eget enim. Nunc vitae
+	tortor. Proin tempus nibh sit amet nisl. Vivamus quis tortor vitae risus porta vehicula.
+
+%===============================================================================
+
+\clearpage
+% The acknowledgments are automatically included only in the final and preprint versions of the paper.
+\acknowledgments{If a paper is accepted, the final camera-ready version will (and probably should) include acknowledgments. All acknowledgments go at the end of the paper, including thanks to reviewers who gave useful comments, to colleagues who contributed to the ideas, and to funding agencies and corporate sponsors that provided financial support.}
+
+%===============================================================================
+
+% no \bibliographystyle is required, since the corl style is automatically used.
+\bibliography{example}  % .bib
+
+\end{document}
