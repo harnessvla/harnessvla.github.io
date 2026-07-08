@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <title>Harness VLA</title>
-    <link rel="stylesheet" href="static/css/styles.css?v=overview-light-v1">
+    <link rel="stylesheet" href="static/css/styles.css?v=overview-simple-v1">
   </head>
   <body>
     <div class="scroll-progress" id="scroll-progress"></div>
@@ -137,37 +137,9 @@
             </p>
           </div>
 
-          <div class="overview-feature-grid" aria-label="Overview cards">
-            <article class="overview-feature-card">
-              <span>01 CONTACT</span>
-              <h3>Frozen VLA as contact specialist</h3>
-              <p>
-                Harness VLA exposes a frozen VLA as VLA_ACT, a retryable local contact primitive.
-                The planner stages the robot before each call and invokes the VLA only for
-                contact-rich phases.
-              </p>
-            </article>
-            <article class="overview-feature-card">
-              <span>02 MEMORY</span>
-              <h3>Memory-guided composition</h3>
-              <p>
-                Task Specific Memory stores reusable primitive traces, while Global Memory stores
-                success rules and failure models. Together, they guide re-grounding, verification,
-                re-staging, and retry.
-              </p>
-            </article>
-            <article class="overview-feature-card">
-              <span>03 PRIMITIVES</span>
-              <h3>Fixed library, no deployment expansion</h3>
-              <p>
-                The planner composes predefined analytic primitives and VLA_ACT. It does not
-                invent new skills or emit low-level robot actions at deployment time.
-              </p>
-            </article>
-          </div>
-
-          <div class="glance-heading benchmark-heading">
-            <span>BENCHMARK HIGHLIGHTS</span>
+          <div class="benchmark-heading">
+            <h3>Results at a glance</h3>
+            <p>Major gains over frozen-policy baselines across perturbed manipulation benchmarks.</p>
           </div>
 
           <div class="overview-metrics" aria-label="Benchmark highlights">

@@ -424,18 +424,12 @@ p {
   margin-top: 0.65rem;
 }
 
-.overview-feature-grid,
 .overview-metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.85rem;
 }
 
-.overview-feature-grid {
-  margin-top: 1rem;
-}
-
-.overview-feature-card,
 .metric-card {
   position: relative;
   overflow: hidden;
@@ -449,11 +443,6 @@ p {
   box-shadow: 0 18px 44px rgba(20, 42, 70, 0.08);
 }
 
-.overview-feature-card {
-  padding: 1.35rem 1.45rem;
-}
-
-.overview-feature-card::before,
 .metric-card::before {
   content: "";
   position: absolute;
@@ -462,48 +451,30 @@ p {
   background: linear-gradient(90deg, #67d7ff, rgba(47, 117, 181, 0.35), rgba(242, 200, 121, 0.55));
 }
 
-.section .overview-feature-card span {
-  display: block;
-  margin-bottom: 0.7rem;
-  color: #2f75b5;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 850;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.section .overview-feature-card h3 {
-  margin: 0 0 0.65rem;
-  color: #0e1a27;
-  font-size: 1.14rem;
-  line-height: 1.16;
-  letter-spacing: 0;
-}
-
-.section .overview-feature-card p {
-  margin: 0;
-  color: #526173;
-  font-size: 0.96rem;
-  line-height: 1.52;
-}
-
 .benchmark-heading {
-  max-width: none;
-  margin: 1.1rem 0 0;
-  text-align: left;
+  margin: 1.8rem auto 1.15rem;
+  text-align: center;
 }
 
-.section .benchmark-heading span {
-  color: #47739f;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
+.section .benchmark-heading h3 {
+  margin: 0;
+  color: #0e1a27;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.section .benchmark-heading p {
+  max-width: 680px;
+  margin: 0.45rem auto 0;
+  color: #667589;
+  font-size: 0.98rem;
+  line-height: 1.5;
 }
 
 .overview-metrics {
-  margin-top: 0.65rem;
+  margin-top: 0;
 }
 
 .metric-card {
@@ -584,14 +555,12 @@ p {
 }
 
 @media (max-width: 900px) {
-  .overview-feature-grid,
   .overview-metrics {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 520px) {
-  .overview-feature-card,
   .metric-card {
     border-radius: 18px;
   }
