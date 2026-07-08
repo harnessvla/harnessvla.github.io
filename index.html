@@ -470,29 +470,69 @@
             </div>
           </article>
 
-          <article class="analysis-panel" data-source="HarnessVLA/example.tex:355-377">
+          <article class="analysis-panel plot-analysis" data-source="HarnessVLA/example.tex:355-377">
             <h3>Planner-staged VLA invocation improves frozen-policy reliability</h3>
             <p>
               Each panel plots cumulative task success as the maximum number of VLA primitive
               invocations per episode increases.
             </p>
-            <div class="chart-grid">
-              <figure><img src="HarnessVLA/figures/exp_analysis/vla_invoke_success.png" alt="LIBERO-Pro cumulative task success as VLA invocations increase." width="1491" height="1346"><figcaption>LIBERO-Pro</figcaption></figure>
-              <figure><img src="HarnessVLA/figures/exp_analysis/robocasa_vla_invoke.png" alt="RoboCasa365 cumulative task success as VLA invocations increase." width="1383" height="1320"><figcaption>RoboCasa365</figcaption></figure>
-              <figure><img src="HarnessVLA/figures/exp_analysis/robotwin_vla_invoke.png" alt="RoboTwin C2R cumulative task success as VLA invocations increase." width="1372" height="1320"><figcaption>RoboTwin C2R</figcaption></figure>
+            <div class="plot-card plot-card-wide" data-source="PLOT_SOURCE_DATA.md:47-86">
+              <div class="plot-card-head">
+                <div>
+                  <span class="plot-kicker">source data · vla_invoke_success.csv</span>
+                  <h4>Success unlocked by a small VLA-call budget</h4>
+                </div>
+                <div class="plot-tabs" data-plot-tabs="vla-invoke" aria-label="Select benchmark"></div>
+              </div>
+              <div class="plot-stage" id="vla-invoke-chart" role="img" aria-label="Cumulative task success by VLA invocation budget"></div>
+              <p class="plot-insight" id="vla-invoke-insight"></p>
             </div>
           </article>
 
-          <article class="analysis-panel" data-source="HarnessVLA/example.tex:419-461">
+          <article class="analysis-panel plot-analysis" data-source="HarnessVLA/example.tex:419-461">
             <h3>Analytic primitives isolate non-contact execution</h3>
             <p>
               Analytic primitives handle transport, staging, base/wrist adjustment, retreat, and
               release. The VLA remains responsible for contact-rich local phases.
             </p>
-            <figure class="figure-full attribution">
-              <img src="HarnessVLA/figures/exp_analysis/all_finisher.png" alt="Task completion attribution across benchmarks." width="2806" height="927">
-              <figcaption>Task completion attribution across benchmarks.</figcaption>
-            </figure>
+            <div class="plot-grid-two">
+              <div class="plot-card" data-source="PLOT_SOURCE_DATA.md:26-43">
+                <div class="plot-card-head">
+                  <div>
+                    <span class="plot-kicker">source data · finisher_attribution.csv</span>
+                    <h4>Which primitive finishes solved tasks?</h4>
+                  </div>
+                </div>
+                <div class="plot-stage" id="finisher-chart" role="img" aria-label="Task completion attribution across benchmarks"></div>
+              </div>
+              <div class="plot-card" data-source="PLOT_SOURCE_DATA.md:90-101">
+                <div class="plot-card-head">
+                  <div>
+                    <span class="plot-kicker">source data · robocasa_hybrid_vs_fullshot.csv</span>
+                    <h4>RoboCasa hybrid vs full-shot VLA</h4>
+                  </div>
+                </div>
+                <div class="plot-stage" id="robocasa-fullshot-chart" role="img" aria-label="RoboCasa hybrid and full-shot VLA success rates"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="analysis-panel plot-analysis" data-source="PLOT_SOURCE_DATA.md:105-122">
+            <h3>Aggregate margins remain inspectable from the source tables</h3>
+            <p>
+              Instead of embedding exported white-background plots, the page reads the published
+              source tables and renders benchmark comparisons directly in the browser.
+            </p>
+            <div class="plot-card plot-card-wide">
+              <div class="plot-card-head">
+                <div>
+                  <span class="plot-kicker">source data · method_comparison.csv</span>
+                  <h4>Harness VLA against published baselines</h4>
+                </div>
+                <div class="plot-tabs" data-plot-tabs="method" aria-label="Select method comparison benchmark"></div>
+              </div>
+              <div class="plot-stage" id="method-comparison-chart" role="img" aria-label="Method comparison success rates"></div>
+            </div>
           </article>
         </div>
       </section>
@@ -545,5 +585,6 @@
     </footer>
 
     <script src="static/js/main.js"></script>
+    <script src="static/js/plots.js"></script>
   </body>
 </html>
