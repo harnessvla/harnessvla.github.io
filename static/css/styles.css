@@ -440,16 +440,17 @@ p {
   position: relative;
   overflow: hidden;
   text-align: left;
-  border: 1px solid rgba(103, 215, 255, 0.18);
-  border-radius: 16px;
+  color: #0e1a27;
+  border: 1px solid rgba(47, 117, 181, 0.16);
+  border-radius: 22px;
   background:
-    radial-gradient(circle at 16% 0%, rgba(103, 215, 255, 0.12), transparent 14rem),
-    linear-gradient(180deg, #102238, #0b1726);
-  box-shadow: 0 10px 28px rgba(15, 35, 55, 0.14);
+    radial-gradient(circle at 100% 0%, rgba(103, 215, 255, 0.1), transparent 8rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 252, 255, 0.92));
+  box-shadow: 0 18px 44px rgba(20, 42, 70, 0.08);
 }
 
 .overview-feature-card {
-  padding: 1rem 1.05rem 1.05rem;
+  padding: 1.35rem 1.45rem;
 }
 
 .overview-feature-card::before,
@@ -458,35 +459,38 @@ p {
   position: absolute;
   inset: 0 0 auto;
   height: 3px;
-  background: linear-gradient(90deg, #67d7ff, rgba(255, 184, 107, 0.86));
+  background: linear-gradient(90deg, #67d7ff, rgba(47, 117, 181, 0.35), rgba(242, 200, 121, 0.55));
 }
 
 .section .overview-feature-card span {
-  color: #67d7ff;
+  display: block;
+  margin-bottom: 0.7rem;
+  color: #2f75b5;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .section .overview-feature-card h3 {
-  margin-top: 0.4rem;
-  color: #edf6ff;
-  font-size: 1rem;
-  line-height: 1.25;
+  margin: 0 0 0.65rem;
+  color: #0e1a27;
+  font-size: 1.14rem;
+  line-height: 1.16;
   letter-spacing: 0;
 }
 
 .section .overview-feature-card p {
-  margin-top: 0.48rem;
-  color: rgba(226, 238, 250, 0.74);
-  font-size: 0.86rem;
-  line-height: 1.5;
+  margin: 0;
+  color: #526173;
+  font-size: 0.96rem;
+  line-height: 1.52;
 }
 
 .benchmark-heading {
   max-width: none;
-  margin: 1.4rem 0 0;
+  margin: 1.1rem 0 0;
   text-align: left;
 }
 
@@ -503,69 +507,78 @@ p {
 }
 
 .metric-card {
-  padding: 0.95rem 1rem 1rem;
+  padding: 1.35rem 1.45rem;
 }
 
 .metric-benchmark {
   display: block;
-  color: #edf6ff;
-  font-size: 0.95rem;
-  font-weight: 800;
-  line-height: 1.2;
+  margin: 0 0 0.9rem;
+  color: #2f75b5;
+  font-size: 0.92rem;
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .metric-row {
-  display: grid;
-  grid-template-columns: minmax(0, 0.78fr) auto minmax(0, 1.18fr);
+  display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.55rem;
-  margin-top: 0.72rem;
+  gap: 0.65rem;
+  margin-top: 0;
   min-width: 0;
 }
 
 .metric-side {
   display: grid;
-  gap: 0.12rem;
+  gap: 0.18rem;
   min-width: 0;
 }
 
 .section .metric-side span {
-  color: rgba(226, 238, 250, 0.66);
-  font-size: 0.72rem;
-  font-weight: 650;
-  line-height: 1.15;
+  color: #6a7788;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.1;
   overflow-wrap: anywhere;
 }
 
 .section .metric-side strong {
-  color: #edf6ff;
-  font-size: clamp(1.25rem, 2vw, 1.62rem);
+  color: #0e1a27;
+  font-size: clamp(1.8rem, 3vw, 2.45rem);
+  font-weight: 880;
   line-height: 1;
-  letter-spacing: 0;
+  letter-spacing: -0.045em;
 }
 
-.section .metric-ours span,
 .section .metric-ours strong {
-  color: #8eeaff;
+  color: #1687c9;
+}
+
+.section .metric-ours span {
+  color: #2f75b5;
 }
 
 .metric-arrow {
   flex: 0 0 auto;
-  color: rgba(255, 184, 107, 0.86);
-  font-size: 1rem;
+  color: #2f75b5;
+  font-size: 1.3rem;
+  font-weight: 900;
   line-height: 1;
+  opacity: 0.75;
 }
 
 .metric-gain {
   display: inline-flex;
   align-items: center;
-  margin-top: 0.85rem;
-  padding: 0.24rem 0.55rem;
-  border: 1px solid rgba(103, 215, 255, 0.28);
+  margin-top: 0.95rem;
+  padding: 0.42rem 0.72rem;
+  border: 1px solid rgba(47, 117, 181, 0.22);
   border-radius: 999px;
-  color: #061421;
-  background: linear-gradient(135deg, #79d8ff, #bdf5ff);
-  font-size: 0.72rem;
+  color: #1d5f99;
+  background: rgba(103, 215, 255, 0.13);
+  font-size: 0.86rem;
   font-weight: 850;
   line-height: 1;
 }
@@ -580,11 +593,10 @@ p {
 @media (max-width: 520px) {
   .overview-feature-card,
   .metric-card {
-    border-radius: 14px;
+    border-radius: 18px;
   }
 
   .metric-row {
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.15fr);
     gap: 0.45rem;
   }
 }
