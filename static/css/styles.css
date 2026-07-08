@@ -965,7 +965,8 @@ tr.best td {
 
 .hero-paper-title {
   max-width: 1120px;
-  font-size: clamp(2.85rem, 5.6vw, 5.7rem);
+  font-size: clamp(2.35rem, 4.35vw, 4.45rem);
+  line-height: 1.02;
 }
 
 .hero-title-mark {
@@ -1256,7 +1257,8 @@ tr.best td {
   }
 
   .hero-content .hero-paper-title {
-    font-size: clamp(2.28rem, 10.5vw, 3.65rem);
+    font-size: clamp(1.85rem, 8.6vw, 2.85rem);
+    line-height: 1.06;
   }
 
   .task-strip {
