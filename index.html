@@ -353,6 +353,19 @@
             <article><span>RoboTwin C2R</span><strong>58%</strong><p>Harness VLA (Codex) and Harness VLA (CC).</p></article>
           </div>
 
+          <article class="plot-panel plot-analysis" data-source="PLOT_SOURCE_DATA.md:105-122">
+            <div class="plot-card plot-card-wide">
+              <div class="plot-card-head">
+                <div>
+                  <span class="plot-kicker">source data · method_comparison.csv</span>
+                  <h3>Harness VLA against published baselines</h3>
+                </div>
+                <div class="plot-tabs" data-plot-tabs="method" aria-label="Select method comparison benchmark"></div>
+              </div>
+              <div class="plot-stage" id="method-comparison-chart" role="img" aria-label="Method comparison success rates"></div>
+            </div>
+          </article>
+
           <div class="result-stack">
             <article class="table-card" data-source="HarnessVLA/example.tex:210-227">
               <h3>Standard LIBERO success rate (%)</h3>
@@ -495,43 +508,14 @@
               Analytic primitives handle transport, staging, base/wrist adjustment, retreat, and
               release. The VLA remains responsible for contact-rich local phases.
             </p>
-            <div class="plot-grid-two">
-              <div class="plot-card" data-source="PLOT_SOURCE_DATA.md:26-43">
-                <div class="plot-card-head">
-                  <div>
-                    <span class="plot-kicker">source data · finisher_attribution.csv</span>
-                    <h4>Which primitive finishes solved tasks?</h4>
-                  </div>
-                </div>
-                <div class="plot-stage" id="finisher-chart" role="img" aria-label="Task completion attribution across benchmarks"></div>
-              </div>
-              <div class="plot-card" data-source="PLOT_SOURCE_DATA.md:90-101">
-                <div class="plot-card-head">
-                  <div>
-                    <span class="plot-kicker">source data · robocasa_hybrid_vs_fullshot.csv</span>
-                    <h4>RoboCasa hybrid vs full-shot VLA</h4>
-                  </div>
-                </div>
-                <div class="plot-stage" id="robocasa-fullshot-chart" role="img" aria-label="RoboCasa hybrid and full-shot VLA success rates"></div>
-              </div>
-            </div>
-          </article>
-
-          <article class="analysis-panel plot-analysis" data-source="PLOT_SOURCE_DATA.md:105-122">
-            <h3>Aggregate margins remain inspectable from the source tables</h3>
-            <p>
-              Instead of embedding exported white-background plots, the page reads the published
-              source tables and renders benchmark comparisons directly in the browser.
-            </p>
-            <div class="plot-card plot-card-wide">
+            <div class="plot-card plot-card-wide" data-source="PLOT_SOURCE_DATA.md:26-43">
               <div class="plot-card-head">
                 <div>
-                  <span class="plot-kicker">source data · method_comparison.csv</span>
-                  <h4>Harness VLA against published baselines</h4>
+                  <span class="plot-kicker">source data · finisher_attribution.csv</span>
+                  <h4>Which primitive finishes solved tasks?</h4>
                 </div>
-                <div class="plot-tabs" data-plot-tabs="method" aria-label="Select method comparison benchmark"></div>
               </div>
-              <div class="plot-stage" id="method-comparison-chart" role="img" aria-label="Method comparison success rates"></div>
+              <div class="plot-stage" id="finisher-chart" role="img" aria-label="Task completion attribution across benchmarks"></div>
             </div>
           </article>
         </div>

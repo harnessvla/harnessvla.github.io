@@ -1873,7 +1873,15 @@ tr.best td {
 }
 
 /* Data-driven plot surfaces */
-.analysis-panel.plot-analysis {
+.plot-panel {
+  margin: 1.25rem 0;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+}
+
+.analysis-panel.plot-analysis,
+.plot-panel.plot-analysis {
   color: #e9f2ff;
   border-color: rgba(125, 211, 252, 0.22);
   background:
@@ -1882,7 +1890,8 @@ tr.best td {
   box-shadow: 0 24px 62px rgba(5, 12, 26, 0.28);
 }
 
-.analysis-panel.plot-analysis h3 {
+.analysis-panel.plot-analysis h3,
+.plot-panel.plot-analysis h3 {
   color: #f6fbff;
 }
 
@@ -1896,18 +1905,6 @@ tr.best td {
 
 .plot-card-wide {
   margin-top: 1.1rem;
-}
-
-.plot-grid-two {
-  display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  gap: 1.1rem;
-  margin-top: 1.1rem;
-}
-
-.plot-grid-two .plot-card {
-  min-width: 0;
-  margin-top: 0;
 }
 
 .plot-card-head {
@@ -1928,6 +1925,7 @@ tr.best td {
   text-transform: uppercase;
 }
 
+.plot-card h3,
 .plot-card h4 {
   margin: 0.25rem 0 0;
   color: #f7fbff;
@@ -2078,13 +2076,11 @@ tr.best td {
   filter: brightness(1.16) drop-shadow(0 0 12px rgba(125, 211, 252, 0.18));
 }
 
-.plot-bar-analytic,
-.plot-bar-fullshot {
+.plot-bar-analytic {
   fill: #6ea8fe;
 }
 
-.plot-bar-vla,
-.plot-bar-hybrid {
+.plot-bar-vla {
   fill: #ffb86b;
 }
 
@@ -2137,13 +2133,9 @@ tr.best td {
 }
 
 @media (max-width: 980px) {
-  .plot-card-head,
-  .plot-grid-two {
-    grid-template-columns: 1fr;
-  }
-
   .plot-card-head {
     display: grid;
+    grid-template-columns: 1fr;
   }
 
   .plot-tabs {
@@ -2160,10 +2152,6 @@ tr.best td {
 
   .plot-stage svg {
     min-width: 38rem;
-  }
-
-  .plot-grid-two .plot-stage svg {
-    min-width: 34rem;
   }
 
   .plot-tabs button {

@@ -335,53 +335,6 @@
     target.appendChild(svg);
   }
 
-  function renderRoboCasaChart() {
-    const target = document.getElementById("robocasa-fullshot-chart");
-    if (!target) return;
-    target.innerHTML = "";
-
-    const rows = state.datasets.robocasa.map((row) => ({
-      category: row.category,
-      hybrid: number(row.hybrid_pct),
-      hybridFrac: row.hybrid_frac,
-      fullshot: number(row.fullshot_pct),
-      fullshotFrac: row.fullshot_frac,
-    }));
-
-    const width = 620;
-    const height = 410;
-    const margin = { top: 38, right: 22, bottom: 76, left: 50 };
-    const svg = createSVG(width, height);
-    const y = (value) => margin.top + (100 - value) / 100 * (height - margin.top - margin.bottom);
-    const baseY = y(0);
-    const slotW = (width - margin.left - margin.right) / rows.length;
-    const barW = Math.min(46, slotW * 0.26);
-
-    drawGrid(svg, width, margin, y, [0, 25, 50, 75, 100]);
-    addLine(svg, margin.left, baseY, width - margin.right, baseY, "plot-axis-line");
-
-    rows.forEach((row, index) => {
-      const center = margin.left + slotW * index + slotW / 2;
-      const hybridX = center - barW - 5;
-      const fullX = center + 5;
-      const hY = y(row.hybrid);
-      const fY = y(row.fullshot);
-      const hBar = addRect(svg, hybridX, hY, barW, baseY - hY, "plot-bar plot-bar-hybrid", { rx: 7 });
-      const fBar = addRect(svg, fullX, fY, barW, baseY - fY, "plot-bar plot-bar-fullshot", { rx: 7 });
-      addText(svg, `${compact(row.hybrid)}%`, hybridX + barW / 2, hY - 8, "plot-point-label", { "text-anchor": "middle" });
-      addText(svg, `${compact(row.fullshot)}%`, fullX + barW / 2, fY - 8, "plot-point-label", { "text-anchor": "middle" });
-      addText(svg, row.category, center, baseY + 29, "plot-axis-label", { "text-anchor": "middle" });
-      attachTooltip(hBar, `<strong>${escapeHTML(row.category)}</strong><br>Hybrid: ${row.hybridFrac} (${compact(row.hybrid)}%)`);
-      attachTooltip(fBar, `<strong>${escapeHTML(row.category)}</strong><br>VLA full-shot: ${row.fullshotFrac} (${compact(row.fullshot)}%)`);
-    });
-
-    addRect(svg, margin.left, 14, 14, 14, "plot-bar-hybrid", { rx: 3 });
-    addText(svg, "Hybrid", margin.left + 20, 26, "plot-legend-label");
-    addRect(svg, margin.left + 100, 14, 14, 14, "plot-bar-fullshot", { rx: 3 });
-    addText(svg, "VLA full-shot", margin.left + 120, 26, "plot-legend-label");
-    target.appendChild(svg);
-  }
-
   function methodLabel(value) {
     return value.replace("pi_0.5", "pi0.5");
   }
@@ -435,16 +388,14 @@
     if (!chartRoot) return;
 
     try {
-      const [finisher, method, robocasa, vlaInvoke] = await Promise.all([
+      const [finisher, method, vlaInvoke] = await Promise.all([
         loadCSV("finisher_attribution.csv"),
         loadCSV("method_comparison.csv"),
-        loadCSV("robocasa_hybrid_vs_fullshot.csv"),
         loadCSV("vla_invoke_success.csv"),
       ]);
-      state.datasets = { finisher, method, robocasa, vlaInvoke };
+      state.datasets = { finisher, method, vlaInvoke };
       renderInvokeChart();
       renderFinisherChart();
-      renderRoboCasaChart();
       renderMethodChart();
     } catch (error) {
       document.querySelectorAll(".plot-stage").forEach((stage) => {
