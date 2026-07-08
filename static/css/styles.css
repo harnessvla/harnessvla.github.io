@@ -925,11 +925,9 @@ tr.best td {
 
 .hero-cover {
   min-height: 100svh;
-  height: 100svh;
-  max-height: 100svh;
   justify-items: start;
   place-items: center start;
-  padding: calc(var(--nav-h) + clamp(1rem, 2vh, 1.8rem)) clamp(1.25rem, 7vw, 7rem) clamp(1.3rem, 3vh, 2.2rem);
+  padding: calc(var(--nav-h) + clamp(0.9rem, 1.7vh, 1.55rem)) clamp(1.25rem, 7vw, 7rem) clamp(1.15rem, 2.7vh, 2rem);
   background: #05070a;
 }
 
@@ -964,10 +962,11 @@ tr.best td {
   font-size: clamp(3.5rem, 8.6vw, 8rem);
 }
 
-.hero-paper-title {
+.hero-content .hero-paper-title {
   max-width: 1120px;
-  font-size: clamp(1.95rem, 3.45vw, 3.55rem);
+  font-size: clamp(1.7rem, 3vw, 3.15rem);
   line-height: 1.04;
+  letter-spacing: 0;
 }
 
 .hero-title-mark {
@@ -1266,8 +1265,6 @@ tr.best td {
 @media (max-width: 720px) {
   .hero-cover {
     min-height: 100svh;
-    height: 100svh;
-    max-height: 100svh;
     padding: calc(var(--nav-h) + 0.85rem) 1rem 1.75rem;
   }
 
@@ -1287,12 +1284,12 @@ tr.best td {
 
 @media (max-height: 760px) and (min-width: 721px) {
   .hero-cover {
-    padding-top: calc(var(--nav-h) + 0.75rem);
-    padding-bottom: 1.2rem;
+    padding-top: calc(var(--nav-h) + 0.55rem);
+    padding-bottom: 1rem;
   }
 
-  .hero-paper-title {
-    font-size: clamp(1.8rem, 3.05vw, 3.1rem);
+  .hero-content .hero-paper-title {
+    font-size: clamp(1.55rem, 2.55vw, 2.7rem);
     line-height: 1.02;
   }
 
@@ -1309,10 +1306,6 @@ tr.best td {
 
   .hero-cover .hero-actions {
     margin-top: 0.68rem;
-  }
-
-  .hero-code {
-    display: none;
   }
 }
 
