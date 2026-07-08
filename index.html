@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <title>Harness VLA</title>
-    <link rel="stylesheet" href="static/css/styles.css?v=hero-clean-v1">
+    <link rel="stylesheet" href="static/css/styles.css?v=overview-summary-v1">
   </head>
   <body>
     <div class="scroll-progress" id="scroll-progress"></div>
@@ -120,26 +120,19 @@
           <p class="eyebrow">OVERVIEW</p>
           <h2 class="paper-title">What changes when a frozen VLA becomes a primitive?</h2>
 
-          <div class="abstract-card">
+          <div class="abstract-card overview-summary">
             <p>
-              End-to-end Vision-Language-Action models are strong at local contact-rich
-              manipulation, but they often become brittle when deployment conditions shift.
-              Semantic retargeting, goal re-binding, spatial-layout changes, long-horizon
-              composition, and unstable local contacts can all push a monolithic VLA outside the
-              trajectory distribution where it is reliable.
+              Frozen VLAs are strong at local contact-rich manipulation, but brittle under semantic
+              retargeting, goal re-binding, spatial-layout shifts, long-horizon composition, and
+              unstable contacts. Harness VLA keeps the VLA frozen and exposes it as VLA_ACT, a
+              retryable contact-rich primitive inside a memory-guided agentic loop.
             </p>
             <p>
-              Harness VLA keeps the VLA frozen and exposes it as VLA_ACT, a retryable contact-rich
-              primitive inside a memory-guided agentic loop. Instead of asking one policy to solve
-              grounding, planning, transport, recovery, and contact control all at once, Harness VLA
-              lets the planner orchestrate a fixed primitive library around sparse VLA_ACT calls.
-            </p>
-            <p>
-              At each step, the agentic planner reads the task description, live RGB-D observations,
-              robot state, Task Specific Memory, and Global Memory. It then emits structured
-              primitive calls: analytic primitives handle re-grounding, staging, motion, navigation,
-              gripper control, and release, while VLA_ACT is reserved for local contact-rich phases
-              such as grasping, constrained placement, fixture actuation, drawer manipulation, and
+              The planner reads the task, live RGB-D observations, robot state, Task Specific
+              Memory, and Global Memory, then emits structured calls to a fixed primitive library.
+              Analytic primitives handle re-grounding, staging, transport, navigation, gripper
+              control, and release, while VLA_ACT is reserved for local contact-rich phases such as
+              grasping, constrained placement, fixture actuation, drawer manipulation, and
               insertion.
             </p>
           </div>

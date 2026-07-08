@@ -411,6 +411,19 @@ p {
   text-align: left;
 }
 
+.overview-summary {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.overview-summary p {
+  margin: 0;
+}
+
+.overview-summary p + p {
+  margin-top: 0.65rem;
+}
+
 .headline-results {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
