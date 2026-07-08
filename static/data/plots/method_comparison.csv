@@ -1,11 +1,12 @@
 benchmark,method,success_rate_pct,role
-LIBERO-PRO,Harness VLA,82.4,ours
-LIBERO-PRO,RATS,43.8,baseline
-LIBERO-PRO,Cap-X,18.2,baseline
 LIBERO-PRO,pi_0.5,11.0,baseline
-RoboCasa,Harness VLA,48.6,ours
-RoboCasa,RLDX-1,30.0,baseline
+LIBERO-PRO,Cap-X,18.2,baseline
+LIBERO-PRO,RATS,43.8,baseline
+LIBERO-PRO,RLinf,50.0,baseline
+LIBERO-PRO,Harness VLA,82.4,ours
 RoboCasa,pi_0.5,17.0,baseline
-RoboTwin,Harness VLA,58.4,ours
-RoboTwin,pi_0.5,47.9,baseline
+RoboCasa,RLDX-1,30.0,baseline
+RoboCasa,Harness VLA,55.4,ours
 RoboTwin,StarVLA,10.6,baseline
+RoboTwin,pi_0.5,47.9,baseline
+RoboTwin,Harness VLA,58.4,ours

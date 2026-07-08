@@ -335,7 +335,7 @@
   }
 
   function methodLabel(value) {
-    return value === "pi_0.5" ? "π₀.₅" : value;
+    return value === "pi_0.5" ? "π0.5" : value;
   }
 
   function benchmarkLabel(value) {
@@ -346,38 +346,8 @@
     }[value] || value;
   }
 
-  function renderMethodPanel(panel, benchmark, rows) {
-    const width = 360;
-    const height = 310;
-    const margin = { top: 54, right: 16, bottom: 66, left: 42 };
-    const svg = createSVG(width, height);
-    const y = (value) => margin.top + (100 - value) / 100 * (height - margin.top - margin.bottom);
-    const baseY = y(0);
-    const innerW = width - margin.left - margin.right;
-    const slotW = innerW / rows.length;
-    const barW = Math.min(54, slotW * 0.54);
-
-    addText(svg, benchmarkLabel(benchmark), width / 2, 24, "method-panel-title", { "text-anchor": "middle" });
-    [0, 25, 50, 75, 100].forEach((tick) => {
-      const tickY = y(tick);
-      addLine(svg, margin.left, tickY, width - margin.right, tickY, "plot-grid-line");
-      addText(svg, `${tick}`, margin.left - 10, tickY + 4, "plot-axis-label", { "text-anchor": "end" });
-    });
-    addLine(svg, margin.left, baseY, width - margin.right, baseY, "plot-axis-line");
-
-    rows.forEach((row, index) => {
-      const x = margin.left + slotW * index + (slotW - barW) / 2;
-      const top = y(row.value);
-      const className = row.role === "ours" ? "plot-bar plot-bar-ours" : "plot-bar plot-bar-base";
-      const labelClass = row.role === "ours" ? "plot-value-label plot-value-ours" : "plot-value-label";
-      const nameClass = row.role === "ours" ? "plot-axis-label plot-axis-ours" : "plot-axis-label";
-      const bar = addRect(svg, x, top, barW, baseY - top, className, { rx: 7 });
-      addText(svg, `${compact(row.value)}%`, x + barW / 2, top - 9, labelClass, { "text-anchor": "middle" });
-      addText(svg, row.method, x + barW / 2, baseY + 27, nameClass, { "text-anchor": "middle" });
-      attachTooltip(bar, `<strong>${escapeHTML(row.method)}</strong><br>${escapeHTML(benchmarkLabel(benchmark))} success: ${compact(row.value)}%`);
-    });
-
-    panel.appendChild(svg);
+  function methodPercent(value) {
+    return `${value.toFixed(1)}%`;
   }
 
   function renderMethodChart() {
@@ -386,24 +356,68 @@
     if (!target || allRows.length === 0) return;
     target.innerHTML = "";
 
-    const grid = document.createElement("div");
-    grid.className = "method-small-multiples";
-    target.appendChild(grid);
-
-    ["LIBERO-PRO", "RoboCasa", "RoboTwin"].forEach((benchmark) => {
-      const rows = allRows
+    const benchmarkOrder = ["LIBERO-PRO", "RoboCasa", "RoboTwin"];
+    const groups = benchmarkOrder.map((benchmark) => ({
+      benchmark,
+      label: benchmarkLabel(benchmark),
+      rows: allRows
         .filter((row) => row.benchmark === benchmark)
         .map((row) => ({
           method: methodLabel(row.method),
           value: number(row.success_rate_pct),
           role: row.role,
-        }));
-      if (rows.length === 0) return;
-      const panel = document.createElement("div");
-      panel.className = "method-mini-panel";
-      grid.appendChild(panel);
-      renderMethodPanel(panel, benchmark, rows);
+        })),
+    })).filter((group) => group.rows.length > 0);
+
+    const width = 1120;
+    const height = 510;
+    const margin = { top: 42, right: 38, bottom: 120, left: 82 };
+    const svg = createSVG(width, height);
+    const innerW = width - margin.left - margin.right;
+    const innerH = height - margin.top - margin.bottom;
+    const y = (value) => margin.top + (100 - value) / 100 * innerH;
+    const baseY = y(0);
+    const groupW = innerW / groups.length;
+    const barW = 42;
+    const barGap = 16;
+
+    [0, 25, 50, 75, 100].forEach((tick) => {
+      const tickY = y(tick);
+      addLine(svg, margin.left, tickY, width - margin.right, tickY, "method-grid-line");
+      addText(svg, `${tick}`, margin.left - 14, tickY + 4, "method-axis-label", { "text-anchor": "end" });
     });
+
+    addLine(svg, margin.left, baseY, width - margin.right, baseY, "method-axis-line");
+    addLine(svg, margin.left, margin.top, margin.left, baseY, "method-axis-line");
+    addText(svg, "Success Rate (%)", 24, margin.top + innerH / 2, "method-axis-title", {
+      transform: `rotate(-90 24 ${margin.top + innerH / 2})`,
+      "text-anchor": "middle",
+    });
+
+    groups.forEach((group, groupIndex) => {
+      const center = margin.left + groupW * groupIndex + groupW / 2;
+      const rowsW = group.rows.length * barW + (group.rows.length - 1) * barGap;
+      const startX = center - rowsW / 2;
+
+      group.rows.forEach((row, rowIndex) => {
+        const x = startX + rowIndex * (barW + barGap);
+        const top = y(row.value);
+        const barClass = row.role === "ours" ? "method-bar method-bar-ours" : `method-bar method-bar-base method-bar-base-${rowIndex % 3}`;
+        const valueClass = row.role === "ours" ? "method-value-label method-value-ours" : "method-value-label";
+        const methodClass = row.role === "ours" ? "method-label method-label-ours" : "method-label";
+        const bar = addRect(svg, x, top, barW, baseY - top, barClass, { rx: 8 });
+        addText(svg, methodPercent(row.value), x + barW / 2, top - 10, valueClass, { "text-anchor": "middle" });
+        addText(svg, row.method, x + barW / 2, baseY + 35, methodClass, {
+          "text-anchor": "end",
+          transform: `rotate(-35 ${x + barW / 2} ${baseY + 35})`,
+        });
+        attachTooltip(bar, `<strong>${escapeHTML(row.method)}</strong><br>${escapeHTML(group.label)} success: ${methodPercent(row.value)}`);
+      });
+
+      addText(svg, group.label, center, height - 24, "method-group-label", { "text-anchor": "middle" });
+    });
+
+    target.appendChild(svg);
   }
 
   async function boot() {
