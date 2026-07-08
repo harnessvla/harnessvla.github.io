@@ -117,57 +117,87 @@
 
       <section class="section" id="overview">
         <div class="container intro-block">
-          <p class="eyebrow">Anonymous submission to CoRL 2026</p>
-          <h2 class="paper-title">
-            Harness VLA: Steering Frozen VLAs into Reliable Manipulation Primitives via Memory-Guided Agents
-          </h2>
-          <p class="paper-authors">Anonymous Author(s)</p>
-          <div class="intro-actions">
-            <a class="btn btn-primary" href="HarnessVLA.pdf" target="_blank" rel="noopener">Paper</a>
-            <a class="btn btn-ghost" href="#citation">BibTeX</a>
-            <span class="btn btn-muted">Code coming soon</span>
+          <p class="eyebrow">OVERVIEW</p>
+          <h2 class="paper-title">What changes when a frozen VLA becomes a primitive?</h2>
+
+          <div class="abstract-card">
+            <p>
+              End-to-end Vision-Language-Action models are strong at local contact-rich
+              manipulation, but they often become brittle when deployment conditions shift.
+              Semantic retargeting, goal re-binding, spatial-layout changes, long-horizon
+              composition, and unstable local contacts can all push a monolithic VLA outside the
+              trajectory distribution where it is reliable.
+            </p>
+            <p>
+              Harness VLA keeps the VLA frozen and exposes it as VLA_ACT, a retryable contact-rich
+              primitive inside a memory-guided agentic loop. Instead of asking one policy to solve
+              grounding, planning, transport, recovery, and contact control all at once, Harness VLA
+              lets the planner orchestrate a fixed primitive library around sparse VLA_ACT calls.
+            </p>
+            <p>
+              At each step, the agentic planner reads the task description, live RGB-D observations,
+              robot state, Task Specific Memory, and Global Memory. It then emits structured
+              primitive calls: analytic primitives handle re-grounding, staging, motion, navigation,
+              gripper control, and release, while VLA_ACT is reserved for local contact-rich phases
+              such as grasping, constrained placement, fixture actuation, drawer manipulation, and
+              insertion.
+            </p>
           </div>
 
-          <div class="abstract-card" data-source="HarnessVLA/example.tex:66-69">
-            <p>
-              Language-conditioned manipulation requires both precise contact-rich control and
-              robust reasoning over language, scenes, and long horizons. End-to-end VLA models
-              provide strong local visuomotor skills, but often fail under semantic retargeting,
-              goal re-binding, spatial-layout shifts, and unstable local contacts.
-            </p>
-            <p>
-              Harness VLA exposes a frozen VLA as a retryable contact-rich primitive and composes
-              it with a fixed analytic primitive library for grounding, staging, transport,
-              navigation, and release. The harness learns the operating range of these primitives
-              from task-specific traces, global success rules, and failure models.
-            </p>
-            <p>
-              The central claim is asymmetric delegation: the VLA remains a local contact specialist,
-              while the planner owns task binding, non-contact execution, and recovery after failed
-              or incomplete local attempts.
-            </p>
+          <div class="method-pillars" aria-label="Overview cards">
+            <article>
+              <h3>Frozen VLA as contact specialist</h3>
+              <p>
+                VLA_ACT converts a pretrained VLA from a monolithic rollout policy into a reusable
+                local contact primitive. The planner invokes it only near VLA-compatible states,
+                where learned visuomotor control is most useful.
+              </p>
+            </article>
+            <article>
+              <h3>Memory-guided primitive composition</h3>
+              <p>
+                Task Specific Memory stores successful JSONL traces for reusable task structure,
+                while Global Memory stores success rules and failure models. Together, they help
+                the planner re-ground, verify, re-stage, and retry.
+              </p>
+            </article>
+            <article>
+              <h3>Fixed library, no deployment expansion</h3>
+              <p>
+                Harness VLA does not ask the planner to invent new skills at deployment time. The
+                planner composes a fixed primitive vocabulary, making the system easier to inspect,
+                reuse, and evaluate.
+              </p>
+            </article>
           </div>
 
           <div class="glance-heading">
-            <span>At a glance</span>
-            <h3>What changes when a VLA becomes a primitive?</h3>
+            <span>Benchmark highlights</span>
           </div>
 
           <div class="headline-results" aria-label="Headline benchmark results">
-            <article data-source="HarnessVLA/example.tex:230-258">
+            <article>
               <span>LIBERO-Pro</span>
-              <strong>50% -> 82%</strong>
-              <p>RLinf to Harness VLA (CC), aggregate perturbation success.</p>
+              <strong>50.0% → 82.4%</strong>
+              <p>
+                +32.4 pts over the frozen RLinf VLA baseline under instruction-redirection and
+                position-swap perturbations.
+              </p>
             </article>
-            <article data-source="HarnessVLA/example.tex:263-283">
+            <article>
               <span>RoboCasa365</span>
-              <strong>30% -> 55%</strong>
-              <p>RLDX-1 weighted overall to Harness VLA (Codex).</p>
+              <strong>30.0% → 55.4%</strong>
+              <p>
+                +25.4 pts over the direct RLDX-1 baseline on long-horizon household kitchen
+                manipulation.
+              </p>
             </article>
-            <article data-source="HarnessVLA/example.tex:311-327">
+            <article>
               <span>RoboTwin C2R</span>
-              <strong>58%</strong>
-              <p>Harness VLA (Codex) and Harness VLA (CC).</p>
+              <strong>47.9% → 58.4%</strong>
+              <p>
+                Improves clean-to-randomized bimanual manipulation transfer over the π0.5 baseline.
+              </p>
             </article>
           </div>
         </div>
