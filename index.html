@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <title>Harness VLA</title>
-    <link rel="stylesheet" href="static/css/styles.css?v=overview-metric-clean-v1">
+    <link rel="stylesheet" href="static/css/styles.css?v=method-refresh-v1">
   </head>
   <body>
     <div class="scroll-progress" id="scroll-progress"></div>
@@ -177,104 +177,74 @@
       <section class="section section-alt" id="method">
         <div class="container container-wide">
           <header class="section-header">
+            <p class="eyebrow">METHOD</p>
             <h2>How Harness VLA Works</h2>
             <p>
-              The planner conditions on task language, RGB-D observations, proprioception, Task
-              Specific Memory, and Global Memory. It emits structured calls to a fixed primitive
-              library rather than expanding the primitive set at deployment time.
+              Harness VLA turns a frozen VLA into a retryable contact-rich primitive inside a
+              memory-guided agentic loop. The planner reads language, RGB-D observations, robot
+              state, and memory, then composes VLA_ACT with fixed analytic primitives rather than
+              expanding the skill library at deployment time.
             </p>
           </header>
 
-          <figure class="figure-full method-overview" data-source="HarnessVLA/example.tex:59-64,107-129">
-            <img loading="lazy" decoding="async" src="HarnessVLA/figures/scheme.png" alt="Harness VLA framework diagram." width="2048" height="1152">
+          <figure class="figure-full method-figure">
+            <img loading="lazy" decoding="async" src="./HarnessVLA/figures/scheme.png" alt="Harness VLA framework diagram showing task inputs, RGB-D observations, robot state, primitive library, agentic planner, memory modules, action sequence, benchmark highlights, and rollout strip." width="2048" height="1152">
             <figcaption>
-              Harness VLA composes sparse VLA calls with analytic actions inside a memory-guided
-              primitive program.
+              Harness VLA as memory-guided primitive composition. The planner receives the task,
+              RGB-D observations, and robot state, retrieves Task Specific Memory and Global Memory,
+              and emits structured calls to a fixed primitive library. VLA_ACT handles local
+              contact-rich phases, while analytic primitives handle staging, transport, gripper
+              control, release, and recovery.
             </figcaption>
           </figure>
 
-          <div class="method-pillars">
-            <article>
-              <span>01</span>
-              <h3>Freeze the VLA as a contact specialist</h3>
+          <div class="method-process-grid" aria-label="Harness VLA process">
+            <article class="method-process-card">
+              <span>01 Observe</span>
               <p>
-                VLA ACT is the only learned primitive. It is invoked for grasping, constrained
-                placement, fixture actuation, insertion, and other local contact-rich phases.
+                Read the task description, live RGB-D observations, and robot proprioception to
+                recover the current scene and robot state.
               </p>
             </article>
-
-            <article>
-              <span>02</span>
-              <h3>Keep the action interface fixed</h3>
+            <article class="method-process-card">
+              <span>02 Retrieve memory</span>
               <p>
-                The planner emits JSON calls to predefined VLA, composite analytic, and atomic
-                analytic primitives. It never writes new deployment-time skills or low-level actions.
+                Task Specific Memory provides reusable primitive traces, while Global Memory
+                supplies success rules and failure models.
               </p>
             </article>
-
-            <article>
-              <span>03</span>
-              <h3>Use memory to re-ground and retry</h3>
+            <article class="method-process-card">
+              <span>03 Compose primitives</span>
               <p>
-                Task traces preserve the solution skeleton, while Global Memory records success
-                rules and failure models such as empty grasps and false completion checks.
+                The planner selects from a fixed primitive library: VLA_ACT for contact-rich
+                execution and analytic primitives for motion, pose, gripper, and navigation control.
+              </p>
+            </article>
+            <article class="method-process-card">
+              <span>04 Execute, verify, retry</span>
+              <p>
+                Each primitive executes until its post-condition returns control. If contact fails,
+                the planner re-stages the robot and invokes VLA_ACT again.
               </p>
             </article>
           </div>
 
-          <div class="lifecycle-grid" aria-label="Harness VLA execution lifecycle">
+          <div class="method-lifecycle" aria-label="Harness VLA lifecycle">
             <article>
-              <span>Bootstrapping</span>
-              <h3>Explore on a reference seed</h3>
+              <h3>Bootstrapping</h3>
               <p>
-                RESET is available only during exploration. The planner tries staging orders,
-                pre-contact poses, VLA invocation timing, and stop predicates until it finds a
-                successful primitive program.
+                On a reference seed, the planner explores staging orders, pre-contact poses, VLA
+                invocation timing, and stop predicates. Successful primitive programs are serialized
+                as reusable JSONL traces.
               </p>
             </article>
             <article>
-              <span>Memory</span>
-              <h3>Store a reusable solution skeleton</h3>
+              <h3>Deployment</h3>
               <p>
-                Task Specific Memory stores a JSONL trace and summary. Concrete coordinates are
-                treated as reference bindings, so deployment must re-ground objects and targets from
-                live RGB-D observations.
+                During evaluation, RESET is disabled. The planner retrieves the stored trace,
+                re-grounds it from live RGB-D observations, applies global rules, and executes
+                through the same fixed primitive interface.
               </p>
-            </article>
-            <article>
-              <span>Evaluation</span>
-              <h3>Deploy without reset or new skills</h3>
-              <p>
-                During formal evaluation, RESET is disabled and the budget is shorter. The planner
-                retrieves the trace, uses Global Memory, and executes through the same fixed
-                primitive interface.
-              </p>
-            </article>
-          </div>
-
-          <figure class="figure-full compact-figure" data-source="HarnessVLA/example.tex:77-82">
-            <img loading="lazy" decoding="async" src="HarnessVLA/figures/Abstract_figure.png" alt="Deployment perturbations and Harness VLA rollout paths." width="9219" height="5707">
-            <figcaption>
-              Analytic primitives route through semantic retargeting and spatial-layout shifts,
-              while the frozen VLA is invoked near VLA-compatible local contact states.
-            </figcaption>
-          </figure>
-
-          <div class="primitive-board" aria-label="Fixed primitive vocabulary">
-            <article>
-              <span>VLA primitive</span>
-              <strong>vla_act</strong>
-              <p>Short-burst frozen VLA execution for local contact-rich interaction.</p>
-            </article>
-            <article>
-              <span>Composite analytic</span>
-              <strong>move_to · move_pose · navigate_to</strong>
-              <p>Deterministic transport, pose co-variation, and mobile-base staging.</p>
-            </article>
-            <article>
-              <span>Atomic analytic</span>
-              <strong>rotate_wrist · rotate_pitch · set_gripper · release · move_base</strong>
-              <p>Single-channel wrist, gripper, release, and fine base adjustments.</p>
             </article>
           </div>
         </div>

@@ -2791,3 +2791,120 @@ tr.best td {
   border-color: rgba(255, 184, 107, 0.4);
   background: rgba(255, 184, 107, 0.1);
 }
+
+/* Refreshed Method section */
+#method .section-header .eyebrow {
+  margin-bottom: 0.55rem;
+}
+
+.method-figure {
+  max-width: 1180px;
+  margin: 1.45rem auto 0;
+  padding: 1rem;
+  border: 1px solid rgba(47, 117, 181, 0.16);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(103, 215, 255, 0.12), transparent 20rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 252, 255, 0.94));
+  box-shadow: 0 22px 54px rgba(20, 42, 70, 0.09);
+}
+
+.method-figure img {
+  width: 100%;
+  border: 1px solid rgba(47, 117, 181, 0.12);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.method-figure figcaption {
+  max-width: 980px;
+  margin: 0.85rem auto 0;
+  color: #526173;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.method-process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.method-process-card,
+.method-lifecycle article {
+  position: relative;
+  text-align: left;
+  border: 1px solid rgba(47, 117, 181, 0.15);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 252, 255, 0.92)),
+    #fff;
+  box-shadow: 0 14px 34px rgba(20, 42, 70, 0.07);
+}
+
+.method-process-card {
+  padding: 1rem 1.05rem 1.05rem;
+}
+
+.method-process-card::before,
+.method-lifecycle article::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 18px 0 0 18px;
+  background: linear-gradient(180deg, #67d7ff, rgba(47, 117, 181, 0.48));
+}
+
+.section .method-process-card span {
+  color: #2f75b5;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+
+.section .method-process-card p,
+.section .method-lifecycle p {
+  margin-top: 0.45rem;
+  color: #526173;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.method-lifecycle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 0.9rem;
+}
+
+.method-lifecycle article {
+  padding: 1.1rem 1.2rem 1.15rem;
+}
+
+.section .method-lifecycle h3 {
+  color: #0e1a27;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+@media (max-width: 980px) {
+  .method-process-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .method-figure {
+    padding: 0.75rem;
+    border-radius: 18px;
+  }
+
+  .method-process-grid,
+  .method-lifecycle {
+    grid-template-columns: 1fr;
+  }
+}
