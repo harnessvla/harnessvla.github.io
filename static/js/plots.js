@@ -14,7 +14,6 @@
 
   const state = {
     invokeEnv: "LIBERO",
-    methodBenchmark: "LIBERO-PRO",
     datasets: null,
   };
 
@@ -336,51 +335,75 @@
   }
 
   function methodLabel(value) {
-    return value.replace("pi_0.5", "pi0.5");
+    return value === "pi_0.5" ? "π₀.₅" : value;
   }
 
-  function renderMethodChart() {
-    const allRows = state.datasets.method;
-    const benchmarks = uniq(allRows.map((row) => row.benchmark));
-    renderTabs("method", benchmarks, state.methodBenchmark, (value) => {
-      state.methodBenchmark = value;
-      renderMethodChart();
-    });
+  function benchmarkLabel(value) {
+    return {
+      "LIBERO-PRO": "LIBERO-Pro",
+      RoboCasa: "RoboCasa365",
+      RoboTwin: "RoboTwin C2R",
+    }[value] || value;
+  }
 
-    const rows = allRows
-      .filter((row) => row.benchmark === state.methodBenchmark)
-      .map((row) => ({
-        method: methodLabel(row.method),
-        value: number(row.success_rate_pct),
-        role: row.role,
-      }));
-    const target = document.getElementById("method-comparison-chart");
-    if (!target || rows.length === 0) return;
-    target.innerHTML = "";
-
-    const width = 820;
-    const height = 360;
-    const margin = { top: 34, right: 30, bottom: 76, left: 58 };
+  function renderMethodPanel(panel, benchmark, rows) {
+    const width = 360;
+    const height = 310;
+    const margin = { top: 54, right: 16, bottom: 66, left: 42 };
     const svg = createSVG(width, height);
     const y = (value) => margin.top + (100 - value) / 100 * (height - margin.top - margin.bottom);
     const baseY = y(0);
-    const slotW = (width - margin.left - margin.right) / rows.length;
-    const barW = Math.min(92, slotW * 0.58);
+    const innerW = width - margin.left - margin.right;
+    const slotW = innerW / rows.length;
+    const barW = Math.min(54, slotW * 0.54);
 
-    drawGrid(svg, width, margin, y, [0, 25, 50, 75, 100]);
+    addText(svg, benchmarkLabel(benchmark), width / 2, 24, "method-panel-title", { "text-anchor": "middle" });
+    [0, 25, 50, 75, 100].forEach((tick) => {
+      const tickY = y(tick);
+      addLine(svg, margin.left, tickY, width - margin.right, tickY, "plot-grid-line");
+      addText(svg, `${tick}`, margin.left - 10, tickY + 4, "plot-axis-label", { "text-anchor": "end" });
+    });
     addLine(svg, margin.left, baseY, width - margin.right, baseY, "plot-axis-line");
 
     rows.forEach((row, index) => {
       const x = margin.left + slotW * index + (slotW - barW) / 2;
       const top = y(row.value);
       const className = row.role === "ours" ? "plot-bar plot-bar-ours" : "plot-bar plot-bar-base";
-      const bar = addRect(svg, x, top, barW, baseY - top, className, { rx: 8 });
-      addText(svg, `${compact(row.value)}%`, x + barW / 2, top - 9, row.role === "ours" ? "plot-value-label plot-value-ours" : "plot-value-label", { "text-anchor": "middle" });
-      addText(svg, row.method, x + barW / 2, baseY + 29, row.role === "ours" ? "plot-axis-label plot-axis-ours" : "plot-axis-label", { "text-anchor": "middle" });
-      attachTooltip(bar, `<strong>${escapeHTML(row.method)}</strong><br>${escapeHTML(state.methodBenchmark)} success: ${compact(row.value)}%`);
+      const labelClass = row.role === "ours" ? "plot-value-label plot-value-ours" : "plot-value-label";
+      const nameClass = row.role === "ours" ? "plot-axis-label plot-axis-ours" : "plot-axis-label";
+      const bar = addRect(svg, x, top, barW, baseY - top, className, { rx: 7 });
+      addText(svg, `${compact(row.value)}%`, x + barW / 2, top - 9, labelClass, { "text-anchor": "middle" });
+      addText(svg, row.method, x + barW / 2, baseY + 27, nameClass, { "text-anchor": "middle" });
+      attachTooltip(bar, `<strong>${escapeHTML(row.method)}</strong><br>${escapeHTML(benchmarkLabel(benchmark))} success: ${compact(row.value)}%`);
     });
 
-    target.appendChild(svg);
+    panel.appendChild(svg);
+  }
+
+  function renderMethodChart() {
+    const allRows = state.datasets.method;
+    const target = document.getElementById("method-comparison-chart");
+    if (!target || allRows.length === 0) return;
+    target.innerHTML = "";
+
+    const grid = document.createElement("div");
+    grid.className = "method-small-multiples";
+    target.appendChild(grid);
+
+    ["LIBERO-PRO", "RoboCasa", "RoboTwin"].forEach((benchmark) => {
+      const rows = allRows
+        .filter((row) => row.benchmark === benchmark)
+        .map((row) => ({
+          method: methodLabel(row.method),
+          value: number(row.success_rate_pct),
+          role: row.role,
+        }));
+      if (rows.length === 0) return;
+      const panel = document.createElement("div");
+      panel.className = "method-mini-panel";
+      grid.appendChild(panel);
+      renderMethodPanel(panel, benchmark, rows);
+    });
   }
 
   async function boot() {

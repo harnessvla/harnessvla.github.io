@@ -2211,6 +2211,12 @@ tr.best td {
   text-transform: uppercase;
 }
 
+.plot-subtitle {
+  margin: 0.35rem 0 0;
+  color: #aebdd0;
+  font-size: 0.98rem;
+}
+
 .plot-card h3,
 .plot-card h4 {
   margin: 0.25rem 0 0;
@@ -2258,6 +2264,39 @@ tr.best td {
   width: 100%;
   height: auto;
   overflow: visible;
+}
+
+.method-small-multiples {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+
+.method-mini-panel {
+  min-width: 0;
+  padding: 0.35rem 0.7rem 0.1rem;
+}
+
+.method-mini-panel + .method-mini-panel {
+  border-left: 1px solid rgba(226, 236, 255, 0.12);
+}
+
+.method-mini-panel svg {
+  max-width: 100%;
+}
+
+.method-panel-title {
+  fill: #f6fbff;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.plot-footnote {
+  margin: 0.65rem 0 0;
+  color: rgba(174, 189, 208, 0.62);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
 }
 
 .plot-grid-line {
@@ -2427,6 +2466,19 @@ tr.best td {
   .plot-tabs {
     justify-content: flex-start;
   }
+
+  .method-small-multiples {
+    grid-template-columns: 1fr;
+  }
+
+  .method-mini-panel {
+    padding: 0.45rem 0.25rem;
+  }
+
+  .method-mini-panel + .method-mini-panel {
+    border-top: 1px solid rgba(226, 236, 255, 0.12);
+    border-left: 0;
+  }
 }
 
 @media (max-width: 640px) {
@@ -2438,6 +2490,10 @@ tr.best td {
 
   .plot-stage svg {
     min-width: 38rem;
+  }
+
+  #method-comparison-chart svg {
+    min-width: 0;
   }
 
   .plot-tabs button {
@@ -2535,8 +2591,13 @@ tr.best td {
 }
 
 .analysis-panel.plot-analysis > p,
+.plot-subtitle,
 .plot-insight {
   color: #5d6875;
+}
+
+.plot-footnote {
+  color: rgba(93, 104, 117, 0.68);
 }
 
 .plot-card {
