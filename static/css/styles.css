@@ -2,6 +2,10 @@
   --accent: #74a9d1;
   --accent-bright: #9ed2ff;
   --accent-soft: rgba(116, 169, 209, 0.12);
+  --page-bg: #f7f9fc;
+  --section-bg: #f7f9fc;
+  --section-band: #f1f5f9;
+  --section-rule: #dfe7eb;
   --bg: #07090c;
   --bg-2: #0a0d12;
   --surface: #0e131b;
@@ -1517,26 +1521,22 @@ tr.best td {
 
 /* Light paper-style body inspired by clean project pages. Hero stays dark. */
 body {
-  background: #f6f8fb;
+  background: var(--page-bg);
 }
 
 .section {
   color: #16202a;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(246, 248, 251, 0.96)),
-    #f6f8fb;
+  background: var(--section-bg);
 }
 
 .section + .section {
-  border-top: 1px solid #dfe7eb;
+  border-top: 1px solid var(--section-rule);
 }
 
 .section-alt,
 .section-soft {
-  border-color: #dfe7eb;
-  background:
-    radial-gradient(circle at 16% 0%, rgba(116, 169, 209, 0.08), transparent 28rem),
-    linear-gradient(180deg, #eef4f7, #f8fafc);
+  border-color: var(--section-rule);
+  background: var(--section-band);
 }
 
 .section h2,
@@ -2162,9 +2162,7 @@ tr.best td {
 /* Harmonize light paper figures with embedded dark data canvases. */
 .section-alt,
 .section-soft {
-  background:
-    radial-gradient(circle at 12% 0%, rgba(125, 167, 217, 0.1), transparent 28rem),
-    linear-gradient(180deg, #eef3f4, #f8fafc);
+  background: var(--section-band);
 }
 
 .section-header {
@@ -2298,7 +2296,7 @@ tr.best td {
 
 /* Final light content palette aligned with the cover and plot accents. */
 body {
-  background: #f6f8fb;
+  background: var(--page-bg);
 }
 
 ::selection {
@@ -2306,22 +2304,17 @@ body {
 }
 
 .section {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(246, 248, 251, 0.96)),
-    #f6f8fb;
+  background: var(--section-bg);
 }
 
 .section + .section {
-  border-top-color: #dfe7eb;
+  border-top-color: var(--section-rule);
 }
 
 .section-alt,
 .section-soft {
-  border-color: #dfe7eb;
-  background:
-    radial-gradient(circle at 14% 0%, rgba(126, 181, 220, 0.11), transparent 28rem),
-    radial-gradient(circle at 88% 8%, rgba(255, 184, 107, 0.055), transparent 25rem),
-    linear-gradient(180deg, #eef4f7, #f8fafc);
+  border-color: var(--section-rule);
+  background: var(--section-band);
 }
 
 .section .eyebrow,
