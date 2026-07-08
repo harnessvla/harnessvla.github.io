@@ -6,10 +6,10 @@
     <meta name="robots" content="index,follow">
     <meta
       name="description"
-      content="Harness VLA steers frozen vision-language-action models into reliable manipulation primitives through a memory-guided agentic harness."
+      content="Harness VLA embeds a frozen VLA into a memory-guided agentic loop for reliable long-horizon manipulation."
     >
     <meta property="og:title" content="Harness VLA">
-    <meta property="og:description" content="Memory-guided primitive composition for reliable manipulation with frozen VLAs.">
+    <meta property="og:description" content="A memory-guided agentic loop that composes VLA_ACT with fixed analytic primitives.">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <title>Harness VLA</title>
@@ -55,15 +55,17 @@
         </div>
         <div class="hero-scrim"></div>
         <div class="hero-content">
-          <p class="hero-kicker">Memory-guided primitive composition</p>
-          <h1>
-            <span>Harness frozen VLAs</span>
-            <span class="accent-line">into reliable robot primitives.</span>
+          <p class="hero-kicker">Memory-guided agentic manipulation</p>
+          <h1 class="hero-paper-title">
+            <span class="hero-title-mark">Harness VLA:</span>
+            <span>Steering Frozen VLAs into Reliable Manipulation Primitives</span>
+            <span>via Memory-Guided Agents</span>
           </h1>
           <p class="hero-subtitle">
-            Harness VLA keeps the VLA frozen and turns it into a retryable contact-rich primitive.
-            A planner handles semantic grounding, spatial re-binding, staging, transport, and
-            recovery through a fixed analytic primitive library.
+            Harness VLA embeds a frozen VLA into a memory-guided agentic loop. The planner
+            retrieves successful traces and failure rules, then composes VLA_ACT with fixed
+            analytic primitives to re-ground, re-stage, retry, and complete long-horizon
+            manipulation tasks.
           </p>
           <div class="hero-claims" aria-label="Core design claims">
             <span>Frozen VLA, no finetuning</span>
@@ -71,9 +73,9 @@
             <span>Memory-guided retry</span>
           </div>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="HarnessVLA.pdf" target="_blank" rel="noopener">Paper PDF</a>
-            <a class="btn btn-ghost" href="#overview">Overview</a>
-            <a class="btn btn-ghost" href="#gallery">Task Gallery</a>
+            <a class="btn btn-primary" href="HarnessVLA.pdf" target="_blank" rel="noopener">Paper</a>
+            <span class="btn btn-muted hero-disabled-link" aria-disabled="true">Code coming soon</span>
+            <span class="btn btn-muted hero-disabled-link" aria-disabled="true">Video coming soon</span>
           </div>
         </div>
         <pre class="hero-code" aria-hidden="true">{"action":"vla_act","prompt":"grasp the target","max_chunks":4}
