@@ -1,7 +1,7 @@
 :root {
-  --green: #84cc3f;
-  --green-dim: #a8e05d;
-  --green-soft: rgba(132, 204, 63, 0.12);
+  --green: #74a9d1;
+  --green-dim: #9ed2ff;
+  --green-soft: rgba(116, 169, 209, 0.12);
   --bg: #07090c;
   --bg-2: #0a0d12;
   --surface: #0e131b;
@@ -2294,4 +2294,191 @@ tr.best td {
 
 .plot-axis-line {
   stroke: rgba(226, 236, 255, 0.46);
+}
+
+/* Remove the remaining green cast from the light content area. */
+body {
+  background: #f6f8fb;
+}
+
+::selection {
+  background: rgba(116, 169, 209, 0.34);
+}
+
+.section {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(246, 248, 251, 0.96)),
+    #f6f8fb;
+}
+
+.section + .section {
+  border-top-color: #dfe7eb;
+}
+
+.section-alt,
+.section-soft {
+  border-color: #dfe7eb;
+  background:
+    radial-gradient(circle at 14% 0%, rgba(126, 181, 220, 0.11), transparent 28rem),
+    radial-gradient(circle at 88% 8%, rgba(255, 184, 107, 0.055), transparent 25rem),
+    linear-gradient(180deg, #eef4f7, #f8fafc);
+}
+
+.section .eyebrow,
+.section-header a,
+.footer a,
+.glance-heading span,
+.section .headline-results span,
+.section .method-pillars span,
+.section .lifecycle-grid span,
+.section .benchmark-cards span,
+.section .component-grid span {
+  color: #47739f;
+}
+
+.section .primitive-board span {
+  color: #93662c;
+}
+
+.section-header {
+  border-left-color: #74a9d1;
+}
+
+.btn-primary {
+  color: #071421;
+  border-color: #ffb86b;
+  background: linear-gradient(135deg, #74b9ef 0%, #bde7ff 48%, #ffc47f 100%);
+  box-shadow: 0 12px 34px rgba(87, 154, 205, 0.2);
+}
+
+.btn-primary:hover {
+  color: #071421;
+  background: linear-gradient(135deg, #97d2ff 0%, #d2f1ff 48%, #ffd29b 100%);
+  box-shadow: 0 16px 42px rgba(255, 184, 107, 0.22);
+}
+
+.abstract-card,
+.headline-results article,
+.method-pillars article,
+.lifecycle-grid article,
+.primitive-board article,
+.task-card,
+.benchmark-cards article,
+.benchmark-gallery figure,
+.analysis-panel,
+.limitation-list article,
+.bibtex-panel,
+.plot-panel,
+.analysis-panel.plot-analysis,
+.plot-panel.plot-analysis {
+  border-color: #d9e3e4;
+  box-shadow: 0 18px 44px rgba(35, 49, 63, 0.075);
+}
+
+.figure-full,
+.comparison-grid figure,
+.benchmark-gallery figure,
+.plot-panel,
+.analysis-panel.plot-analysis,
+.plot-panel.plot-analysis {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(247, 249, 252, 0.92)),
+    #fff;
+}
+
+.figure-full img,
+.comparison-grid img,
+.chart-grid img,
+.benchmark-gallery img,
+.task-strip img,
+.filmstrip img {
+  border-color: #dbe5ea;
+}
+
+.lifecycle-grid article {
+  border-color: #d9e4e6;
+  background:
+    linear-gradient(180deg, rgba(126, 181, 220, 0.08), rgba(255, 255, 255, 0.92)),
+    #fff;
+}
+
+.lifecycle-grid article::before {
+  background: linear-gradient(180deg, #74a9d1, rgba(255, 184, 107, 0.72));
+}
+
+.method-pillars article,
+.benchmark-cards article,
+.headline-results article {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(247, 250, 250, 0.92)),
+    #fff;
+}
+
+.headline-results article:first-child,
+.benchmark-cards article:nth-child(2) {
+  border-color: rgba(116, 169, 209, 0.32);
+}
+
+.headline-results article:nth-child(2),
+.benchmark-cards article:nth-child(3),
+.primitive-board article:first-child {
+  border-color: rgba(255, 184, 107, 0.3);
+}
+
+.btn-ghost:hover {
+  color: #315f8c;
+  border-color: rgba(116, 169, 209, 0.48);
+  background: rgba(116, 169, 209, 0.1);
+}
+
+.task-strip {
+  background: #edf3f4;
+}
+
+th {
+  background: #edf3f6;
+}
+
+td {
+  border-top-color: #dfe7eb;
+}
+
+tr.best td {
+  color: #15324a;
+  background: rgba(126, 181, 220, 0.13);
+}
+
+.bibtex-panel {
+  background: #fff;
+}
+
+.copy-button {
+  color: #315f8c;
+  border-color: rgba(116, 169, 209, 0.44);
+  background: rgba(116, 169, 209, 0.1);
+}
+
+.copy-button:hover {
+  background: rgba(255, 184, 107, 0.14);
+}
+
+.footer {
+  border-top-color: #dfe7eb;
+  background: #f1f5f8;
+}
+
+.navbar.scrolled {
+  border-bottom-color: #dfe7eb;
+  background: rgba(248, 250, 252, 0.92);
+}
+
+.navbar.scrolled .nav-link:hover,
+.navbar.scrolled .nav-link.active {
+  color: #315f8c;
+}
+
+.navbar.scrolled .nav-cta {
+  color: #93662c;
+  border-color: rgba(255, 184, 107, 0.4);
+  background: rgba(255, 184, 107, 0.1);
 }
