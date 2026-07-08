@@ -2158,3 +2158,140 @@ tr.best td {
     font-size: 0.72rem;
   }
 }
+
+/* Harmonize light paper figures with embedded dark data canvases. */
+.section-alt,
+.section-soft {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(125, 167, 217, 0.1), transparent 28rem),
+    linear-gradient(180deg, #eef3f4, #f8faf7);
+}
+
+.section-header {
+  border-left-color: #6d98c6;
+}
+
+.glance-heading span,
+.section .headline-results span,
+.section .method-pillars span,
+.section .lifecycle-grid span,
+.section .benchmark-cards span,
+.section .component-grid span {
+  color: #416f9f;
+}
+
+.section .primitive-board span {
+  color: #8a632c;
+}
+
+.figure-full {
+  padding: 1rem;
+  border: 1px solid #d9e2df;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 248, 0.94)),
+    #fff;
+  box-shadow: 0 18px 42px rgba(35, 49, 63, 0.08);
+}
+
+.figure-full img,
+.comparison-grid img,
+.benchmark-gallery img,
+.task-strip img,
+.filmstrip img {
+  border-color: #dce4e0;
+  background-color: #fff;
+}
+
+.figure-full img {
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.figure-full figcaption {
+  margin-top: 0.8rem;
+}
+
+.comparison-grid figure,
+.benchmark-gallery figure {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 247, 0.92)),
+    #fff;
+}
+
+.plot-panel {
+  border-color: #d8e2e4;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(245, 249, 248, 0.88)),
+    #f7faf8;
+  box-shadow: 0 18px 44px rgba(35, 49, 63, 0.08);
+}
+
+.analysis-panel.plot-analysis {
+  border-color: #d8e2e4;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(246, 250, 248, 0.9)),
+    #f7faf8;
+  box-shadow: 0 18px 44px rgba(35, 49, 63, 0.08);
+}
+
+.plot-panel.plot-analysis {
+  color: #172331;
+  border-color: #d8e2e4;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(246, 250, 248, 0.9)),
+    #f7faf8;
+  box-shadow: 0 18px 44px rgba(35, 49, 63, 0.08);
+}
+
+.analysis-panel.plot-analysis h3,
+.plot-panel.plot-analysis h3,
+.plot-card h3,
+.plot-card h4 {
+  color: #14202b;
+}
+
+.analysis-panel.plot-analysis > p,
+.plot-insight {
+  color: #5d6875;
+}
+
+.plot-card {
+  margin-top: 1.05rem;
+}
+
+.plot-kicker {
+  color: #416f9f;
+}
+
+.plot-tabs button {
+  color: #405366;
+  border-color: #d2dee2;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.plot-tabs button:hover,
+.plot-tabs button.active {
+  color: #071421;
+  border-color: rgba(116, 176, 222, 0.62);
+  background: #bde7ff;
+}
+
+.plot-stage {
+  margin-top: 0.9rem;
+  padding: 1rem;
+  border: 1px solid rgba(125, 166, 204, 0.22);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(125, 211, 252, 0.12), transparent 20rem),
+    linear-gradient(180deg, #17263a, #101d2d);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.plot-grid-line {
+  stroke: rgba(226, 236, 255, 0.15);
+}
+
+.plot-axis-line {
+  stroke: rgba(226, 236, 255, 0.46);
+}
