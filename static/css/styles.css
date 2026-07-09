@@ -752,8 +752,7 @@ figcaption {
 .analysis-panel,
 .abstract-card,
 .headline-results article,
-.figure-full,
-.limitation-list {
+.figure-full {
   position: relative;
 }
 
@@ -761,8 +760,7 @@ figcaption {
 .analysis-panel[data-source]::after,
 .abstract-card[data-source]::after,
 .headline-results article[data-source]::after,
-.figure-full[data-source]::after,
-.limitation-list[data-source]::after {
+.figure-full[data-source]::after {
   content: attr(data-source);
   display: block;
   margin: 0.8rem 1.2rem 1rem;
@@ -775,8 +773,7 @@ figcaption {
 .abstract-card[data-source]::after,
 .headline-results article[data-source]::after,
 .figure-full[data-source]::after,
-.analysis-panel[data-source]::after,
-.limitation-list[data-source]::after {
+.analysis-panel[data-source]::after {
   margin-left: 0;
   margin-right: 0;
 }
@@ -926,22 +923,23 @@ tr.best td {
   margin-top: 1.25rem;
 }
 
-.limitation-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+.conclusion-inner {
+  max-width: 960px;
 }
 
-.limitation-list article {
-  padding: 1.2rem;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.035);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.2);
+.conclusion-inner h2 {
+  margin-bottom: 1.1rem;
+  font-size: clamp(2rem, 4vw, 3.1rem);
 }
 
-.limitation-list p {
+.conclusion-inner p {
   color: var(--muted);
+  font-size: clamp(1.02rem, 1.7vw, 1.16rem);
+  line-height: 1.78;
+}
+
+.conclusion-inner p + p {
+  margin-top: 1.1rem;
 }
 
 .citation-grid {
@@ -1025,7 +1023,6 @@ tr.best td {
   .method-cards,
   .headline-results,
   .benchmark-gallery,
-  .limitation-list,
   .citation-grid {
     grid-template-columns: 1fr;
   }
@@ -1459,7 +1456,6 @@ tr.best td {
 .abstract-card[data-source]::after,
 .headline-results article[data-source]::after,
 .figure-full[data-source]::after,
-.limitation-list[data-source]::after,
 .task-card[data-source]::after {
   display: none;
 }
@@ -1847,7 +1843,7 @@ body {
 .primitive-board p,
 .task-card p,
 .analysis-panel > p,
-.limitation-list p,
+.conclusion-inner p,
 .table-note,
 figcaption,
 td {
@@ -1904,7 +1900,6 @@ td {
 .benchmark-gallery figure,
 .table-card,
 .analysis-panel,
-.limitation-list article,
 .bibtex-panel {
   border-color: #dfe7eb;
   background: rgba(255, 255, 255, 0.88);
@@ -2759,7 +2754,6 @@ body {
 .task-card,
 .benchmark-gallery figure,
 .analysis-panel,
-.limitation-list article,
 .bibtex-panel,
 .plot-panel,
 .analysis-panel.plot-analysis,
