@@ -3069,6 +3069,8 @@ tr.best td {
 
 .method-figure img {
   width: 100%;
+  height: auto;
+  object-fit: contain;
   border: 1px solid rgba(47, 117, 181, 0.12);
   border-radius: 14px;
   background: #fff;
@@ -3083,11 +3085,25 @@ tr.best td {
   text-align: left;
 }
 
+.method-intuition-figure {
+  max-width: 1040px;
+  margin-top: 1.8rem;
+}
+
+.method-intuition-figure h3 {
+  max-width: 980px;
+  margin: 0 auto 0.85rem;
+  color: #0e1a27;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
 .method-process-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.85rem;
-  margin-top: 1rem;
+  margin-top: 1.35rem;
 }
 
 .method-process-card,
