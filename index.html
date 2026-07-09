@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <title>Harness VLA</title>
-    <link rel="stylesheet" href="static/css/styles.css?v=conclusion-clean-v1">
+    <link rel="stylesheet" href="static/css/styles.css?v=remove-conclusion-v1">
   </head>
   <body>
     <div class="scroll-progress" id="scroll-progress"></div>
@@ -30,7 +30,6 @@
         <a class="nav-link" href="#gallery">Task Gallery</a>
         <a class="nav-link" href="#benchmarks">Benchmarks</a>
         <a class="nav-link" href="#analysis">Analysis</a>
-        <a class="nav-link" href="#conclusion">Conclusion</a>
         <a class="nav-link" href="#citation">BibTeX</a>
         <a class="nav-link nav-cta" href="HarnessVLA.pdf" target="_blank" rel="noopener">Paper</a>
       </div>
@@ -422,18 +421,6 @@
               <div class="plot-stage" id="finisher-chart" role="img" aria-label="Task completion attribution across benchmarks"></div>
             </div>
           </article>
-        </div>
-      </section>
-
-      <section class="section section-alt conclusion-section" id="conclusion">
-        <div class="container conclusion-inner">
-          <h2>Conclusion</h2>
-          <p>
-            Harness VLA shows that frozen VLAs can be used more reliably when they are exposed as retryable contact-rich primitives rather than deployed as monolithic long-horizon rollout policies. The memory-guided agentic planner reads the task, RGB-D observations, robot state, Task Specific Memory, and Global Memory, then composes VLA_ACT with a fixed analytic primitive library for semantic re-grounding, staging, transport, release, and recovery.
-          </p>
-          <p>
-            By separating scene-level reasoning and non-contact execution from local contact-rich control, Harness VLA extends pretrained VLA policies beyond their original trajectory distribution without finetuning the VLA or expanding the primitive vocabulary at deployment time. Across perturbed tabletop, household kitchen, and clean-to-randomized bimanual manipulation benchmarks, this fixed-vocabulary harness turns frozen VLAs into more controllable and reusable manipulation primitives.
-          </p>
         </div>
       </section>
 
