@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <title>Harness VLA</title>
-    <link rel="stylesheet" href="static/css/styles.css?v=remove-conclusion-v1">
+    <link rel="stylesheet" href="static/css/styles.css?v=vla-invoke-static-v1">
   </head>
   <body>
     <div class="scroll-progress" id="scroll-progress"></div>
@@ -389,19 +389,16 @@
           <article class="analysis-panel plot-analysis" data-source="HarnessVLA/example.tex:355-377">
             <h3>Planner-staged VLA invocation improves frozen-policy reliability</h3>
             <p>
-              Each panel plots cumulative task success as the maximum number of VLA primitive
-              invocations per episode increases.
+              A small number of planner-selected VLA_ACT calls rapidly lifts success above the frozen-policy baseline and approaches full Harness VLA performance.
             </p>
             <div class="plot-card plot-card-wide" data-source="PLOT_SOURCE_DATA.md:47-86">
               <div class="plot-card-head">
                 <div>
-                  <span class="plot-kicker">source data · vla_invoke_success.csv</span>
                   <h4>Success unlocked by a small VLA-call budget</h4>
                 </div>
-                <div class="plot-tabs" data-plot-tabs="vla-invoke" aria-label="Select benchmark"></div>
               </div>
               <div class="plot-stage" id="vla-invoke-chart" role="img" aria-label="Cumulative task success by VLA invocation budget"></div>
-              <p class="plot-insight" id="vla-invoke-insight"></p>
+              <p class="plot-caption">Cumulative success as the maximum number of VLA_ACT invocations per episode increases. Dashed lines mark the frozen-policy baseline and full Harness VLA performance.</p>
             </div>
           </article>
 
@@ -454,6 +451,6 @@
     </footer>
 
     <script src="static/js/main.js"></script>
-    <script src="static/js/plots.js?v=grouped-results-v1"></script>
+    <script src="static/js/plots.js?v=vla-invoke-static-v1"></script>
   </body>
 </html>

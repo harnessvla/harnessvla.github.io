@@ -13,7 +13,6 @@
   };
 
   const state = {
-    invokeEnv: "LIBERO",
     datasets: null,
   };
 
@@ -206,83 +205,102 @@
 
   function renderInvokeChart() {
     const allRows = state.datasets.vlaInvoke;
-    const envs = uniq(allRows.map((row) => row.environment));
-    renderTabs("vla-invoke", envs, state.invokeEnv, (value) => {
-      state.invokeEnv = value;
-      renderInvokeChart();
-    });
-
-    const rows = allRows
-      .filter((row) => row.environment === state.invokeEnv)
-      .map((row) => ({
-        k: number(row.k_max_vla_invokes),
-        success: number(row.cumulative_success_pct),
-        episodes: number(row.episodes_with_exactly_k),
-        fullshot: number(row.vla_fullshot_ref_pct),
-        hybrid: number(row.hybrid_overall_ref_pct),
-        total: number(row.n_episodes),
-      }));
-
     const target = document.getElementById("vla-invoke-chart");
-    if (!target || rows.length === 0) return;
+    if (!target || allRows.length === 0) return;
     target.innerHTML = "";
 
-    const width = 820;
-    const height = 380;
-    const margin = { top: 28, right: 30, bottom: 58, left: 58 };
-    const maxK = Math.max(...rows.map((row) => row.k));
-    const scales = axisScales({
-      width,
-      height,
-      margin,
-      xDomain: [0, maxK],
-      yDomain: [0, 100],
+    const grid = document.createElement("div");
+    grid.className = "invoke-small-multiples";
+    target.appendChild(grid);
+
+    const panels = [
+      ["LIBERO", "LIBERO-Pro"],
+      ["RoboCasa", "RoboCasa365"],
+      ["RoboTwin", "RoboTwin C2R"],
+    ];
+
+    panels.forEach(([environment, label], panelIndex) => {
+      const rows = allRows
+        .filter((row) => row.environment === environment)
+        .map((row) => ({
+          k: number(row.k_max_vla_invokes),
+          success: number(row.cumulative_success_pct),
+          episodes: number(row.episodes_with_exactly_k),
+          frozen: number(row.vla_fullshot_ref_pct),
+          full: number(row.hybrid_overall_ref_pct),
+          total: number(row.n_episodes),
+        }));
+      if (rows.length === 0) return;
+
+      const panel = document.createElement("div");
+      panel.className = "invoke-mini-panel";
+      grid.appendChild(panel);
+
+      const width = 360;
+      const height = 310;
+      const margin = { top: 42, right: 18, bottom: 58, left: panelIndex === 0 ? 52 : 30 };
+      const maxK = Math.max(...rows.map((row) => row.k));
+      const scales = axisScales({
+        width,
+        height,
+        margin,
+        xDomain: [0, maxK],
+        yDomain: [0, 100],
+      });
+      const svg = createSVG(width, height);
+      const baseY = scales.y(0);
+
+      addText(svg, label, width / 2, 22, "invoke-panel-title", { "text-anchor": "middle" });
+      [0, 25, 50, 75, 100].forEach((tick) => {
+        const y = scales.y(tick);
+        addLine(svg, margin.left, y, width - margin.right, y, "invoke-grid-line");
+        if (panelIndex === 0) {
+          addText(svg, `${tick}`, margin.left - 10, y + 4, "invoke-axis-label", { "text-anchor": "end" });
+        }
+      });
+
+      addLine(svg, margin.left, baseY, width - margin.right, baseY, "invoke-axis-line");
+      if (panelIndex === 0) {
+        addLine(svg, margin.left, margin.top, margin.left, baseY, "invoke-axis-line");
+        addText(svg, "Success Rate (%)", 15, margin.top + scales.innerH / 2, "invoke-axis-title", {
+          transform: `rotate(-90 15 ${margin.top + scales.innerH / 2})`,
+          "text-anchor": "middle",
+        });
+      }
+
+      const xTicks = Array.from(new Set([0, Math.ceil(maxK / 2), maxK]));
+      xTicks.forEach((tick) => {
+        const x = scales.x(tick);
+        addLine(svg, x, baseY, x, baseY + 5, "invoke-axis-line");
+        addText(svg, tick, x, baseY + 24, "invoke-axis-label", { "text-anchor": "middle" });
+      });
+
+      const frozenY = scales.y(rows[0].frozen);
+      const fullY = scales.y(rows[0].full);
+      addLine(svg, margin.left, frozenY, width - margin.right, frozenY, "invoke-ref-line invoke-ref-frozen");
+      addLine(svg, margin.left, fullY, width - margin.right, fullY, "invoke-ref-line invoke-ref-full");
+      addText(svg, `Frozen VLA ${compact(rows[0].frozen)}%`, width - margin.right - 3, frozenY - 6, "invoke-ref-label", { "text-anchor": "end" });
+      addText(svg, `Full Harness ${compact(rows[0].full)}%`, margin.left + 3, fullY - 6, "invoke-ref-label invoke-ref-label-full", { "text-anchor": "start" });
+
+      const points = rows.map((row) => [scales.x(row.k), scales.y(row.success), row]);
+      const lineD = points.map(([x, y], index) => `${index === 0 ? "M" : "L"} ${x} ${y}`).join(" ");
+      addPath(svg, lineD, "invoke-line");
+
+      points.forEach(([x, y, row], index) => {
+        const hit = addCircle(svg, x, y, 8, "plot-point-hit");
+        addCircle(svg, x, y, 4.5, "invoke-point");
+        if (index === 0 || index === points.length - 1 || row.success >= row.frozen && rows[index - 1]?.success < row.frozen) {
+          addText(svg, `${compact(row.success)}%`, x, y - 12, "invoke-point-label", { "text-anchor": "middle" });
+        }
+        attachTooltip(
+          hit,
+          `<strong>${escapeHTML(label)}: <= ${row.k} VLA_ACT calls</strong><br>${compact(row.success)}% cumulative success<br>${row.episodes} episodes with exactly ${row.k} calls<br>${row.total} total episodes`
+        );
+      });
+
+      addText(svg, "VLA_ACT invocation budget", width / 2, height - 12, "invoke-axis-title", { "text-anchor": "middle" });
+      panel.appendChild(svg);
     });
-    const svg = createSVG(width, height);
-
-    drawGrid(svg, width, margin, scales.y, [0, 25, 50, 75, 100]);
-    addLine(svg, margin.left, height - margin.bottom, width - margin.right, height - margin.bottom, "plot-axis-line");
-    addLine(svg, margin.left, margin.top, margin.left, height - margin.bottom, "plot-axis-line");
-
-    rows.forEach((row) => {
-      const x = scales.x(row.k);
-      addLine(svg, x, height - margin.bottom, x, height - margin.bottom + 5, "plot-axis-line");
-      addText(svg, row.k, x, height - margin.bottom + 25, "plot-axis-label", { "text-anchor": "middle" });
-    });
-
-    const fullY = scales.y(rows[0].fullshot);
-    const hybridY = scales.y(rows[0].hybrid);
-    addLine(svg, margin.left, fullY, width - margin.right, fullY, "plot-ref-line plot-ref-blue");
-    addLine(svg, margin.left, hybridY, width - margin.right, hybridY, "plot-ref-line plot-ref-gray");
-    addText(svg, `full-shot ${compact(rows[0].fullshot)}%`, width - margin.right - 4, fullY - 8, "plot-ref-label", { "text-anchor": "end" });
-    addText(svg, `all calls ${compact(rows[0].hybrid)}%`, margin.left + 4, hybridY - 8, "plot-ref-label", { "text-anchor": "start" });
-
-    const points = rows.map((row) => [scales.x(row.k), scales.y(row.success), row]);
-    const lineD = points.map(([x, y], index) => `${index === 0 ? "M" : "L"} ${x} ${y}`).join(" ");
-    const areaD = `${lineD} L ${points.at(-1)[0]} ${height - margin.bottom} L ${points[0][0]} ${height - margin.bottom} Z`;
-    addPath(svg, areaD, "plot-area-fill");
-    addPath(svg, lineD, "plot-line");
-
-    points.forEach(([x, y, row]) => {
-      const hit = addCircle(svg, x, y, 8, "plot-point-hit");
-      addCircle(svg, x, y, 5, "plot-point");
-      addText(svg, compact(row.success), x, y - 13, "plot-point-label", { "text-anchor": "middle" });
-      attachTooltip(
-        hit,
-        `<strong>${escapeHTML(state.invokeEnv)}: <= ${row.k} calls</strong><br>${compact(row.success)}% cumulative success<br>${row.episodes} episodes with exactly ${row.k} calls<br>${row.total} total episodes`
-      );
-    });
-
-    addText(svg, "VLA primitive invocations (<= k)", width / 2, height - 12, "plot-axis-title", { "text-anchor": "middle" });
-    addText(svg, "success %", 16, margin.top + 10, "plot-axis-title", { transform: `rotate(-90 16 ${margin.top + 10})`, "text-anchor": "end" });
-
-    target.appendChild(svg);
-
-    const last = rows.at(-1);
-    const insight = document.getElementById("vla-invoke-insight");
-    if (insight) {
-      insight.textContent = `${state.invokeEnv} reaches ${compact(last.success)}% success by ${last.k} VLA calls, with the full-shot reference at ${compact(last.fullshot)}% and the all-invocation hybrid reference at ${compact(last.hybrid)}%.`;
-    }
   }
 
   function renderFinisherChart() {
