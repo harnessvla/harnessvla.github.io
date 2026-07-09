@@ -2452,6 +2452,98 @@ tr.best td {
   stroke-width: 4px;
 }
 
+#finisher-chart {
+  min-height: 0;
+  margin-top: 0.95rem;
+  padding: 1.05rem 1rem 0.9rem;
+  overflow-x: auto;
+  border: 1px solid rgba(47, 117, 181, 0.14);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 252, 255, 0.96)),
+    #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 14px 34px rgba(35, 49, 63, 0.055);
+}
+
+#finisher-chart svg {
+  min-width: 58rem;
+}
+
+.finisher-grid-line {
+  stroke: rgba(82, 97, 115, 0.14);
+  stroke-width: 1;
+}
+
+.finisher-axis-line {
+  stroke: rgba(82, 97, 115, 0.28);
+  stroke-width: 1;
+}
+
+.finisher-axis-label,
+.finisher-axis-title,
+.finisher-row-label,
+.finisher-legend-label,
+.finisher-segment-label {
+  font-family: var(--font);
+}
+
+.finisher-axis-label {
+  fill: #667589;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.finisher-axis-title {
+  fill: #667589;
+  font-size: 12.5px;
+  font-weight: 850;
+}
+
+.finisher-row-label {
+  fill: #0e1a27;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.finisher-legend-label {
+  fill: #26384b;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.finisher-segment {
+  cursor: crosshair;
+  transition: filter 0.16s, opacity 0.16s;
+}
+
+.finisher-segment:hover {
+  filter: brightness(1.04) drop-shadow(0 6px 10px rgba(35, 49, 63, 0.1));
+}
+
+.finisher-analytic {
+  fill: #6aa7f7;
+}
+
+.finisher-vla {
+  fill: #f2bd75;
+}
+
+.finisher-segment-label {
+  fill: #0e1a27;
+  font-size: 12px;
+  font-weight: 900;
+  paint-order: stroke;
+  stroke: rgba(255, 255, 255, 0.72);
+  stroke-width: 3px;
+}
+
+.finisher-label-outside {
+  fill: #667589;
+  stroke: none;
+}
+
 .plot-grid-line {
   stroke: rgba(226, 236, 255, 0.13);
   stroke-width: 1;

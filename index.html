@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <title>Harness VLA</title>
-    <link rel="stylesheet" href="static/css/styles.css?v=vla-invoke-static-v1">
+    <link rel="stylesheet" href="static/css/styles.css?v=finisher-light-v1">
   </head>
   <body>
     <div class="scroll-progress" id="scroll-progress"></div>
@@ -402,20 +402,21 @@
             </div>
           </article>
 
-          <article class="analysis-panel plot-analysis" data-source="HarnessVLA/example.tex:419-461">
+          <article class="analysis-panel plot-analysis">
             <h3>Analytic primitives isolate non-contact execution</h3>
             <p>
               Analytic primitives handle transport, staging, base/wrist adjustment, retreat, and
-              release. The VLA remains responsible for contact-rich local phases.
+              release, while VLA_ACT remains responsible for contact-rich local phases.
             </p>
-            <div class="plot-card plot-card-wide" data-source="PLOT_SOURCE_DATA.md:26-43">
+            <div class="plot-card plot-card-wide">
               <div class="plot-card-head">
                 <div>
-                  <span class="plot-kicker">source data · finisher_attribution.csv</span>
-                  <h4>Which primitive finishes solved tasks?</h4>
+                  <h4>Primitive attribution across successful rollouts</h4>
+                  <p class="plot-subtitle">Bars show which primitive class triggers the final success predicate in solved tasks.</p>
                 </div>
               </div>
               <div class="plot-stage" id="finisher-chart" role="img" aria-label="Task completion attribution across benchmarks"></div>
+              <p class="plot-caption">Successful rollouts finish through different primitive classes depending on task structure: LIBERO-style tasks often complete after analytic transport or release, while RoboCasa365 and RoboTwin C2R more often finish inside contact-rich VLA_ACT phases.</p>
             </div>
           </article>
         </div>
@@ -451,6 +452,6 @@
     </footer>
 
     <script src="static/js/main.js"></script>
-    <script src="static/js/plots.js?v=vla-invoke-static-v1"></script>
+    <script src="static/js/plots.js?v=finisher-light-v1"></script>
   </body>
 </html>

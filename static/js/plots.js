@@ -309,45 +309,56 @@
     target.innerHTML = "";
 
     const rows = state.datasets.finisher.map((row) => ({
-      label: row.environment === "RoboTwin" ? "RoboTwin" : `${row.environment} · ${row.category}`,
-      analytic: number(row.analytic_pct),
-      vla: number(row.vla_pct),
+      label: row.environment === "RoboTwin" ? "RoboTwin C2R" : `${row.environment} · ${row.category}`,
       analyticCount: number(row.analytic_finish_count),
       vlaCount: number(row.vla_finish_count),
       solved: number(row.n_solved),
+      analyticLabel: number(row.analytic_pct),
+      vlaLabel: number(row.vla_pct),
     }));
 
-    const width = 820;
-    const height = 430;
-    const margin = { top: 44, right: 36, bottom: 48, left: 190 };
+    const width = 980;
+    const height = 470;
+    const margin = { top: 58, right: 34, bottom: 58, left: 255 };
     const svg = createSVG(width, height);
-    const barH = 22;
-    const gap = 17;
+    const barH = 24;
+    const gap = 18;
     const scaleX = (value) => margin.left + (value / 100) * (width - margin.left - margin.right);
+    const percentFromCount = (count, solved) => (count / solved) * 100;
+    const labelPercent = (value) => `${Math.round(value)}%`;
 
     [0, 25, 50, 75, 100].forEach((tick) => {
       const x = scaleX(tick);
-      addLine(svg, x, margin.top - 16, x, height - margin.bottom, "plot-grid-line");
-      addText(svg, `${tick}%`, x, height - 18, "plot-axis-label", { "text-anchor": "middle" });
+      addLine(svg, x, margin.top - 16, x, height - margin.bottom, "finisher-grid-line");
+      addText(svg, `${tick}%`, x, height - 21, "finisher-axis-label", { "text-anchor": "middle" });
     });
+    addLine(svg, margin.left, height - margin.bottom, width - margin.right, height - margin.bottom, "finisher-axis-line");
 
     rows.forEach((row, index) => {
       const y = margin.top + index * (barH + gap);
-      addText(svg, row.label, margin.left - 14, y + 16, "plot-row-label", { "text-anchor": "end" });
-      const analyticW = scaleX(row.analytic) - margin.left;
-      const vlaW = scaleX(row.analytic + row.vla) - scaleX(row.analytic);
-      const a = addRect(svg, margin.left, y, analyticW, barH, "plot-bar plot-bar-analytic", { rx: 6 });
-      const v = addRect(svg, margin.left + analyticW, y, vlaW, barH, "plot-bar plot-bar-vla", { rx: 6 });
-      addText(svg, `${Math.round(row.analytic)}%`, margin.left + analyticW / 2, y + 15, "plot-bar-label", { "text-anchor": "middle" });
-      addText(svg, `${Math.round(row.vla)}%`, margin.left + analyticW + vlaW / 2, y + 15, "plot-bar-label", { "text-anchor": "middle" });
-      attachTooltip(a, `<strong>${escapeHTML(row.label)}</strong><br>Analytic finish: ${row.analyticCount}/${row.solved} (${compact(row.analytic)}%)`);
-      attachTooltip(v, `<strong>${escapeHTML(row.label)}</strong><br>VLA finish: ${row.vlaCount}/${row.solved} (${compact(row.vla)}%)`);
+      const analyticPct = percentFromCount(row.analyticCount, row.solved);
+      const vlaPct = 100 - analyticPct;
+      const analyticW = scaleX(analyticPct) - margin.left;
+      const vlaW = scaleX(100) - scaleX(analyticPct);
+      const vlaX = margin.left + analyticW;
+
+      addText(svg, row.label, margin.left - 18, y + 16, "finisher-row-label", { "text-anchor": "end" });
+      const a = addRect(svg, margin.left, y, analyticW, barH, "finisher-segment finisher-analytic", { rx: 8 });
+      const v = addRect(svg, vlaX, y, vlaW, barH, "finisher-segment finisher-vla", { rx: 8 });
+
+      const analyticText = labelPercent(row.analyticLabel);
+      const vlaText = labelPercent(row.vlaLabel);
+      addText(svg, analyticText, margin.left + analyticW / 2, y + 16, "finisher-segment-label", { "text-anchor": "middle" });
+      addText(svg, vlaText, vlaW > 46 ? vlaX + vlaW / 2 : vlaX + vlaW + 8, y + 16, vlaW > 46 ? "finisher-segment-label" : "finisher-segment-label finisher-label-outside", { "text-anchor": vlaW > 46 ? "middle" : "start" });
+      attachTooltip(a, `<strong>${escapeHTML(row.label)}</strong><br>Analytic primitive finish: ${row.analyticCount}/${row.solved} (${compact(row.analyticLabel)}%)`);
+      attachTooltip(v, `<strong>${escapeHTML(row.label)}</strong><br>VLA_ACT primitive finish: ${row.vlaCount}/${row.solved} (${compact(row.vlaLabel)}%)`);
     });
 
-    addRect(svg, margin.left, 14, 14, 14, "plot-bar-analytic", { rx: 3 });
-    addText(svg, "Analytic primitive finish", margin.left + 20, 26, "plot-legend-label");
-    addRect(svg, margin.left + 210, 14, 14, 14, "plot-bar-vla", { rx: 3 });
-    addText(svg, "VLA primitive finish", margin.left + 230, 26, "plot-legend-label");
+    addRect(svg, margin.left, 18, 14, 14, "finisher-analytic", { rx: 3 });
+    addText(svg, "Analytic primitive finish", margin.left + 21, 30, "finisher-legend-label");
+    addRect(svg, margin.left + 232, 18, 14, 14, "finisher-vla", { rx: 3 });
+    addText(svg, "VLA_ACT primitive finish", margin.left + 253, 30, "finisher-legend-label");
+    addText(svg, "Proportion of solved tasks", margin.left + (width - margin.left - margin.right) / 2, height - 10, "finisher-axis-title", { "text-anchor": "middle" });
 
     target.appendChild(svg);
   }
