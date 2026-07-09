@@ -178,84 +178,101 @@
           <header class="section-header">
             <p class="eyebrow">METHOD</p>
             <h2>How Harness VLA Works</h2>
-            <p>
-              Harness VLA turns a frozen VLA into a retryable contact-rich primitive inside a
-              memory-guided agentic loop. The planner reads language, RGB-D observations, robot
-              state, and memory, then composes VLA_ACT with fixed analytic primitives rather than
-              expanding the skill library at deployment time.
+            <p class="method-intro">
+              Harness VLA exposes a frozen VLA as VLA_ACT, a retryable contact-rich primitive
+              inside a memory-guided agentic planner. At each turn, the planner reads the task,
+              RGB-D observations, robot state, Task Specific Memory, and Global Memory, then emits a
+              structured call to a fixed primitive library rather than low-level robot actions.
             </p>
           </header>
 
-          <figure class="figure-full method-figure">
-            <img loading="lazy" decoding="async" src="./HarnessVLA/figures/scheme.png" alt="Harness VLA framework diagram showing task inputs, RGB-D observations, robot state, primitive library, agentic planner, memory modules, action sequence, benchmark highlights, and rollout strip." width="2048" height="1152">
+          <figure class="figure-full method-figure method-figure-primary">
+            <img loading="lazy" decoding="async" src="./HarnessVLA/figures/scheme.png" alt="Harness VLA system overview showing task inputs, RGB-D observations, robot state, primitive library, agentic planner, memory modules, action sequence, benchmark highlights, and rollout strip." width="2048" height="1152">
             <figcaption>
-              Harness VLA as memory-guided primitive composition. The planner receives the task,
-              RGB-D observations, and robot state, retrieves Task Specific Memory and Global Memory,
-              and emits structured calls to a fixed primitive library. VLA_ACT handles local
-              contact-rich phases, while analytic primitives handle staging, transport, gripper
-              control, release, and recovery.
+              <span class="method-caption-text">
+                Harness VLA system overview. The planner receives the task, RGB-D observations,
+                robot state, and memory, then selects structured calls from a fixed primitive
+                library. VLA_ACT handles contact-rich behavior, while analytic primitives handle
+                staging, transport, posture adjustment, gripper control, release, and recovery.
+              </span>
+              <span class="method-chips" aria-label="Method takeaways">
+                <span>Frozen VLA as VLA_ACT</span>
+                <span>Fixed primitive library</span>
+                <span>Task + Global Memory</span>
+              </span>
             </figcaption>
           </figure>
 
-          <figure class="figure-full method-figure method-intuition-figure">
-            <h3>Why harnessing helps under perturbations</h3>
-            <img loading="lazy" decoding="async" src="./HarnessVLA/figures/Abstract_figure.png" alt="Conceptual diagram showing deployment perturbations, an unstable VLA rollout, and a Harness VLA rollout that uses analytic primitive control and VLA contact-rich control to reach the target." width="4163" height="2162">
-            <figcaption>
-              Deployment perturbations such as semantic retargeting and spatial shifts can move
-              the target outside the reliable operating region of a frozen VLA rollout. Harness VLA
-              uses analytic primitives to re-ground the task and route execution through the
-              perturbed space, invoking VLA_ACT only near contact-rich local states.
-            </figcaption>
-          </figure>
-
-          <div class="method-process-grid" aria-label="Harness VLA process">
-            <article class="method-process-card">
-              <span>01 Observe</span>
-              <p>
-                Read the task description, live RGB-D observations, and robot proprioception to
-                recover the current scene and robot state.
+          <div class="method-intuition-block">
+            <div class="method-intuition-media">
+              <img loading="lazy" decoding="async" src="./HarnessVLA/figures/Abstract_figure.png" alt="Primitive composition under deployment perturbations showing a direct VLA rollout and a Harness VLA rollout through analytic primitive control and local VLA_ACT contact regions." width="4163" height="2162">
+            </div>
+            <div class="method-intuition-copy">
+              <h3>Primitive composition under deployment perturbations</h3>
+              <ul>
+                <li>Deployment perturbations move targets beyond the direct VLA rollout distribution.</li>
+                <li>Analytic primitives re-ground task bindings and route motion through shifted layouts.</li>
+                <li>VLA_ACT is invoked only for contact-rich phases inside VLA-compatible local regions.</li>
+              </ul>
+              <p class="method-caption-text">
+                Primitive composition lets Harness VLA traverse semantic retargeting and spatial
+                shifts with analytic control, while reserving VLA_ACT for local contact-rich
+                regions.
               </p>
-            </article>
-            <article class="method-process-card">
-              <span>02 Retrieve memory</span>
-              <p>
-                Task Specific Memory provides reusable primitive traces, while Global Memory
-                supplies success rules and failure models.
-              </p>
-            </article>
-            <article class="method-process-card">
-              <span>03 Compose primitives</span>
-              <p>
-                The planner selects from a fixed primitive library: VLA_ACT for contact-rich
-                execution and analytic primitives for motion, pose, gripper, and navigation control.
-              </p>
-            </article>
-            <article class="method-process-card">
-              <span>04 Execute, verify, retry</span>
-              <p>
-                Each primitive executes until its post-condition returns control. If contact fails,
-                the planner re-stages the robot and invokes VLA_ACT again.
-              </p>
-            </article>
+            </div>
           </div>
 
-          <div class="method-lifecycle" aria-label="Harness VLA lifecycle">
-            <article>
-              <h3>Bootstrapping</h3>
-              <p>
-                On a reference seed, the planner explores staging orders, pre-contact poses, VLA
-                invocation timing, and stop predicates. Successful primitive programs are serialized
-                as reusable JSONL traces.
-              </p>
-            </article>
-            <article>
-              <h3>Deployment</h3>
-              <p>
-                During evaluation, RESET is disabled. The planner retrieves the stored trace,
-                re-grounds it from live RGB-D observations, applies global rules, and executes
-                through the same fixed primitive interface.
-              </p>
-            </article>
+          <div class="execution-loop">
+            <h3>Execution loop</h3>
+            <div class="loop-grid" aria-label="Harness VLA execution loop">
+              <article class="loop-card">
+                <span>01 Observe</span>
+                <p>
+                  Read the task, RGB-D observations, and robot state.
+                </p>
+              </article>
+              <article class="loop-card">
+                <span>02 Retrieve</span>
+                <p>
+                  Load task traces plus global success rules and failure models.
+                </p>
+              </article>
+              <article class="loop-card">
+                <span>03 Compose</span>
+                <p>
+                  Emit one structured primitive call: VLA_ACT or an analytic primitive.
+                </p>
+              </article>
+              <article class="loop-card">
+                <span>04 Verify &amp; retry</span>
+                <p>
+                  Return after the primitive post-condition; re-stage and retry failed contacts.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <div class="memory-workflow">
+            <h3>Two-phase memory workflow</h3>
+            <div class="workflow-grid" aria-label="Harness VLA memory workflow">
+              <article class="workflow-card">
+                <h3>Bootstrapping</h3>
+                <p>
+                  On one reference seed, the planner explores staging orders, pre-contact poses,
+                  VLA_ACT timing, and stop predicates. Successful primitive programs are stored as
+                  reusable JSONL traces, while general success rules and failure models are written
+                  into Global Memory.
+                </p>
+              </article>
+              <article class="workflow-card">
+                <h3>Deployment</h3>
+                <p>
+                  RESET is disabled. The planner retrieves the stored trace, re-grounds symbolic
+                  targets from live RGB-D observations, applies Global Memory, and executes through
+                  the same fixed primitive interface.
+                </p>
+              </article>
+            </div>
           </div>
         </div>
       </section>
