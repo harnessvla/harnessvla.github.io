@@ -109,8 +109,8 @@ code {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 58px;
-  height: 58px;
+  width: 42px;
+  height: 42px;
   flex: 0 0 auto;
   text-decoration: none;
 }
@@ -124,8 +124,8 @@ code {
 
 @media (max-width: 768px) {
   .logo-brand {
-    width: 46px;
-    height: 46px;
+    width: 34px;
+    height: 34px;
   }
 }
 
