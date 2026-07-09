@@ -3091,6 +3091,7 @@ tr.best td {
 
 .method-caption-text {
   display: block;
+  margin: 0;
 }
 
 .method-chips {
@@ -3114,13 +3115,26 @@ tr.best td {
   font-weight: 800;
 }
 
+.method-intuition,
+.execution-loop,
+.memory-workflow {
+  max-width: 1120px;
+  margin: 1.25rem auto 0;
+}
+
+.method-block-title {
+  color: #0e1a27;
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
 .method-intuition-block {
   display: grid;
   grid-template-columns: minmax(0, 1.18fr) minmax(18rem, 0.82fr);
   gap: 0.95rem;
   align-items: stretch;
-  max-width: 1120px;
-  margin: 1.25rem auto 0;
+  margin-top: 0.75rem;
 }
 
 .method-intuition-media,
@@ -3139,6 +3153,7 @@ tr.best td {
 .method-intuition-media {
   display: flex;
   align-items: center;
+  margin: 0;
   padding: 0.85rem;
 }
 
@@ -3156,11 +3171,9 @@ tr.best td {
   padding: 1.15rem 1.2rem 1.2rem;
 }
 
-.method-intuition-copy h3,
-.execution-loop h3,
-.memory-workflow > h3 {
+.method-intuition-copy h4 {
   color: #0e1a27;
-  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-size: 1.02rem;
   line-height: 1.2;
   letter-spacing: 0;
 }
@@ -3193,17 +3206,11 @@ tr.best td {
   box-shadow: 0 0 0 3px rgba(103, 215, 255, 0.12);
 }
 
-.method-intuition-copy .method-caption-text {
+.method-intuition-caption {
   margin-top: 0.9rem;
   color: #667589;
   font-size: 0.86rem;
   line-height: 1.5;
-}
-
-.execution-loop,
-.memory-workflow {
-  max-width: 1120px;
-  margin: 1.25rem auto 0;
 }
 
 .loop-grid,

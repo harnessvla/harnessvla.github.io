@@ -173,8 +173,8 @@
         </div>
       </section>
 
-      <section class="section section-alt" id="method">
-        <div class="container container-wide">
+      <section class="section section-alt method-section" id="method">
+        <div class="container container-wide method-inner">
           <header class="section-header">
             <p class="eyebrow">METHOD</p>
             <h2>How Harness VLA Works</h2>
@@ -189,41 +189,46 @@
           <figure class="figure-full method-figure method-figure-primary">
             <img loading="lazy" decoding="async" src="./HarnessVLA/figures/scheme.png" alt="Harness VLA system overview showing task inputs, RGB-D observations, robot state, primitive library, agentic planner, memory modules, action sequence, benchmark highlights, and rollout strip." width="2048" height="1152">
             <figcaption>
-              <span class="method-caption-text">
+              <p class="method-caption-text">
                 Harness VLA system overview. The planner receives the task, RGB-D observations,
                 robot state, and memory, then selects structured calls from a fixed primitive
                 library. VLA_ACT handles contact-rich behavior, while analytic primitives handle
                 staging, transport, posture adjustment, gripper control, release, and recovery.
-              </span>
-              <span class="method-chips" aria-label="Method takeaways">
+              </p>
+              <div class="method-chips" aria-label="Method takeaways">
                 <span>Frozen VLA as VLA_ACT</span>
                 <span>Fixed primitive library</span>
                 <span>Task + Global Memory</span>
-              </span>
+              </div>
             </figcaption>
           </figure>
 
-          <div class="method-intuition-block">
-            <div class="method-intuition-media">
-              <img loading="lazy" decoding="async" src="./HarnessVLA/figures/Abstract_figure.png" alt="Primitive composition under deployment perturbations showing a direct VLA rollout and a Harness VLA rollout through analytic primitive control and local VLA_ACT contact regions." width="4163" height="2162">
+          <section class="method-intuition" aria-labelledby="method-intuition-title">
+            <h3 id="method-intuition-title" class="method-block-title">
+              Primitive composition under deployment perturbations
+            </h3>
+            <div class="method-intuition-block">
+              <figure class="method-intuition-media">
+                <img loading="lazy" decoding="async" src="./HarnessVLA/figures/Abstract_figure.png" alt="Primitive composition under deployment perturbations showing a direct VLA rollout and a Harness VLA rollout through analytic primitive control and local VLA_ACT contact regions." width="4163" height="2162">
+              </figure>
+              <article class="method-intuition-copy">
+                <h4>Why the harness helps</h4>
+                <ul>
+                  <li>Deployment perturbations move targets beyond the direct VLA rollout distribution.</li>
+                  <li>Analytic primitives re-ground task bindings and route motion through shifted layouts.</li>
+                  <li>VLA_ACT is invoked only for contact-rich phases inside VLA-compatible local regions.</li>
+                </ul>
+                <p class="method-caption-text method-intuition-caption">
+                  Primitive composition lets Harness VLA traverse semantic retargeting and spatial
+                  shifts with analytic control, while reserving VLA_ACT for local contact-rich
+                  regions.
+                </p>
+              </article>
             </div>
-            <div class="method-intuition-copy">
-              <h3>Primitive composition under deployment perturbations</h3>
-              <ul>
-                <li>Deployment perturbations move targets beyond the direct VLA rollout distribution.</li>
-                <li>Analytic primitives re-ground task bindings and route motion through shifted layouts.</li>
-                <li>VLA_ACT is invoked only for contact-rich phases inside VLA-compatible local regions.</li>
-              </ul>
-              <p class="method-caption-text">
-                Primitive composition lets Harness VLA traverse semantic retargeting and spatial
-                shifts with analytic control, while reserving VLA_ACT for local contact-rich
-                regions.
-              </p>
-            </div>
-          </div>
+          </section>
 
-          <div class="execution-loop">
-            <h3>Execution loop</h3>
+          <section class="execution-loop" aria-labelledby="execution-loop-title">
+            <h3 id="execution-loop-title" class="method-block-title">Execution loop</h3>
             <div class="loop-grid" aria-label="Harness VLA execution loop">
               <article class="loop-card">
                 <span>01 Observe</span>
@@ -250,10 +255,10 @@
                 </p>
               </article>
             </div>
-          </div>
+          </section>
 
-          <div class="memory-workflow">
-            <h3>Two-phase memory workflow</h3>
+          <section class="memory-workflow" aria-labelledby="memory-workflow-title">
+            <h3 id="memory-workflow-title" class="method-block-title">Two-phase memory workflow</h3>
             <div class="workflow-grid" aria-label="Harness VLA memory workflow">
               <article class="workflow-card">
                 <h3>Bootstrapping</h3>
@@ -273,7 +278,7 @@
                 </p>
               </article>
             </div>
-          </div>
+          </section>
         </div>
       </section>
 
