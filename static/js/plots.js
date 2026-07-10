@@ -407,6 +407,29 @@
     return `${value.toFixed(1)}%`;
   }
 
+  function addMethodTickLabel(svg, row, x, y, className) {
+    if (row.role !== "ours") {
+      addText(svg, row.method, x, y, className, {
+        "text-anchor": "end",
+        transform: `rotate(-35 ${x} ${y})`,
+      });
+      return;
+    }
+
+    const label = addText(svg, "", x, y - 3, className, { "text-anchor": "middle" });
+    const methodLine = document.createElementNS(NS, "tspan");
+    methodLine.setAttribute("x", x);
+    methodLine.setAttribute("dy", "0");
+    methodLine.textContent = row.method;
+
+    const oursLine = document.createElementNS(NS, "tspan");
+    oursLine.setAttribute("x", x);
+    oursLine.setAttribute("dy", "1.15em");
+    oursLine.textContent = "(ours)";
+
+    label.append(methodLine, oursLine);
+  }
+
   function renderMethodChart() {
     const allRows = state.datasets.method;
     const target = document.getElementById("method-comparison-chart");
@@ -451,6 +474,13 @@
       "text-anchor": "middle",
     });
 
+    const legendX = width - margin.right - 330;
+    const legendY = 16;
+    addRect(svg, legendX, legendY, 12, 12, "method-legend-base", { rx: 3 });
+    addText(svg, "Published baselines", legendX + 18, legendY + 10, "method-legend-label");
+    addRect(svg, legendX + 170, legendY, 12, 12, "method-legend-ours", { rx: 3 });
+    addText(svg, "Harness VLA (ours)", legendX + 188, legendY + 10, "method-legend-label");
+
     groups.forEach((group, groupIndex) => {
       const center = margin.left + groupW * groupIndex + groupW / 2;
       const rowsW = group.rows.length * barW + (group.rows.length - 1) * barGap;
@@ -464,10 +494,7 @@
         const methodClass = row.role === "ours" ? "method-label method-label-ours" : "method-label";
         const bar = addRect(svg, x, top, barW, baseY - top, barClass, { rx: 8 });
         addText(svg, methodPercent(row.value), x + barW / 2, top - 10, valueClass, { "text-anchor": "middle" });
-        addText(svg, row.method, x + barW / 2, baseY + 35, methodClass, {
-          "text-anchor": "end",
-          transform: `rotate(-35 ${x + barW / 2} ${baseY + 35})`,
-        });
+        addMethodTickLabel(svg, row, x + barW / 2, baseY + 35, methodClass);
         attachTooltip(bar, `<strong>${escapeHTML(row.method)}</strong><br>${escapeHTML(group.label)} success: ${methodPercent(row.value)}`);
       });
 
