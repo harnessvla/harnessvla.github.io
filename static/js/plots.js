@@ -214,10 +214,25 @@
     target.appendChild(grid);
 
     const panels = [
-      ["LIBERO", "LIBERO-Pro"],
-      ["RoboCasa", "RoboCasa365"],
-      ["RoboTwin", "RoboTwin C2R"],
+      ["LIBERO-Pro", "LIBERO-Pro"],
+      ["RoboCasa365", "RoboCasa365"],
+      ["RoboTwin C2R", "RoboTwin C2R"],
     ];
+
+    const referenceLabels = {
+      "LIBERO-Pro": {
+        full: "HarnessVLA, all invocations",
+        frozen: "VLA full-shot",
+      },
+      RoboCasa365: {
+        full: "Hybrid, all invocations",
+        frozen: "VLA full-shot",
+      },
+      "RoboTwin C2R": {
+        full: "Hybrid, all invocations",
+        frozen: "VLA full-shot",
+      },
+    };
 
     panels.forEach(([environment, label], panelIndex) => {
       const rows = allRows
@@ -225,10 +240,10 @@
         .map((row) => ({
           k: number(row.k_max_vla_invokes),
           success: number(row.cumulative_success_pct),
-          episodes: number(row.episodes_with_exactly_k),
+          episodesRaw: row.episodes_with_exactly_k,
           frozen: number(row.vla_fullshot_ref_pct),
           full: number(row.hybrid_overall_ref_pct),
-          total: number(row.n_episodes),
+          totalRaw: row.n_episodes,
         }));
       if (rows.length === 0) return;
 
@@ -277,10 +292,11 @@
 
       const frozenY = scales.y(rows[0].frozen);
       const fullY = scales.y(rows[0].full);
+      const panelLabels = referenceLabels[environment];
       addLine(svg, margin.left, frozenY, width - margin.right, frozenY, "invoke-ref-line invoke-ref-frozen");
       addLine(svg, margin.left, fullY, width - margin.right, fullY, "invoke-ref-line invoke-ref-full");
-      addText(svg, `Frozen VLA ${compact(rows[0].frozen)}%`, width - margin.right - 3, frozenY - 6, "invoke-ref-label", { "text-anchor": "end" });
-      addText(svg, `Full Harness ${compact(rows[0].full)}%`, margin.left + 3, fullY - 6, "invoke-ref-label invoke-ref-label-full", { "text-anchor": "start" });
+      addText(svg, `${panelLabels.full} (${compact(rows[0].full)}%)`, margin.left + 4, fullY - 9, "invoke-ref-label invoke-ref-label-full", { "text-anchor": "start" });
+      addText(svg, `${panelLabels.frozen} (${compact(rows[0].frozen)}%)`, width - margin.right - 4, frozenY + 16, "invoke-ref-label", { "text-anchor": "end" });
 
       const points = rows.map((row) => [scales.x(row.k), scales.y(row.success), row]);
       const lineD = points.map(([x, y], index) => `${index === 0 ? "M" : "L"} ${x} ${y}`).join(" ");
@@ -289,12 +305,24 @@
       points.forEach(([x, y, row], index) => {
         const hit = addCircle(svg, x, y, 8, "plot-point-hit");
         addCircle(svg, x, y, 4.5, "invoke-point");
-        if (index === 0 || index === points.length - 1 || row.success >= row.frozen && rows[index - 1]?.success < row.frozen) {
+        const crossesFrozen = row.success >= row.frozen && rows[index - 1]?.success < row.frozen;
+        const usefulEndpoint = index === points.length - 1 && Math.abs(row.success - row.full) > 3;
+        if (index === 0 || usefulEndpoint || crossesFrozen) {
           addText(svg, `${compact(row.success)}%`, x, y - 12, "invoke-point-label", { "text-anchor": "middle" });
+        }
+        const tooltipLines = [
+          `<strong>${escapeHTML(label)}: <= ${row.k} VLA_ACT calls</strong>`,
+          `${compact(row.success)}% cumulative success`,
+        ];
+        if (Number.isFinite(number(row.episodesRaw))) {
+          tooltipLines.push(`${row.episodesRaw} episodes with exactly ${row.k} calls`);
+        }
+        if (Number.isFinite(number(row.totalRaw))) {
+          tooltipLines.push(`${row.totalRaw} total episodes`);
         }
         attachTooltip(
           hit,
-          `<strong>${escapeHTML(label)}: <= ${row.k} VLA_ACT calls</strong><br>${compact(row.success)}% cumulative success<br>${row.episodes} episodes with exactly ${row.k} calls<br>${row.total} total episodes`
+          tooltipLines.join("<br>")
         );
       });
 
@@ -457,7 +485,7 @@
       const [finisher, method, vlaInvoke] = await Promise.all([
         loadCSV("finisher_attribution.csv"),
         loadCSV("method_comparison.csv"),
-        loadCSV("vla_invoke_success.csv"),
+        loadCSV("vla_invoke_success.csv?v=vla-invoke-paper-v1"),
       ]);
       state.datasets = { finisher, method, vlaInvoke };
       renderInvokeChart();

@@ -1,28 +1,28 @@
 environment,k_max_vla_invokes,cumulative_success_pct,episodes_with_exactly_k,vla_fullshot_ref_pct,hybrid_overall_ref_pct,n_episodes
-LIBERO,0,3,42,50.0,82,803
-LIBERO,1,52,445,50.0,82,803
-LIBERO,2,68,151,50.0,82,803
-LIBERO,3,73,55,50.0,82,803
-LIBERO,4,77,37,50.0,82,803
-LIBERO,5,79,20,50.0,82,803
-LIBERO,6,80,15,50.0,82,803
-RoboCasa,0,0,0,21.0,48,80
-RoboCasa,1,2,2,21.0,48,80
-RoboCasa,2,11,8,21.0,48,80
-RoboCasa,3,21,9,21.0,48,80
-RoboCasa,4,26,8,21.0,48,80
-RoboCasa,5,29,3,21.0,48,80
-RoboCasa,6,31,4,21.0,48,80
-RoboCasa,7,32,2,21.0,48,80
-RoboCasa,8,35,7,21.0,48,80
-RoboCasa,9,36,2,21.0,48,80
-RoboCasa,10,39,6,21.0,48,80
-RoboTwin,0,0,3,50.4,55,191
-RoboTwin,1,14,27,50.4,55,191
-RoboTwin,2,46,72,50.4,55,191
-RoboTwin,3,52,29,50.4,55,191
-RoboTwin,4,52,27,50.4,55,191
-RoboTwin,5,53,10,50.4,55,191
-RoboTwin,6,54,7,50.4,55,191
-RoboTwin,7,55,10,50.4,55,191
-RoboTwin,8,55,1,50.4,55,191
+LIBERO-Pro,0,3,NA,50,82,NA
+LIBERO-Pro,1,52,NA,50,82,NA
+LIBERO-Pro,2,68,NA,50,82,NA
+LIBERO-Pro,3,73,NA,50,82,NA
+LIBERO-Pro,4,77,NA,50,82,NA
+LIBERO-Pro,5,79,NA,50,82,NA
+LIBERO-Pro,6,80,NA,50,82,NA
+RoboCasa365,0,0,NA,30,48,NA
+RoboCasa365,1,2,NA,30,48,NA
+RoboCasa365,2,11,NA,30,48,NA
+RoboCasa365,3,21,NA,30,48,NA
+RoboCasa365,4,26,NA,30,48,NA
+RoboCasa365,5,29,NA,30,48,NA
+RoboCasa365,6,31,NA,30,48,NA
+RoboCasa365,7,32,NA,30,48,NA
+RoboCasa365,8,35,NA,30,48,NA
+RoboCasa365,9,36,NA,30,48,NA
+RoboCasa365,10,39,NA,30,48,NA
+RoboTwin C2R,0,0,NA,50,58,NA
+RoboTwin C2R,1,18,NA,50,58,NA
+RoboTwin C2R,2,42,NA,50,58,NA
+RoboTwin C2R,3,49,NA,50,58,NA
+RoboTwin C2R,4,51,NA,50,58,NA
+RoboTwin C2R,5,54,NA,50,58,NA
+RoboTwin C2R,6,56,NA,50,58,NA
+RoboTwin C2R,7,57,NA,50,58,NA
+RoboTwin C2R,8,58,NA,50,58,NA

@@ -47,43 +47,43 @@ Bars show each side as a % of the solved cells `n = analytic + VLA`.
 ## 2. Cumulative task success vs VLA-invocation budget
 
 **Chart:** line "-o" (`#DD8452`), + two dashed reference lines: "VLA full-shot" (`#4C72B0`) and
-"Hybrid, all invocations" (`#999999`). **x** = "VLA primitive invocations ( ≤ k )"
+"HarnessVLA/Hybrid, all invocations" (`#999999`). **x** = "VLA primitive invocations ( ≤ k )"
 (0..K_MAX) · **y** = "Cumulative task success (%)" (0–100). No background grid (only the two dashed refs). Point value = fraction of ALL episodes
 solved with ≤k VLA calls.
 
-**Reference lines / scope:** LIBERO — full-shot 50%, hybrid overall 82%, n=803, K_MAX=6 ·
-RoboCasa — full-shot 21%, hybrid overall 48%, n=80, K_MAX=10 · RoboTwin — full-shot 50.4%,
-hybrid overall 55%, n=191, K_MAX=8.
+**Reference lines / scope:** LIBERO-Pro — VLA full-shot 50%, HarnessVLA all invocations 82%, K_MAX=6 ·
+RoboCasa365 — VLA full-shot 30%, Hybrid all invocations 48%, K_MAX=10 ·
+RoboTwin C2R — VLA full-shot 50%, Hybrid all invocations 58%, K_MAX=8.
 
 | Environment | k (≤) | cumulative success % | episodes with exactly k |
-|---|--:|--:|--:|
-| LIBERO | 0 | 3 | 42 |
-| LIBERO | 1 | 52 | 445 |
-| LIBERO | 2 | 68 | 151 |
-| LIBERO | 3 | 73 | 55 |
-| LIBERO | 4 | 77 | 37 |
-| LIBERO | 5 | 79 | 20 |
-| LIBERO | 6 | 80 | 15 |
-| RoboCasa | 0 | 0 | 0 |
-| RoboCasa | 1 | 2 | 2 |
-| RoboCasa | 2 | 11 | 8 |
-| RoboCasa | 3 | 21 | 9 |
-| RoboCasa | 4 | 26 | 8 |
-| RoboCasa | 5 | 29 | 3 |
-| RoboCasa | 6 | 31 | 4 |
-| RoboCasa | 7 | 32 | 2 |
-| RoboCasa | 8 | 35 | 7 |
-| RoboCasa | 9 | 36 | 2 |
-| RoboCasa | 10 | 39 | 6 |
-| RoboTwin | 0 | 0 | 3 |
-| RoboTwin | 1 | 14 | 27 |
-| RoboTwin | 2 | 46 | 72 |
-| RoboTwin | 3 | 52 | 29 |
-| RoboTwin | 4 | 52 | 27 |
-| RoboTwin | 5 | 53 | 10 |
-| RoboTwin | 6 | 54 | 7 |
-| RoboTwin | 7 | 55 | 10 |
-| RoboTwin | 8 | 55 | 1 |
+|---|--:|--:|---|
+| LIBERO-Pro | 0 | 3 | unavailable / not used by website rendering |
+| LIBERO-Pro | 1 | 52 | unavailable / not used by website rendering |
+| LIBERO-Pro | 2 | 68 | unavailable / not used by website rendering |
+| LIBERO-Pro | 3 | 73 | unavailable / not used by website rendering |
+| LIBERO-Pro | 4 | 77 | unavailable / not used by website rendering |
+| LIBERO-Pro | 5 | 79 | unavailable / not used by website rendering |
+| LIBERO-Pro | 6 | 80 | unavailable / not used by website rendering |
+| RoboCasa365 | 0 | 0 | unavailable / not used by website rendering |
+| RoboCasa365 | 1 | 2 | unavailable / not used by website rendering |
+| RoboCasa365 | 2 | 11 | unavailable / not used by website rendering |
+| RoboCasa365 | 3 | 21 | unavailable / not used by website rendering |
+| RoboCasa365 | 4 | 26 | unavailable / not used by website rendering |
+| RoboCasa365 | 5 | 29 | unavailable / not used by website rendering |
+| RoboCasa365 | 6 | 31 | unavailable / not used by website rendering |
+| RoboCasa365 | 7 | 32 | unavailable / not used by website rendering |
+| RoboCasa365 | 8 | 35 | unavailable / not used by website rendering |
+| RoboCasa365 | 9 | 36 | unavailable / not used by website rendering |
+| RoboCasa365 | 10 | 39 | unavailable / not used by website rendering |
+| RoboTwin C2R | 0 | 0 | unavailable / not used by website rendering |
+| RoboTwin C2R | 1 | 18 | unavailable / not used by website rendering |
+| RoboTwin C2R | 2 | 42 | unavailable / not used by website rendering |
+| RoboTwin C2R | 3 | 49 | unavailable / not used by website rendering |
+| RoboTwin C2R | 4 | 51 | unavailable / not used by website rendering |
+| RoboTwin C2R | 5 | 54 | unavailable / not used by website rendering |
+| RoboTwin C2R | 6 | 56 | unavailable / not used by website rendering |
+| RoboTwin C2R | 7 | 57 | unavailable / not used by website rendering |
+| RoboTwin C2R | 8 | 58 | unavailable / not used by website rendering |
 
 ---
 
