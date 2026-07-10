@@ -1,0 +1,6 @@
+{"action":"init"}
+{"action":"lingbot_act","chunks":2,"use_length":50,"prompt":"Lift the plastic mouse with smooth finish up with the right arm and stick it onto the Blue mat."}
+{"action":"lingbot_act","chunks":2,"use_length":50,"prompt":"Lift the plastic mouse with smooth finish up with the right arm and stick it onto the Blue mat."}
+{"action":"lingbot_act","chunks":2,"use_length":50,"prompt":"Lift the plastic mouse with smooth finish up with the right arm and stick it onto the Blue mat."}
+{"action":"move_to","arm":"right","xyz":[0.105,-0.006,0.899],"quat":null,"gripper":0.0,"substeps":25}
+{"action":"release","arm":"right","steps":15}

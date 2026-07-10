@@ -1,0 +1,4 @@
+{"action":"init"}
+{"action":"lingbot_act","chunks":2,"use_length":50,"prompt":"Locate and press the plastic switch with metal prongs"}
+{"action":"lingbot_act","chunks":2,"use_length":50,"prompt":"Locate and press the plastic switch with metal prongs"}
+{"action":"move_to","arm":"right","xyz":[-0.122,-0.045,0.855],"quat":null,"gripper":0.0,"substeps":25}

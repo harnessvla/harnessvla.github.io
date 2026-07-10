@@ -283,78 +283,22 @@
       <section class="section" id="gallery">
         <div class="container container-wide">
           <header class="section-header">
-            <h2>Task Gallery</h2>
+            <p class="eyebrow">TASK GALLERY</p>
+            <h2>Task-level comparisons</h2>
             <p>
-              Representative rollouts from the Overleaf source show how the planner re-stages
-              contact attempts and uses analytic primitives around VLA execution.
+              Representative task-level comparisons showing how Harness VLA improves over frozen
+              full-shot VLA rollouts across manipulation benchmarks.
             </p>
           </header>
 
-          <div class="gallery-grid">
-            <article class="task-card" data-source="HarnessVLA/example.tex:399-416">
-              <div class="task-strip">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/frame_0118.png" alt="LIBERO-Pro Object rollout frame 1" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/frame_0212.png" alt="LIBERO-Pro Object rollout frame 2" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/frame_0328.png" alt="LIBERO-Pro Object rollout frame 3" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/frame_0351.png" alt="LIBERO-Pro Object rollout frame 4" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/frame_0987.png" alt="LIBERO-Pro Object rollout frame 5" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/frame_1089.png" alt="LIBERO-Pro Object rollout frame 6" width="1024" height="1024">
-              </div>
-              <h3>LIBERO-Pro Object task 4</h3>
-              <p>
-                The planner repeatedly invokes VLA ACT around the milk carton after intermediate
-                grasping or placement attempts leave the object outside or partially inside the basket.
-              </p>
-            </article>
-
-            <article class="task-card" data-source="HarnessVLA/example.tex:399-416">
-              <div class="task-strip">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_07_rldx_skill.png" alt="RoboCasa365 PreSoakPan rollout frame 1" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_10_move_base.png" alt="RoboCasa365 PreSoakPan rollout frame 2" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_12_rldx_skill.png" alt="RoboCasa365 PreSoakPan rollout frame 3" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_13_rldx_skill.png" alt="RoboCasa365 PreSoakPan rollout frame 4" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_16_navigate_to.png" alt="RoboCasa365 PreSoakPan rollout frame 5" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/PreSoakPan_s1_frames/cmd_17_rldx_skill.png" alt="RoboCasa365 PreSoakPan rollout frame 6" width="1024" height="1024">
-              </div>
-              <h3>RoboCasa365 PreSoakPan</h3>
-              <p>
-                The planner adjusts the mobile base and arm pose, retries VLA ACT until a stable
-                grasp is obtained, places the pan into the sink, and actuates the faucet.
-              </p>
-            </article>
-
-            <article class="task-card" data-source="HarnessVLA/example.tex:443-462">
-              <div class="task-strip">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_10_pi0_pick.png" alt="LIBERO-10-Pro swap rollout frame 1" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_32_move_to.png" alt="LIBERO-10-Pro swap rollout frame 2" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_68_pi0_pick.png" alt="LIBERO-10-Pro swap rollout frame 3" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_70_move_to.png" alt="LIBERO-10-Pro swap rollout frame 4" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_71_move_to.png" alt="LIBERO-10-Pro swap rollout frame 5" width="1024" height="1024">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/10_swap_t7/cmd_72_release.png" alt="LIBERO-10-Pro swap rollout frame 6" width="1024" height="1024">
-              </div>
-              <h3>LIBERO-10-Pro swap</h3>
-              <p>
-                The agent detects that the VLA did not actually grasp the object, moves back,
-                retries VLA ACT, then completes the subtask with MOVE TO and RELEASE.
-              </p>
-            </article>
-
-            <article class="task-card" data-source="HarnessVLA/example.tex:443-462">
-              <div class="task-strip">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0159.png" alt="RoboCasa SteamInMicrowave rollout frame 1" width="384" height="384">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0231.png" alt="RoboCasa SteamInMicrowave rollout frame 2" width="384" height="384">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0450.png" alt="RoboCasa SteamInMicrowave rollout frame 3" width="384" height="384">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0591.png" alt="RoboCasa SteamInMicrowave rollout frame 4" width="384" height="384">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0645.png" alt="RoboCasa SteamInMicrowave rollout frame 5" width="384" height="384">
-                <img loading="lazy" decoding="async" src="HarnessVLA/figures/exp_analysis/SteamInMicrowave_s2_frames/frame_0834.png" alt="RoboCasa SteamInMicrowave rollout frame 6" width="384" height="384">
-              </div>
-              <h3>RoboCasa SteamInMicrowave</h3>
-              <p>
-                The planner combines VLA grasping and placement with analytic search,
-                repositioning, door operation, navigation, and switch pressing.
-              </p>
-            </article>
+          <div class="gallery-tabs" role="tablist" aria-label="Task gallery benchmark filters">
+            <button class="gallery-tab active" type="button" data-gallery-filter="ALL" aria-pressed="true">ALL</button>
+            <button class="gallery-tab" type="button" data-gallery-filter="LIBERO-Pro" aria-pressed="false">LIBERO-Pro</button>
+            <button class="gallery-tab" type="button" data-gallery-filter="RoboCasa365" aria-pressed="false">RoboCasa365</button>
+            <button class="gallery-tab" type="button" data-gallery-filter="RoboTwin C2R" aria-pressed="false">RoboTwin C2R</button>
           </div>
+
+          <div class="gallery-grid" id="task-gallery-grid" aria-live="polite"></div>
         </div>
       </section>
 
