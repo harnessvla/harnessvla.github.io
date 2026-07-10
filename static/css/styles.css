@@ -1431,7 +1431,7 @@ tr.best td {
 .comparison-pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.78rem;
+  gap: 1rem;
 }
 
 .video-pane {
@@ -1442,10 +1442,10 @@ tr.best td {
   display: block;
   margin: 0 0 0.45rem;
   color: #617387;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   font-weight: 850;
   line-height: 1.1;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -1456,29 +1456,29 @@ tr.best td {
 .video-pane video {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: contain;
-  border: 1px solid #dbe5ea;
-  border-radius: 12px;
-  background:
-    linear-gradient(180deg, #edf5fb, #f8fbfd),
-    #fff;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid rgba(47, 117, 181, 0.14);
+  border-radius: 14px;
+  background: #eaf1f7;
 }
 
 .video-fallback {
-  min-height: 12rem;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   margin: 0;
-  border: 1px solid #dbe5ea;
-  border-radius: 12px;
+  border: 1px solid rgba(47, 117, 181, 0.14);
+  border-radius: 14px;
   color: #667589;
-  background: #f4f8fb;
+  background: #eef4f8;
   font-weight: 800;
 }
 
 .gallery-card-meta {
-  padding: 0.95rem 0.15rem 0.1rem;
+  padding: 0.8rem 0.15rem 0.1rem;
 }
 
 .gallery-card-meta h3 {

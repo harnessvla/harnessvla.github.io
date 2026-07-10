@@ -163,6 +163,19 @@ function createVideoPane(label, sourcePath, tone) {
   const labelEl = document.createElement("span");
   labelEl.className = "video-label";
   labelEl.textContent = label;
+  pane.append(labelEl);
+
+  function appendFallback() {
+    const fallback = document.createElement("div");
+    fallback.className = "video-fallback";
+    fallback.textContent = "Video unavailable";
+    pane.append(fallback);
+  }
+
+  if (!sourcePath) {
+    appendFallback();
+    return pane;
+  }
 
   const video = document.createElement("video");
   video.muted = true;
@@ -177,17 +190,12 @@ function createVideoPane(label, sourcePath, tone) {
   source.type = "video/mp4";
   video.append(source);
 
-  const fallback = document.createElement("p");
-  fallback.className = "video-fallback";
-  fallback.hidden = true;
-  fallback.textContent = "Video unavailable";
-
   video.addEventListener("error", () => {
-    video.hidden = true;
-    fallback.hidden = false;
+    video.remove();
+    appendFallback();
   });
 
-  pane.append(labelEl, video, fallback);
+  pane.append(video);
   return pane;
 }
 
