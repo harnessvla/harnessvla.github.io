@@ -1458,10 +1458,11 @@ tr.best td {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   border: 1px solid rgba(47, 117, 181, 0.14);
   border-radius: 14px;
-  background: #eaf1f7;
+  background: #05070a;
 }
 
 .video-fallback {
@@ -2871,7 +2872,6 @@ tr.best td {
 .figure-full img,
 .comparison-grid img,
 .benchmark-gallery img,
-.video-pane video,
 .filmstrip img {
   border-color: #dbe5ea;
   background-color: #fff;
