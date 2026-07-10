@@ -62,6 +62,22 @@ sections.forEach((section) => observer.observe(section));
 
 const galleryItems = [
   {
+    benchmark: "LIBERO-Pro",
+    taskTitle: "LIBERO-Pro task 1",
+    baselineLabel: "Frozen VLA",
+    harnessLabel: "Harness VLA",
+    baselineVideo: "./videos/libero_pro/name_1/frozen_vla.mp4",
+    harnessVideo: "./videos/libero_pro/name_1/harness_vla.mp4"
+  },
+  {
+    benchmark: "LIBERO-Pro",
+    taskTitle: "LIBERO-Pro task 2",
+    baselineLabel: "Frozen VLA",
+    harnessLabel: "Harness VLA",
+    baselineVideo: "./videos/libero_pro/name_2/frozen_vla.mp4",
+    harnessVideo: "./videos/libero_pro/name_2/harness_vla.mp4"
+  },
+  {
     benchmark: "RoboTwin C2R",
     taskTitle: "Blocks ranking",
     tag: "clean-to-randomized transfer",
