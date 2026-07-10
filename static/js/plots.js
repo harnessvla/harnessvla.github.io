@@ -458,8 +458,8 @@
     const y = (value) => margin.top + (100 - value) / 100 * innerH;
     const baseY = y(0);
     const groupW = innerW / groups.length;
-    const barW = 42;
-    const barGap = 16;
+    const barW = 38;
+    const barGap = 13;
 
     [0, 25, 50, 75, 100].forEach((tick) => {
       const tickY = y(tick);

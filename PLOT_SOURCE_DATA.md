@@ -110,15 +110,17 @@ label + its % are bold; ours % is larger. Values are hardcoded (paper/literature
 
 | Benchmark | Method | Success rate % | Role |
 |---|---|--:|---|
-| LIBERO-PRO | $\pi_{0.5}$ | 11 | baseline |
+| LIBERO-PRO | $\pi_{0.5}$ | 11.0 | baseline |
 | LIBERO-PRO | Cap-X | 18.2 | baseline |
 | LIBERO-PRO | RATS | 43.8 | baseline |
 | LIBERO-PRO | RLinf | 50.0 | baseline |
 | LIBERO-PRO | Harness VLA | 82.4 | ours |
-| RoboCasa | $\pi_{0.5}$ | 17 | baseline |
-| RoboCasa | RLDX-1 | 30 | baseline |
+| RoboCasa | $\pi_{0.5}$ | 16.9 | baseline |
+| RoboCasa | RLDX-1 | 30.0 | baseline |
+| RoboCasa | WorldDreamer | 35.3 | baseline |
 | RoboCasa | Harness VLA | 55.4 | ours |
 | RoboTwin | StarVLA | 10.6 | baseline |
+| RoboTwin | GR00T-N1.7 | 20.7 | baseline |
 | RoboTwin | $\pi_{0.5}$ | 47.9 | baseline |
 | RoboTwin | Harness VLA | 58.4 | ours |
 
