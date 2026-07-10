@@ -232,7 +232,7 @@ function createGalleryCard(item) {
   title.textContent = item.taskTitle;
 
   const detail = document.createElement("p");
-  detail.textContent = `${item.benchmark} \u00b7 ${item.tag}`;
+  detail.textContent = item.benchmark;
 
   meta.append(title, detail);
   card.append(comparison, meta);
