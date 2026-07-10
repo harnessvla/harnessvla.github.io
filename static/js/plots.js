@@ -408,26 +408,10 @@
   }
 
   function addMethodTickLabel(svg, row, x, y, className) {
-    if (row.role !== "ours") {
-      addText(svg, row.method, x, y, className, {
-        "text-anchor": "end",
-        transform: `rotate(-35 ${x} ${y})`,
-      });
-      return;
-    }
-
-    const label = addText(svg, "", x, y - 3, className, { "text-anchor": "middle" });
-    const methodLine = document.createElementNS(NS, "tspan");
-    methodLine.setAttribute("x", x);
-    methodLine.setAttribute("dy", "0");
-    methodLine.textContent = row.method;
-
-    const oursLine = document.createElementNS(NS, "tspan");
-    oursLine.setAttribute("x", x);
-    oursLine.setAttribute("dy", "1.15em");
-    oursLine.textContent = "(ours)";
-
-    label.append(methodLine, oursLine);
+    addText(svg, row.method, x, y, className, {
+      "text-anchor": "end",
+      transform: `rotate(-20 ${x} ${y})`,
+    });
   }
 
   function renderMethodChart() {
@@ -494,11 +478,11 @@
         const methodClass = row.role === "ours" ? "method-label method-label-ours" : "method-label";
         const bar = addRect(svg, x, top, barW, baseY - top, barClass, { rx: 8 });
         addText(svg, methodPercent(row.value), x + barW / 2, top - 10, valueClass, { "text-anchor": "middle" });
-        addMethodTickLabel(svg, row, x + barW / 2, baseY + 35, methodClass);
+        addMethodTickLabel(svg, row, x + barW / 2, baseY + 32, methodClass);
         attachTooltip(bar, `<strong>${escapeHTML(row.method)}</strong><br>${escapeHTML(group.label)} success: ${methodPercent(row.value)}`);
       });
 
-      addText(svg, group.label, center, height - 24, "method-group-label", { "text-anchor": "middle" });
+      addText(svg, group.label, center, height - 14, "method-group-label", { "text-anchor": "middle" });
     });
 
     target.appendChild(svg);
