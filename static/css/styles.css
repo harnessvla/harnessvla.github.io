@@ -1454,14 +1454,21 @@ tr.best td {
   color: #1687c9;
 }
 
-.video-pane video {
-  display: block;
+.gallery-video-frame {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
-  object-position: center;
+  aspect-ratio: var(--video-frame-ratio, 4 / 3);
+  overflow: hidden;
   border: 1px solid rgba(47, 117, 181, 0.14);
   border-radius: 14px;
+  background: #05070a;
+}
+
+.gallery-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
   background: #05070a;
 }
 
@@ -1470,7 +1477,7 @@ tr.best td {
   align-items: center;
   justify-content: center;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: var(--video-frame-ratio, 4 / 3);
   margin: 0;
   border: 1px solid rgba(47, 117, 181, 0.14);
   border-radius: 14px;
@@ -2009,7 +2016,7 @@ td {
 .comparison-grid img,
 .chart-grid img,
 .benchmark-gallery img,
-.video-pane video,
+.gallery-video-frame,
 .filmstrip img {
   border-color: #dbe5ea;
   box-shadow: none;
@@ -3060,7 +3067,7 @@ body {
 .comparison-grid img,
 .chart-grid img,
 .benchmark-gallery img,
-.video-pane video,
+.gallery-video-frame,
 .filmstrip img {
   border-color: #dbe5ea;
 }

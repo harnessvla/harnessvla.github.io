@@ -67,7 +67,8 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/name_1/frozen_vla.mp4",
-    harnessVideo: "./videos/libero_pro/name_1/harness_vla.mp4"
+    harnessVideo: "./videos/libero_pro/name_1/harness_vla.mp4",
+    frameRatio: "1 / 1"
   },
   {
     benchmark: "LIBERO-Pro",
@@ -75,102 +76,101 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/name_2/frozen_vla.mp4",
-    harnessVideo: "./videos/libero_pro/name_2/harness_vla.mp4"
+    harnessVideo: "./videos/libero_pro/name_2/harness_vla.mp4",
+    frameRatio: "4 / 3"
   },
   {
     benchmark: "RoboTwin C2R",
     taskTitle: "Blocks ranking",
-    tag: "clean-to-randomized transfer",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/blocks_ranking_rgb/frozen_vla.mp4",
     harnessVideo: "./videos/robotwin_c2r/blocks_ranking_rgb/harness_vla.mp4",
-    recipePath: "./videos/robotwin_c2r/blocks_ranking_rgb/recipe_blocks_ranking_rgb_seed100004.jsonl"
+    frameRatio: "4 / 3"
   },
   {
     benchmark: "RoboTwin C2R",
     taskTitle: "Click bell",
-    tag: "contact-rich interaction",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/click_bell/frozen_vla.mp4",
     harnessVideo: "./videos/robotwin_c2r/click_bell/harness_vla.mp4",
-    recipePath: "./videos/robotwin_c2r/click_bell/recipe_click_bell_seed100001.jsonl"
+    frameRatio: "4 / 3"
   },
   {
     benchmark: "RoboTwin C2R",
     taskTitle: "Move stapler pad",
-    tag: "clean-to-randomized transfer",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/move_stapler_pad/frozen_vla.mp4",
     harnessVideo: "./videos/robotwin_c2r/move_stapler_pad/harness_vla.mp4",
-    recipePath: "./videos/robotwin_c2r/move_stapler_pad/recipe_move_stapler_pad_seed100003.jsonl"
+    frameRatio: "4 / 3"
   },
   {
     benchmark: "RoboTwin C2R",
     taskTitle: "Place can in basket",
-    tag: "bimanual placement",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/place_can_basket/frozen_vla.mp4",
     harnessVideo: "./videos/robotwin_c2r/place_can_basket/harness_vla.mp4",
-    recipePath: "./videos/robotwin_c2r/place_can_basket/recipe_place_can_basket_seed100002.jsonl"
+    frameRatio: "4 / 3"
   },
   {
     benchmark: "RoboTwin C2R",
     taskTitle: "Place mouse on pad",
-    tag: "object placement",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/place_mouse_pad/frozen_vla.mp4",
     harnessVideo: "./videos/robotwin_c2r/place_mouse_pad/harness_vla.mp4",
-    recipePath: "./videos/robotwin_c2r/place_mouse_pad/recipe_place_mouse_pad_seed100002.jsonl"
+    frameRatio: "4 / 3"
   },
   {
     benchmark: "RoboTwin C2R",
     taskTitle: "Place phone on stand",
-    tag: "object placement",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/place_phone_stand/frozen_vla.mp4",
     harnessVideo: "./videos/robotwin_c2r/place_phone_stand/harness_vla.mp4",
-    recipePath: "./videos/robotwin_c2r/place_phone_stand/recipe_place_phone_stand_seed100000.jsonl"
+    frameRatio: "4 / 3"
   },
   {
     benchmark: "RoboTwin C2R",
     taskTitle: "Press stapler",
-    tag: "contact-rich manipulation",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/press_stapler/frozen_vla.mp4",
     harnessVideo: "./videos/robotwin_c2r/press_stapler/harness_vla.mp4",
-    recipePath: "./videos/robotwin_c2r/press_stapler/recipe_press_stapler_seed100003.jsonl"
+    frameRatio: "4 / 3"
   },
   {
     benchmark: "RoboTwin C2R",
     taskTitle: "Stack two blocks",
-    tag: "bimanual object interaction",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/stack_blocks_two/frozen_vla.mp4",
     harnessVideo: "./videos/robotwin_c2r/stack_blocks_two/harness_vla.mp4",
-    recipePath: "./videos/robotwin_c2r/stack_blocks_two/recipe_stack_blocks_two_seed100001.jsonl"
+    frameRatio: "4 / 3"
   },
   {
     benchmark: "RoboTwin C2R",
     taskTitle: "Turn switch",
-    tag: "fixture actuation",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/turn_switch/frozen_vla.mp4",
     harnessVideo: "./videos/robotwin_c2r/turn_switch/harness_vla.mp4",
-    recipePath: "./videos/robotwin_c2r/turn_switch/recipe_turn_switch_seed100005.jsonl"
+    frameRatio: "4 / 3"
   }
 ];
 
 const galleryGrid = document.getElementById("task-gallery-grid");
 const galleryTabs = Array.from(document.querySelectorAll("[data-gallery-filter]"));
+const TASK_GALLERY_VIDEO_VERSION = "primitive-overlay-20260711";
+
+function versionedVideoSrc(src) {
+  if (!src) return src;
+  const separator = src.includes("?") ? "&" : "?";
+  return `${src}${separator}v=${TASK_GALLERY_VIDEO_VERSION}`;
+}
 
 function createVideoPane(label, sourcePath, tone) {
   const pane = document.createElement("div");
@@ -193,7 +193,11 @@ function createVideoPane(label, sourcePath, tone) {
     return pane;
   }
 
+  const frame = document.createElement("div");
+  frame.className = "gallery-video-frame";
+
   const video = document.createElement("video");
+  video.className = "gallery-video";
   video.muted = true;
   video.loop = true;
   video.playsInline = true;
@@ -201,38 +205,23 @@ function createVideoPane(label, sourcePath, tone) {
   video.preload = "metadata";
   video.setAttribute("aria-label", `${label} rollout video`);
 
-  const source = document.createElement("source");
-  source.src = sourcePath;
-  source.type = "video/mp4";
-  video.append(source);
+  video.src = versionedVideoSrc(sourcePath);
 
   video.addEventListener("error", () => {
-    video.remove();
+    frame.remove();
     appendFallback();
   });
 
-  pane.append(video);
+  frame.append(video);
+  pane.append(frame);
   return pane;
-}
-
-function pauseCardVideos(card) {
-  card.querySelectorAll("video").forEach((video) => video.pause());
-}
-
-function playCardVideos(card) {
-  card.querySelectorAll("video").forEach((video) => {
-    const playPromise = video.play();
-    if (playPromise?.catch) {
-      playPromise.catch(() => {});
-    }
-  });
 }
 
 function createGalleryCard(item) {
   const card = document.createElement("article");
   card.className = "video-task-card";
   card.dataset.benchmark = item.benchmark;
-  card.dataset.recipePath = item.recipePath;
+  card.style.setProperty("--video-frame-ratio", item.frameRatio || "4 / 3");
 
   const comparison = document.createElement("div");
   comparison.className = "comparison-pair";
@@ -252,9 +241,6 @@ function createGalleryCard(item) {
 
   meta.append(title, detail);
   card.append(comparison, meta);
-
-  card.addEventListener("mouseenter", () => playCardVideos(card));
-  card.addEventListener("mouseleave", () => pauseCardVideos(card));
 
   return card;
 }
