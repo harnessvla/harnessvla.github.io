@@ -1,4 +1,0 @@
-{"action":"init"}
-{"action":"lingbot_act","chunks":2,"use_length":50,"prompt":"Press down the bell with metallic top and plastic base's top center gently."}
-{"action":"move_to","arm":"left","xyz":[-0.278,-0.099,0.94],"quat":null,"gripper":0.0,"substeps":25}
-{"action":"move_to","arm":"left","xyz":[-0.273,-0.104,0.915],"quat":null,"gripper":0.0,"substeps":25}

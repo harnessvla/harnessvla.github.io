@@ -335,7 +335,7 @@ const galleryItems = [
   // End RoboCasa365 gallery examples.
   {
     benchmark: "RoboTwin C2R",
-    taskTitle: "Begin by placing red block on the left, then add green block to the right, and finish with blue block.",
+    taskTitle: "Blocks ranking",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/blocks_ranking_rgb/frozen_vla.mp4",
@@ -344,7 +344,7 @@ const galleryItems = [
   },
   {
     benchmark: "RoboTwin C2R",
-    taskTitle: "Press down the bell with metallic top and plastic base's top center gently.",
+    taskTitle: "Click bell",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/click_bell/frozen_vla.mp4",
@@ -353,16 +353,25 @@ const galleryItems = [
   },
   {
     benchmark: "RoboTwin C2R",
-    taskTitle: "Set the paper stapler with silver tray on the yellow mat with the right arm.",
+    taskTitle: "Handover block",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
-    baselineVideo: "./videos/robotwin_c2r/move_stapler_pad/frozen_vla.mp4",
-    harnessVideo: "./videos/robotwin_c2r/move_stapler_pad/harness_vla.mp4",
+    baselineVideo: "./videos/robotwin_c2r/handover_block/frozen_vla.mp4",
+    harnessVideo: "./videos/robotwin_c2r/handover_block/harness_vla.mp4",
     frameRatio: "4 / 3"
   },
   {
     benchmark: "RoboTwin C2R",
-    taskTitle: "Grab the white patterned brown metal can, place it in the basket with perforated sides, and raise the basket using the other arm.",
+    taskTitle: "Move playing card away",
+    baselineLabel: "Frozen VLA",
+    harnessLabel: "Harness VLA",
+    baselineVideo: "./videos/robotwin_c2r/move_playingcard_away/frozen_vla.mp4",
+    harnessVideo: "./videos/robotwin_c2r/move_playingcard_away/harness_vla.mp4",
+    frameRatio: "4 / 3"
+  },
+  {
+    benchmark: "RoboTwin C2R",
+    taskTitle: "Place can in basket",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/place_can_basket/frozen_vla.mp4",
@@ -371,7 +380,7 @@ const galleryItems = [
   },
   {
     benchmark: "RoboTwin C2R",
-    taskTitle: "Lift the plastic mouse with the right arm and stick it onto the blue mat.",
+    taskTitle: "Place mouse on pad",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/place_mouse_pad/frozen_vla.mp4",
@@ -380,16 +389,7 @@ const galleryItems = [
   },
   {
     benchmark: "RoboTwin C2R",
-    taskTitle: "Take the phone with polished silver border to the light brown phone stand.",
-    baselineLabel: "Frozen VLA",
-    harnessLabel: "Harness VLA",
-    baselineVideo: "./videos/robotwin_c2r/place_phone_stand/frozen_vla.mp4",
-    harnessVideo: "./videos/robotwin_c2r/place_phone_stand/harness_vla.mp4",
-    frameRatio: "4 / 3"
-  },
-  {
-    benchmark: "RoboTwin C2R",
-    taskTitle: "Use one arm to press the plastic and metal stapler.",
+    taskTitle: "Press stapler",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/press_stapler/frozen_vla.mp4",
@@ -398,7 +398,7 @@ const galleryItems = [
   },
   {
     benchmark: "RoboTwin C2R",
-    taskTitle: "Relocate red block and green block to the center, then layer green block over red block.",
+    taskTitle: "Stack two blocks",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/stack_blocks_two/frozen_vla.mp4",
@@ -407,7 +407,7 @@ const galleryItems = [
   },
   {
     benchmark: "RoboTwin C2R",
-    taskTitle: "Locate and press the plastic switch with metal prongs.",
+    taskTitle: "Turn switch",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/turn_switch/frozen_vla.mp4",
@@ -418,7 +418,7 @@ const galleryItems = [
 
 const galleryGrid = document.getElementById("task-gallery-grid");
 const galleryTabs = Array.from(document.querySelectorAll("[data-gallery-filter]"));
-const TASK_GALLERY_VIDEO_VERSION = "robocasa365-gallery-20260712";
+const TASK_GALLERY_VIDEO_VERSION = "robotwin-c2r-update-20260712";
 
 function versionedVideoSrc(src) {
   if (!src) return src;

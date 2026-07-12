@@ -1,3 +1,0 @@
-{"action":"init"}
-{"action":"lingbot_act","chunks":2,"use_length":50,"prompt":"Use one arm to press the plastic and metal stapler."}
-{"action":"descend","arm":"right","dz":0.08,"step":0.01,"gripper":0.0}
