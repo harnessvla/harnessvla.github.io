@@ -356,18 +356,7 @@ const galleryItems = [
   },
   {
     benchmark: "RoboCasa365",
-    taskTitle: "Pick up the sponge from the counter and clean the cutting board by briefly scrubbing or pressing down on the cutting board. Once finished, release the sponge.",
-    detail: "RoboCasa365 · ScrubCuttingBoard",
-    baselineLabel: "VLA fullshot",
-    harnessLabel: "Harness VLA",
-    baselineVideo: "./videos/robocasa365/20_scrub_cutting_board_s1/frozen_vla.mp4",
-    baselinePoster: "./videos/posters/robocasa365/20_scrub_cutting_board_s1/frozen_vla.jpg",
-    harnessVideo: "./videos/robocasa365/20_scrub_cutting_board_s1/harness_vla.mp4",
-    harnessPoster: "./videos/posters/robocasa365/20_scrub_cutting_board_s1/harness_vla.jpg",
-    frameRatio: "1 / 1"
-  },
-  {
-    benchmark: "RoboCasa365",
+
     taskTitle: "Pick up the knife from the drawer and place it on the cutting board. Then place the meat from the plate to the cutting board.",
     detail: "RoboCasa365 · SetUpCuttingStation",
     baselineLabel: "VLA fullshot",
@@ -494,7 +483,7 @@ const galleryItems = [
 
 const galleryGrid = document.getElementById("task-gallery-grid");
 const galleryTabs = Array.from(document.querySelectorAll("[data-gallery-filter]"));
-const TASK_GALLERY_VIDEO_VERSION = "poster-click-faststart-20260712";
+const TASK_GALLERY_VIDEO_VERSION = "poster-click-faststart-20260712-fps30-noscrub";
 const TASK_GALLERY_POSTER_VERSION = "posters-20260712";
 
 function versionedAssetSrc(src, version) {
