@@ -67,7 +67,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/object_task_t4_s3/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/object_task_t4_s3/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/object_task_t4_s3/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/object_task_t4_s3/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -76,7 +78,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/10_task_t6_s0/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/10_task_t6_s0/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/10_task_t6_s0/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/10_task_t6_s0/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -85,7 +89,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/10_swap_t7_s9/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/10_swap_t7_s9/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/10_swap_t7_s9/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/10_swap_t7_s9/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -94,7 +100,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/object_task_t2_s4/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/object_task_t2_s4/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/object_task_t2_s4/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/object_task_t2_s4/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -103,7 +111,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/goal_task_t2_s3/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/goal_task_t2_s3/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/goal_task_t2_s3/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/goal_task_t2_s3/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -112,7 +122,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/10_task_t4_s0/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/10_task_t4_s0/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/10_task_t4_s0/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/10_task_t4_s0/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -121,7 +133,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/10_swap_t1_s8/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/10_swap_t1_s8/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/10_swap_t1_s8/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/10_swap_t1_s8/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -130,7 +144,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/object_task_t5_s8/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/object_task_t5_s8/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/object_task_t5_s8/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/object_task_t5_s8/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -139,7 +155,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/10_swap_t2_s8/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/10_swap_t2_s8/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/10_swap_t2_s8/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/10_swap_t2_s8/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -148,7 +166,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/goal_task_t3_s9/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/goal_task_t3_s9/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/goal_task_t3_s9/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/goal_task_t3_s9/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -157,7 +177,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/10_swap_t6_s8/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/10_swap_t6_s8/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/10_swap_t6_s8/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/10_swap_t6_s8/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -166,7 +188,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/10_task_t3_s1/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/10_task_t3_s1/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/10_task_t3_s1/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/10_task_t3_s1/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -175,7 +199,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/10_task_t0_s6/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/10_task_t0_s6/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/10_task_t0_s6/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/10_task_t0_s6/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -184,7 +210,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/spatial_task_t8_s1/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/spatial_task_t8_s1/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/spatial_task_t8_s1/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/spatial_task_t8_s1/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -193,7 +221,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/spatial_task_t2_s7/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/spatial_task_t2_s7/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/spatial_task_t2_s7/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/spatial_task_t2_s7/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -202,7 +232,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/goal_task_t8_s6/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/goal_task_t8_s6/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/goal_task_t8_s6/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/goal_task_t8_s6/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -211,7 +243,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/goal_swap_t4_s7/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/goal_swap_t4_s7/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/goal_swap_t4_s7/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/goal_swap_t4_s7/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -220,7 +254,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/10_swap_t4_s7/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/10_swap_t4_s7/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/10_swap_t4_s7/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/10_swap_t4_s7/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -229,7 +265,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/object_swap_t8_s7/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/object_swap_t8_s7/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/object_swap_t8_s7/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/object_swap_t8_s7/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -238,7 +276,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/libero_pro/object_task_t8_s8/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/object_task_t8_s8/frozen_vla.jpg",
     harnessVideo: "./videos/libero_pro/object_task_t8_s8/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/object_task_t8_s8/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   // RoboCasa365 gallery examples: generated from clean_task_all.
@@ -249,7 +289,9 @@ const galleryItems = [
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/16_bread_selection_s2/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robocasa365/16_bread_selection_s2/frozen_vla.jpg",
     harnessVideo: "./videos/robocasa365/16_bread_selection_s2/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robocasa365/16_bread_selection_s2/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -259,7 +301,9 @@ const galleryItems = [
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/18_arrange_tea_s3/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robocasa365/18_arrange_tea_s3/frozen_vla.jpg",
     harnessVideo: "./videos/robocasa365/18_arrange_tea_s3/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robocasa365/18_arrange_tea_s3/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -269,7 +313,9 @@ const galleryItems = [
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/22_categorize_condiments_s2/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robocasa365/22_categorize_condiments_s2/frozen_vla.jpg",
     harnessVideo: "./videos/robocasa365/22_categorize_condiments_s2/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robocasa365/22_categorize_condiments_s2/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -279,7 +325,9 @@ const galleryItems = [
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/13_make_ice_lemonade_s0/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robocasa365/13_make_ice_lemonade_s0/frozen_vla.jpg",
     harnessVideo: "./videos/robocasa365/13_make_ice_lemonade_s0/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robocasa365/13_make_ice_lemonade_s0/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -289,7 +337,9 @@ const galleryItems = [
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/12_portion_hot_dogs_s2/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robocasa365/12_portion_hot_dogs_s2/frozen_vla.jpg",
     harnessVideo: "./videos/robocasa365/12_portion_hot_dogs_s2/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robocasa365/12_portion_hot_dogs_s2/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -299,7 +349,9 @@ const galleryItems = [
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/10_recycle_bottles_by_type_s1/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robocasa365/10_recycle_bottles_by_type_s1/frozen_vla.jpg",
     harnessVideo: "./videos/robocasa365/10_recycle_bottles_by_type_s1/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robocasa365/10_recycle_bottles_by_type_s1/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -309,7 +361,9 @@ const galleryItems = [
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/20_scrub_cutting_board_s1/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robocasa365/20_scrub_cutting_board_s1/frozen_vla.jpg",
     harnessVideo: "./videos/robocasa365/20_scrub_cutting_board_s1/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robocasa365/20_scrub_cutting_board_s1/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -319,7 +373,9 @@ const galleryItems = [
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/08_set_up_cutting_station_s0/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robocasa365/08_set_up_cutting_station_s0/frozen_vla.jpg",
     harnessVideo: "./videos/robocasa365/08_set_up_cutting_station_s0/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robocasa365/08_set_up_cutting_station_s0/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -329,7 +385,9 @@ const galleryItems = [
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/06_waffle_reheat_s1/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robocasa365/06_waffle_reheat_s1/frozen_vla.jpg",
     harnessVideo: "./videos/robocasa365/06_waffle_reheat_s1/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robocasa365/06_waffle_reheat_s1/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   // End RoboCasa365 gallery examples.
@@ -339,7 +397,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/blocks_ranking_rgb/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robotwin_c2r/blocks_ranking_rgb/frozen_vla.jpg",
     harnessVideo: "./videos/robotwin_c2r/blocks_ranking_rgb/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robotwin_c2r/blocks_ranking_rgb/harness_vla.jpg",
     frameRatio: "4 / 3"
   },
   {
@@ -348,7 +408,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/click_bell/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robotwin_c2r/click_bell/frozen_vla.jpg",
     harnessVideo: "./videos/robotwin_c2r/click_bell/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robotwin_c2r/click_bell/harness_vla.jpg",
     frameRatio: "4 / 3"
   },
   {
@@ -357,7 +419,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/handover_block/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robotwin_c2r/handover_block/frozen_vla.jpg",
     harnessVideo: "./videos/robotwin_c2r/handover_block/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robotwin_c2r/handover_block/harness_vla.jpg",
     frameRatio: "4 / 3"
   },
   {
@@ -366,7 +430,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/move_playingcard_away/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robotwin_c2r/move_playingcard_away/frozen_vla.jpg",
     harnessVideo: "./videos/robotwin_c2r/move_playingcard_away/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robotwin_c2r/move_playingcard_away/harness_vla.jpg",
     frameRatio: "4 / 3"
   },
   {
@@ -375,7 +441,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/place_can_basket/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robotwin_c2r/place_can_basket/frozen_vla.jpg",
     harnessVideo: "./videos/robotwin_c2r/place_can_basket/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robotwin_c2r/place_can_basket/harness_vla.jpg",
     frameRatio: "4 / 3"
   },
   {
@@ -384,7 +452,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/place_mouse_pad/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robotwin_c2r/place_mouse_pad/frozen_vla.jpg",
     harnessVideo: "./videos/robotwin_c2r/place_mouse_pad/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robotwin_c2r/place_mouse_pad/harness_vla.jpg",
     frameRatio: "4 / 3"
   },
   {
@@ -393,7 +463,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/press_stapler/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robotwin_c2r/press_stapler/frozen_vla.jpg",
     harnessVideo: "./videos/robotwin_c2r/press_stapler/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robotwin_c2r/press_stapler/harness_vla.jpg",
     frameRatio: "4 / 3"
   },
   {
@@ -402,7 +474,9 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/stack_blocks_two/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robotwin_c2r/stack_blocks_two/frozen_vla.jpg",
     harnessVideo: "./videos/robotwin_c2r/stack_blocks_two/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robotwin_c2r/stack_blocks_two/harness_vla.jpg",
     frameRatio: "4 / 3"
   },
   {
@@ -411,71 +485,31 @@ const galleryItems = [
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robotwin_c2r/turn_switch/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/robotwin_c2r/turn_switch/frozen_vla.jpg",
     harnessVideo: "./videos/robotwin_c2r/turn_switch/harness_vla.mp4",
+    harnessPoster: "./videos/posters/robotwin_c2r/turn_switch/harness_vla.jpg",
     frameRatio: "4 / 3"
   }
 ];
 
 const galleryGrid = document.getElementById("task-gallery-grid");
 const galleryTabs = Array.from(document.querySelectorAll("[data-gallery-filter]"));
-const TASK_GALLERY_VIDEO_VERSION = "robotwin-c2r-update-20260712";
+const TASK_GALLERY_VIDEO_VERSION = "poster-click-faststart-20260712";
+const TASK_GALLERY_POSTER_VERSION = "posters-20260712";
 
-function versionedVideoSrc(src) {
+function versionedAssetSrc(src, version) {
   if (!src) return src;
   const separator = src.includes("?") ? "&" : "?";
-  return `${src}${separator}v=${TASK_GALLERY_VIDEO_VERSION}`;
+  return `${src}${separator}v=${version}`;
 }
 
-function loadGalleryVideo(video) {
-  if (video.dataset.loaded === "true") return;
-
-  const sourcePath = video.dataset.src;
-  if (!sourcePath) return;
-
-  video.src = sourcePath;
-  video.load();
-  video.dataset.loaded = "true";
+function versionedVideoSrc(src) {
+  return versionedAssetSrc(src, TASK_GALLERY_VIDEO_VERSION);
 }
 
-function unloadGalleryVideo(video) {
-  video.pause();
-  video.removeAttribute("src");
-  video.load();
-  video.dataset.loaded = "false";
+function versionedPosterSrc(src) {
+  return versionedAssetSrc(src, TASK_GALLERY_POSTER_VERSION);
 }
-
-const lazyVideoObserver =
-  "IntersectionObserver" in window
-    ? new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            loadGalleryVideo(entry.target);
-            lazyVideoObserver.unobserve(entry.target);
-          });
-        },
-        {
-          rootMargin: "300px 0px",
-          threshold: 0.01,
-        }
-      )
-    : null;
-
-const playbackVideoObserver =
-  "IntersectionObserver" in window
-    ? new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) {
-              entry.target.pause();
-            }
-          });
-        },
-        {
-          threshold: 0.01,
-        }
-      )
-    : null;
 
 function pauseOtherGalleryVideos(currentVideo) {
   const currentCard = currentVideo.closest(".video-task-card");
@@ -486,27 +520,15 @@ function pauseOtherGalleryVideos(currentVideo) {
   });
 }
 
-function observeGalleryVideos(root) {
-  root.querySelectorAll(".gallery-video[data-src]").forEach((video) => {
-    if (lazyVideoObserver) {
-      lazyVideoObserver.observe(video);
-    } else {
-      loadGalleryVideo(video);
-    }
-
-    playbackVideoObserver?.observe(video);
-  });
-}
-
 function cleanupGalleryVideos(root) {
   root.querySelectorAll(".gallery-video").forEach((video) => {
-    lazyVideoObserver?.unobserve(video);
-    playbackVideoObserver?.unobserve(video);
-    unloadGalleryVideo(video);
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
   });
 }
 
-function createVideoPane(label, sourcePath, tone) {
+function createVideoPane(label, sourcePath, posterPath, tone) {
   const pane = document.createElement("div");
   pane.className = `video-pane video-pane-${tone}`;
 
@@ -523,7 +545,7 @@ function createVideoPane(label, sourcePath, tone) {
     pane.append(fallback);
   }
 
-  if (!sourcePath) {
+  if (!sourcePath || !posterPath) {
     appendFallback();
     return pane;
   }
@@ -531,29 +553,54 @@ function createVideoPane(label, sourcePath, tone) {
   const frame = document.createElement("div");
   frame.className = "gallery-video-frame";
 
-  const video = document.createElement("video");
-  video.className = "gallery-video";
-  video.muted = true;
-  video.loop = true;
-  video.playsInline = true;
-  video.controls = true;
-  video.preload = "none";
-  video.setAttribute("aria-label", `${label} rollout video`);
-  video.dataset.src = versionedVideoSrc(sourcePath);
-  video.dataset.loaded = "false";
+  function activateVideo() {
+    const video = document.createElement("video");
+    video.className = "gallery-video";
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.controls = true;
+    video.preload = "metadata";
+    video.src = versionedVideoSrc(sourcePath);
+    video.setAttribute("aria-label", `${label} rollout video`);
 
-  video.addEventListener("error", () => {
-    lazyVideoObserver?.unobserve(video);
-    playbackVideoObserver?.unobserve(video);
-    frame.remove();
-    appendFallback();
-  });
+    video.addEventListener("error", () => {
+      frame.remove();
+      appendFallback();
+    });
 
-  video.addEventListener("play", () => {
-    pauseOtherGalleryVideos(video);
-  });
+    video.addEventListener("play", () => {
+      pauseOtherGalleryVideos(video);
+    });
 
-  frame.append(video);
+    frame.replaceChildren(video);
+
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {});
+    }
+  }
+
+  const posterButton = document.createElement("button");
+  posterButton.className = "gallery-video-poster";
+  posterButton.type = "button";
+  posterButton.dataset.videoSrc = sourcePath;
+  posterButton.setAttribute("aria-label", `Play ${label} video`);
+
+  const posterImage = document.createElement("img");
+  posterImage.src = versionedPosterSrc(posterPath);
+  posterImage.alt = `${label} video poster`;
+  posterImage.loading = "lazy";
+  posterImage.decoding = "async";
+
+  const playButton = document.createElement("span");
+  playButton.className = "gallery-play-button";
+  playButton.setAttribute("aria-hidden", "true");
+
+  posterButton.append(posterImage, playButton);
+  posterButton.addEventListener("click", activateVideo, { once: true });
+
+  frame.append(posterButton);
   pane.append(frame);
   return pane;
 }
@@ -567,8 +614,8 @@ function createGalleryCard(item) {
   const comparison = document.createElement("div");
   comparison.className = "comparison-pair";
   comparison.append(
-    createVideoPane(item.baselineLabel, item.baselineVideo, "baseline"),
-    createVideoPane(item.harnessLabel, item.harnessVideo, "harness")
+    createVideoPane(item.baselineLabel, item.baselineVideo, item.baselinePoster, "baseline"),
+    createVideoPane(item.harnessLabel, item.harnessVideo, item.harnessPoster, "harness")
   );
 
   const meta = document.createElement("div");
@@ -604,7 +651,6 @@ function renderGallery(filter) {
   }
 
   items.forEach((item) => galleryGrid.append(createGalleryCard(item)));
-  observeGalleryVideos(galleryGrid);
 }
 
 galleryTabs.forEach((tab) => {
