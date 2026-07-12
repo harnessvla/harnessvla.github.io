@@ -426,6 +426,86 @@ function versionedVideoSrc(src) {
   return `${src}${separator}v=${TASK_GALLERY_VIDEO_VERSION}`;
 }
 
+function loadGalleryVideo(video) {
+  if (video.dataset.loaded === "true") return;
+
+  const sourcePath = video.dataset.src;
+  if (!sourcePath) return;
+
+  video.src = sourcePath;
+  video.load();
+  video.dataset.loaded = "true";
+}
+
+function unloadGalleryVideo(video) {
+  video.pause();
+  video.removeAttribute("src");
+  video.load();
+  video.dataset.loaded = "false";
+}
+
+const lazyVideoObserver =
+  "IntersectionObserver" in window
+    ? new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            loadGalleryVideo(entry.target);
+            lazyVideoObserver.unobserve(entry.target);
+          });
+        },
+        {
+          rootMargin: "300px 0px",
+          threshold: 0.01,
+        }
+      )
+    : null;
+
+const playbackVideoObserver =
+  "IntersectionObserver" in window
+    ? new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              entry.target.pause();
+            }
+          });
+        },
+        {
+          threshold: 0.01,
+        }
+      )
+    : null;
+
+function pauseOtherGalleryVideos(currentVideo) {
+  const currentCard = currentVideo.closest(".video-task-card");
+  document.querySelectorAll(".gallery-video").forEach((video) => {
+    if (video === currentVideo) return;
+    if (video.closest(".video-task-card") === currentCard) return;
+    video.pause();
+  });
+}
+
+function observeGalleryVideos(root) {
+  root.querySelectorAll(".gallery-video[data-src]").forEach((video) => {
+    if (lazyVideoObserver) {
+      lazyVideoObserver.observe(video);
+    } else {
+      loadGalleryVideo(video);
+    }
+
+    playbackVideoObserver?.observe(video);
+  });
+}
+
+function cleanupGalleryVideos(root) {
+  root.querySelectorAll(".gallery-video").forEach((video) => {
+    lazyVideoObserver?.unobserve(video);
+    playbackVideoObserver?.unobserve(video);
+    unloadGalleryVideo(video);
+  });
+}
+
 function createVideoPane(label, sourcePath, tone) {
   const pane = document.createElement("div");
   pane.className = `video-pane video-pane-${tone}`;
@@ -436,6 +516,7 @@ function createVideoPane(label, sourcePath, tone) {
   pane.append(labelEl);
 
   function appendFallback() {
+    if (pane.querySelector(".video-fallback")) return;
     const fallback = document.createElement("div");
     fallback.className = "video-fallback";
     fallback.textContent = "Video unavailable";
@@ -456,14 +537,20 @@ function createVideoPane(label, sourcePath, tone) {
   video.loop = true;
   video.playsInline = true;
   video.controls = true;
-  video.preload = "metadata";
+  video.preload = "none";
   video.setAttribute("aria-label", `${label} rollout video`);
-
-  video.src = versionedVideoSrc(sourcePath);
+  video.dataset.src = versionedVideoSrc(sourcePath);
+  video.dataset.loaded = "false";
 
   video.addEventListener("error", () => {
+    lazyVideoObserver?.unobserve(video);
+    playbackVideoObserver?.unobserve(video);
     frame.remove();
     appendFallback();
+  });
+
+  video.addEventListener("play", () => {
+    pauseOtherGalleryVideos(video);
   });
 
   frame.append(video);
@@ -505,6 +592,7 @@ function renderGallery(filter) {
   const items =
     filter === "ALL" ? galleryItems : galleryItems.filter((item) => item.benchmark === filter);
 
+  cleanupGalleryVideos(galleryGrid);
   galleryGrid.innerHTML = "";
 
   if (items.length === 0) {
@@ -516,6 +604,7 @@ function renderGallery(filter) {
   }
 
   items.forEach((item) => galleryGrid.append(createGalleryCard(item)));
+  observeGalleryVideos(galleryGrid);
 }
 
 galleryTabs.forEach((tab) => {
