@@ -245,7 +245,7 @@ const galleryItems = [
   {
     benchmark: "RoboCasa365",
     taskTitle: "From the different types of pastries on the counter, select a croissant and place it on the cutting board. Then retrieve a jar of jam from the cabinet and place it alongside the croissant on the cutting board.",
-    detail: "RoboCasa365 · BreadSelection · seed 2 · reset 4200002",
+    detail: "RoboCasa365 · BreadSelection",
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/16_bread_selection_s2/frozen_vla.mp4",
@@ -255,7 +255,7 @@ const galleryItems = [
   {
     benchmark: "RoboCasa365",
     taskTitle: "Pick the kettle from the counter and place it on the tray. Then pick the mug from the cabinet and place it on the tray. Then close the cabinet doors.",
-    detail: "RoboCasa365 · ArrangeTea · seed 3 · reset 4200003",
+    detail: "RoboCasa365 · ArrangeTea",
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/18_arrange_tea_s3/frozen_vla.mp4",
@@ -265,7 +265,7 @@ const galleryItems = [
   {
     benchmark: "RoboCasa365",
     taskTitle: "Put the shaker and condiment bottle from the counter next to their counterparts in the cabinet.",
-    detail: "RoboCasa365 · CategorizeCondiments · seed 2 · reset 4200002",
+    detail: "RoboCasa365 · CategorizeCondiments",
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/22_categorize_condiments_s2/frozen_vla.mp4",
@@ -275,7 +275,7 @@ const galleryItems = [
   {
     benchmark: "RoboCasa365",
     taskTitle: "Grab a lemon wedge from the fridge and one ice cube from the ice bowl, and put them in the glass of lemonade.",
-    detail: "RoboCasa365 · MakeIceLemonade · seed 0 · reset 4200000",
+    detail: "RoboCasa365 · MakeIceLemonade",
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/13_make_ice_lemonade_s0/frozen_vla.mp4",
@@ -285,7 +285,7 @@ const galleryItems = [
   {
     benchmark: "RoboCasa365",
     taskTitle: "Place one bun and one sausage from the bowl on each plate.",
-    detail: "RoboCasa365 · PortionHotDogs · seed 2 · reset 4200002",
+    detail: "RoboCasa365 · PortionHotDogs",
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/12_portion_hot_dogs_s2/frozen_vla.mp4",
@@ -295,7 +295,7 @@ const galleryItems = [
   {
     benchmark: "RoboCasa365",
     taskTitle: "Move the plastic bottles in the middle to the plastics group, and the glass bottles in the middle to the glass group.",
-    detail: "RoboCasa365 · RecycleBottlesByType · seed 1 · reset 4200001",
+    detail: "RoboCasa365 · RecycleBottlesByType",
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/10_recycle_bottles_by_type_s1/frozen_vla.mp4",
@@ -305,7 +305,7 @@ const galleryItems = [
   {
     benchmark: "RoboCasa365",
     taskTitle: "Pick up the sponge from the counter and clean the cutting board by briefly scrubbing or pressing down on the cutting board. Once finished, release the sponge.",
-    detail: "RoboCasa365 · ScrubCuttingBoard · seed 1 · reset 4200001",
+    detail: "RoboCasa365 · ScrubCuttingBoard",
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/20_scrub_cutting_board_s1/frozen_vla.mp4",
@@ -315,7 +315,7 @@ const galleryItems = [
   {
     benchmark: "RoboCasa365",
     taskTitle: "Pick up the knife from the drawer and place it on the cutting board. Then place the meat from the plate to the cutting board.",
-    detail: "RoboCasa365 · SetUpCuttingStation · seed 0 · reset 4200000",
+    detail: "RoboCasa365 · SetUpCuttingStation",
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/08_set_up_cutting_station_s0/frozen_vla.mp4",
@@ -325,7 +325,7 @@ const galleryItems = [
   {
     benchmark: "RoboCasa365",
     taskTitle: "Open the microwave, place the bowl with waffle inside the microwave, then close the microwave door and turn it on.",
-    detail: "RoboCasa365 · WaffleReheat · seed 1 · reset 4200001",
+    detail: "RoboCasa365 · WaffleReheat",
     baselineLabel: "VLA fullshot",
     harnessLabel: "Harness VLA",
     baselineVideo: "./videos/robocasa365/06_waffle_reheat_s1/frozen_vla.mp4",
