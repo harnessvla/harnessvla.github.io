@@ -109,10 +109,16 @@ code {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   flex: 0 0 auto;
   text-decoration: none;
+  box-sizing: border-box;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(120, 170, 220, 0.35);
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 .brand-logo-img {
@@ -124,8 +130,10 @@ code {
 
 @media (max-width: 768px) {
   .logo-brand {
-    width: 46px;
-    height: 46px;
+    width: 52px;
+    height: 52px;
+    padding: 3px;
+    border-radius: 15px;
   }
 }
 
