@@ -85,13 +85,13 @@ const galleryItems = [
   },
   {
     benchmark: "LIBERO-Pro",
-    taskTitle: "Put both the alphabet soup and the cream cheese box in the basket",
+    taskTitle: "Put the wine bottle in the bowl",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
-    baselineVideo: "./videos/libero_pro/10_swap_t7_s9/frozen_vla.mp4",
-    baselinePoster: "./videos/posters/libero_pro/10_swap_t7_s9/frozen_vla.jpg",
-    harnessVideo: "./videos/libero_pro/10_swap_t7_s9/harness_vla.mp4",
-    harnessPoster: "./videos/posters/libero_pro/10_swap_t7_s9/harness_vla.jpg",
+    baselineVideo: "./videos/libero_pro/goal_task_t2_s3/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/goal_task_t2_s3/frozen_vla.jpg",
+    harnessVideo: "./videos/libero_pro/goal_task_t2_s3/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/goal_task_t2_s3/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
@@ -107,13 +107,13 @@ const galleryItems = [
   },
   {
     benchmark: "LIBERO-Pro",
-    taskTitle: "Put the wine bottle in the bowl",
+    taskTitle: "Put both the alphabet soup and the cream cheese box in the basket",
     baselineLabel: "Frozen VLA",
     harnessLabel: "Harness VLA",
-    baselineVideo: "./videos/libero_pro/goal_task_t2_s3/frozen_vla.mp4",
-    baselinePoster: "./videos/posters/libero_pro/goal_task_t2_s3/frozen_vla.jpg",
-    harnessVideo: "./videos/libero_pro/goal_task_t2_s3/harness_vla.mp4",
-    harnessPoster: "./videos/posters/libero_pro/goal_task_t2_s3/harness_vla.jpg",
+    baselineVideo: "./videos/libero_pro/10_swap_t7_s9/frozen_vla.mp4",
+    baselinePoster: "./videos/posters/libero_pro/10_swap_t7_s9/frozen_vla.jpg",
+    harnessVideo: "./videos/libero_pro/10_swap_t7_s9/harness_vla.mp4",
+    harnessPoster: "./videos/posters/libero_pro/10_swap_t7_s9/harness_vla.jpg",
     frameRatio: "1 / 1"
   },
   {
