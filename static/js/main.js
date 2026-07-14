@@ -607,7 +607,7 @@ function createGalleryCard(item) {
   const comparison = document.createElement("div");
   comparison.className = "comparison-pair";
   comparison.append(
-    createVideoPane(item.baselineLabel, item.baselineVideo, item.baselinePoster, "baseline"),
+    createVideoPane("VLA Fullshot", item.baselineVideo, item.baselinePoster, "baseline"),
     createVideoPane(item.harnessLabel, item.harnessVideo, item.harnessPoster, "harness")
   );
 
