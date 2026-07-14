@@ -482,7 +482,11 @@ const galleryItems = [
 ];
 
 const galleryGrid = document.getElementById("task-gallery-grid");
+const galleryViewport = document.getElementById("task-gallery-viewport");
 const galleryTabs = Array.from(document.querySelectorAll("[data-gallery-filter]"));
+const galleryPrevButton = document.querySelector("[data-gallery-prev]");
+const galleryNextButton = document.querySelector("[data-gallery-next]");
+const galleryCount = document.getElementById("task-gallery-count");
 const TASK_GALLERY_VIDEO_VERSION = "poster-click-faststart-20260712-fps30-noscrub";
 const TASK_GALLERY_POSTER_VERSION = "posters-20260712";
 
@@ -622,6 +626,76 @@ function createGalleryCard(item) {
   return card;
 }
 
+function getGalleryCards() {
+  if (!galleryGrid) return [];
+  return Array.from(galleryGrid.querySelectorAll(".video-task-card"));
+}
+
+function getGalleryVisibleRange() {
+  const cards = getGalleryCards();
+  if (!galleryViewport || cards.length === 0) {
+    return { cards, first: 0, last: 0, visibleCount: 0 };
+  }
+
+  const start = galleryViewport.scrollLeft;
+  const end = start + galleryViewport.clientWidth;
+  const visibleCards = cards.filter((card) => {
+    const cardStart = card.offsetLeft;
+    const cardEnd = cardStart + card.offsetWidth;
+    return cardEnd > start + 2 && cardStart < end - 2;
+  });
+
+  if (visibleCards.length === 0) {
+    return { cards, first: 0, last: 0, visibleCount: 0 };
+  }
+
+  const first = cards.indexOf(visibleCards[0]);
+  const last = cards.indexOf(visibleCards[visibleCards.length - 1]);
+  return { cards, first, last, visibleCount: visibleCards.length };
+}
+
+function updateGalleryControls() {
+  if (!galleryViewport) return;
+
+  const { cards, first, last, visibleCount } = getGalleryVisibleRange();
+  const maxScroll = Math.max(0, galleryViewport.scrollWidth - galleryViewport.clientWidth);
+  const progress = maxScroll > 0 ? (galleryViewport.scrollLeft / maxScroll) * 100 : 100;
+  const carousel = galleryViewport.closest(".gallery-carousel");
+
+  carousel?.style.setProperty("--gallery-scroll-progress", `${progress}%`);
+
+  if (galleryCount) {
+    galleryCount.textContent =
+      visibleCount > 0 ? `${first + 1}-${last + 1} / ${cards.length}` : "0 / 0";
+  }
+
+  if (galleryPrevButton) {
+    galleryPrevButton.disabled = cards.length === 0 || galleryViewport.scrollLeft <= 2;
+  }
+
+  if (galleryNextButton) {
+    galleryNextButton.disabled =
+      cards.length === 0 || galleryViewport.scrollLeft >= maxScroll - 2;
+  }
+}
+
+function scrollGallery(direction) {
+  if (!galleryViewport) return;
+
+  const { cards, first, last, visibleCount } = getGalleryVisibleRange();
+  if (cards.length === 0) return;
+
+  const step = Math.max(1, visibleCount || 1);
+  const targetIndex =
+    direction > 0 ? Math.min(cards.length - 1, last + 1) : Math.max(0, first - step);
+
+  cards[targetIndex]?.scrollIntoView({
+    behavior: "smooth",
+    block: "nearest",
+    inline: "start",
+  });
+}
+
 function renderGallery(filter) {
   if (!galleryGrid) return;
 
@@ -636,10 +710,18 @@ function renderGallery(filter) {
     emptyState.className = "gallery-empty";
     emptyState.textContent = "Examples coming soon.";
     galleryGrid.append(emptyState);
+    if (galleryViewport) {
+      galleryViewport.scrollLeft = 0;
+    }
+    window.requestAnimationFrame(updateGalleryControls);
     return;
   }
 
   items.forEach((item) => galleryGrid.append(createGalleryCard(item)));
+  if (galleryViewport) {
+    galleryViewport.scrollLeft = 0;
+  }
+  window.requestAnimationFrame(updateGalleryControls);
 }
 
 galleryTabs.forEach((tab) => {
@@ -655,5 +737,54 @@ galleryTabs.forEach((tab) => {
     renderGallery(filter);
   });
 });
+
+galleryPrevButton?.addEventListener("click", () => scrollGallery(-1));
+galleryNextButton?.addEventListener("click", () => scrollGallery(1));
+galleryViewport?.addEventListener("scroll", updateGalleryControls, { passive: true });
+window.addEventListener("resize", updateGalleryControls);
+
+galleryViewport?.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    scrollGallery(-1);
+  }
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    scrollGallery(1);
+  }
+});
+
+if (galleryViewport) {
+  let isDraggingGallery = false;
+  let dragStartX = 0;
+  let dragStartScrollLeft = 0;
+
+  galleryViewport.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0 || event.target.closest("button, video, a")) return;
+    isDraggingGallery = true;
+    dragStartX = event.clientX;
+    dragStartScrollLeft = galleryViewport.scrollLeft;
+    galleryViewport.classList.add("is-dragging");
+    galleryViewport.setPointerCapture(event.pointerId);
+  });
+
+  galleryViewport.addEventListener("pointermove", (event) => {
+    if (!isDraggingGallery) return;
+    event.preventDefault();
+    galleryViewport.scrollLeft = dragStartScrollLeft - (event.clientX - dragStartX);
+  });
+
+  function stopGalleryDrag(event) {
+    if (!isDraggingGallery) return;
+    isDraggingGallery = false;
+    galleryViewport.classList.remove("is-dragging");
+    if (galleryViewport.hasPointerCapture(event.pointerId)) {
+      galleryViewport.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  galleryViewport.addEventListener("pointerup", stopGalleryDrag);
+  galleryViewport.addEventListener("pointercancel", stopGalleryDrag);
+}
 
 renderGallery("ALL");

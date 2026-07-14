@@ -317,7 +317,19 @@
             <button class="gallery-tab" type="button" data-gallery-filter="RoboTwin C2R" aria-pressed="false">RoboTwin C2R</button>
           </div>
 
-          <div class="gallery-grid" id="task-gallery-grid" aria-live="polite"></div>
+          <div class="gallery-carousel" aria-label="Task-level comparison carousel">
+            <div class="gallery-viewport" id="task-gallery-viewport" tabindex="0">
+              <div class="gallery-grid" id="task-gallery-grid" aria-live="polite"></div>
+            </div>
+            <div class="gallery-controls" aria-label="Task gallery carousel controls">
+              <button class="gallery-nav-button" type="button" data-gallery-prev aria-label="Previous task comparisons">&larr;</button>
+              <div class="gallery-scroll-status" aria-live="polite">
+                <span id="task-gallery-count">0 / 0</span>
+                <div class="gallery-progress-track" aria-hidden="true"><i></i></div>
+              </div>
+              <button class="gallery-nav-button" type="button" data-gallery-next aria-label="Next task comparisons">&rarr;</button>
+            </div>
+          </div>
         </div>
       </section>
 
