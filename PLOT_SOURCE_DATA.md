@@ -47,13 +47,13 @@ Bars show each side as a % of the solved cells `n = analytic + VLA`.
 ## 2. Cumulative task success vs VLA-invocation budget
 
 **Chart:** line "-o" (`#DD8452`), + two dashed reference lines: "VLA full-shot" (`#4C72B0`) and
-"HarnessVLA/Hybrid, all invocations" (`#999999`). **x** = "VLA primitive invocations ( ≤ k )"
+"Harness VLA, all invocations" (`#999999`). **x** = "VLA primitive invocations ( ≤ k )"
 (0..K_MAX) · **y** = "Cumulative task success (%)" (0–100). No background grid (only the two dashed refs). Point value = fraction of ALL episodes
 solved with ≤k VLA calls.
 
-**Reference lines / scope:** LIBERO-Pro — VLA full-shot 50%, HarnessVLA all invocations 82%, K_MAX=6 ·
-RoboCasa365 — VLA full-shot 30%, Hybrid all invocations 48%, K_MAX=10 ·
-RoboTwin C2R — VLA full-shot 50%, Hybrid all invocations 58%, K_MAX=8.
+**Reference lines / scope:** LIBERO-Pro — VLA full-shot 50%, Harness VLA all invocations 82%, K_MAX=6 ·
+RoboCasa365 — VLA full-shot 30%, Harness VLA all invocations 48%, K_MAX=10 ·
+RoboTwin C2R — VLA full-shot 50%, Harness VLA all invocations 58%, K_MAX=8.
 
 | Environment | k (≤) | cumulative success % | episodes with exactly k |
 |---|--:|--:|---|

@@ -221,15 +221,15 @@
 
     const referenceLabels = {
       "LIBERO-Pro": {
-        full: "HarnessVLA, all invocations",
+        full: "Harness VLA, all invocations",
         frozen: "VLA full-shot",
       },
       RoboCasa365: {
-        full: "Hybrid, all invocations",
+        full: "Harness VLA, all invocations",
         frozen: "VLA full-shot",
       },
       "RoboTwin C2R": {
-        full: "Hybrid, all invocations",
+        full: "Harness VLA, all invocations",
         frozen: "VLA full-shot",
       },
     };
