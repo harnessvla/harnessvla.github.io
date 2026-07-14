@@ -6,10 +6,10 @@
     <meta name="robots" content="index,follow">
     <meta
       name="description"
-      content="Harness VLA embeds a frozen VLA into a memory-guided agentic loop for reliable long-horizon manipulation."
+      content="Harness VLA embeds a frozen VLA into a memory-guided agentic loop that learns how to use fixed primitives for reliable long-horizon manipulation."
     >
     <meta property="og:title" content="Harness VLA">
-    <meta property="og:description" content="A memory-guided agentic loop that composes VLA_ACT with fixed analytic primitives.">
+    <meta property="og:description" content="A memory-guided agentic loop that learns when to invoke VLA_ACT and how to compose it with fixed analytic primitives.">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <title>Harness VLA</title>
@@ -63,10 +63,11 @@
             <span>via Memory-Guided Agents</span>
           </h1>
           <p class="hero-subtitle">
-            Harness VLA embeds a frozen VLA into a memory-guided agentic loop. The planner
-            retrieves successful traces and failure rules, then composes VLA_ACT with fixed
-            analytic primitives to re-ground, re-stage, retry, and complete long-horizon
-            manipulation tasks.
+            Harness VLA embeds a frozen VLA into a memory-guided agentic loop that learns
+            how to use a fixed primitive library. The planner retrieves successful traces
+            and failure rules, then decides when to invoke VLA_ACT, how to re-stage it,
+            and when analytic primitives should handle grounding, transport, release, and
+            recovery.
           </p>
           <div class="hero-authors">
             <div class="author-names">
@@ -100,7 +101,7 @@
               <span><sup>3</sup>Purdue University</span>
               <span><sup>4</sup>Institute of Automation, Chinese Academy of Sciences</span>
               <span><sup>5</sup>Infinigence AI</span>
-              <span><sup>6</sup>City University of Hong Kong</span>
+              <span><sup>6</sup>Hong Kong University of Science and Technology</span>
               <span><sup>7</sup>Zhongguancun Academy</span>
             </div>
 
@@ -129,22 +130,26 @@
       <section class="section" id="overview">
         <div class="container intro-block">
           <p class="eyebrow">OVERVIEW</p>
-          <h2 class="paper-title">What changes when a frozen VLA becomes a primitive?</h2>
+          <h2 class="paper-title">How does Harness VLA learn to use frozen VLAs as primitives?</h2>
 
           <div class="abstract-card overview-summary">
             <p>
               Frozen VLAs are strong at local contact-rich manipulation, but brittle under semantic
               retargeting, goal re-binding, spatial-layout shifts, long-horizon composition, and
               unstable contacts. Harness VLA keeps the VLA frozen and exposes it as VLA_ACT, a
-              retryable contact-rich primitive inside a memory-guided agentic loop.
+              retryable contact-rich primitive inside a memory-guided agentic loop that learns the
+              operating range of each fixed primitive.
             </p>
             <p>
-              The planner reads the task, live RGB-D observations, robot state, Task Specific
-              Memory, and Global Memory, then emits structured calls to a fixed primitive library.
-              Analytic primitives handle re-grounding, staging, transport, navigation, gripper
-              control, and release, while VLA_ACT is reserved for local contact-rich phases such as
-              grasping, constrained placement, fixture actuation, drawer manipulation, and
-              insertion.
+              During bootstrapping, the planner discovers which subproblems should be solved
+              analytically, when VLA_ACT should be invoked, how failed contact attempts should be
+              re-staged, and which success rules or failure models transfer across tasks. At
+              deployment, it reads the task, live RGB-D observations, robot state, Task Specific
+              Memory, and Global Memory, then re-grounds the learned primitive structure under the
+              current scene. Analytic primitives handle re-grounding, staging, transport,
+              navigation, gripper control, and release, while VLA_ACT is reserved for local
+              contact-rich phases such as grasping, constrained placement, fixture actuation,
+              drawer manipulation, and insertion.
             </p>
           </div>
 
@@ -192,9 +197,10 @@
             <h2>How Harness VLA Works</h2>
             <p class="method-intro">
               Harness VLA exposes a frozen VLA as VLA_ACT, a retryable contact-rich primitive
-              inside a memory-guided agentic planner. At each turn, the planner reads the task,
-              RGB-D observations, robot state, Task Specific Memory, and Global Memory, then emits a
-              structured call to a fixed primitive library rather than low-level robot actions.
+              inside a memory-guided agentic planner that learns how to use each primitive. At each
+              turn, the planner reads the task, RGB-D observations, robot state, Task Specific
+              Memory, and Global Memory, then emits a structured call to a fixed primitive library
+              rather than low-level robot actions.
             </p>
           </header>
 
