@@ -131,26 +131,24 @@
       <section class="section" id="overview">
         <div class="container intro-block">
           <p class="eyebrow">OVERVIEW</p>
-          <h2 class="paper-title">How does Harness VLA learn to use frozen VLAs as primitives?</h2>
+          <h2 class="paper-title">Learning to use frozen VLAs through memory-guided execution</h2>
 
           <div class="abstract-card overview-summary">
             <p>
-              Frozen VLAs are strong at local contact-rich manipulation, but brittle under semantic
-              retargeting, goal re-binding, spatial-layout shifts, long-horizon composition, and
-              unstable contacts. Harness VLA keeps the VLA frozen and exposes it as VLA_ACT, a
-              retryable contact-rich primitive inside a memory-guided agentic loop that learns the
-              operating range of each fixed primitive.
+              Vision-language-action models already provide strong local manipulation skills, but
+              their reliability drops when instructions, objects, layouts, or task horizons change.
+              Harness VLA addresses this gap without changing the VLA weights: it places the frozen
+              policy inside a memory-guided execution loop, where each learned action attempt can be
+              staged, checked, and retried.
             </p>
             <p>
-              During bootstrapping, the planner discovers which subproblems should be solved
-              analytically, when VLA_ACT should be invoked, how failed contact attempts should be
-              re-staged, and which success rules or failure models transfer across tasks. At
-              deployment, it reads the task, live RGB-D observations, robot state, Task Specific
-              Memory, and Global Memory, then re-grounds the learned primitive structure under the
-              current scene. Analytic primitives handle re-grounding, staging, transport,
-              navigation, gripper control, and release, while VLA_ACT is reserved for local
-              contact-rich phases such as grasping, constrained placement, fixture actuation,
-              drawer manipulation, and insertion.
+              The central idea is not to enlarge the skill library, but to learn how a small fixed
+              set of primitives should be used. From a successful reference run, the harness records
+              reusable action structure, success rules, and failure cases. At deployment, the
+              planner adapts this experience to the current scene, choosing when to use analytic
+              motion, when to call the VLA for contact-rich behavior, and how to recover from failed
+              attempts. This turns a pretrained VLA into a more reliable component for perturbed and
+              long-horizon manipulation.
             </p>
           </div>
 
