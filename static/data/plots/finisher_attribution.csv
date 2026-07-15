@@ -4,6 +4,6 @@ LIBERO,Object,127,31,158,80,20
 LIBERO,Goal,124,32,156,79,21
 LIBERO,LIBERO-10,97,18,115,84,16
 RoboCasa,Composite seen,12,18,30,40,60
-RoboCasa,Composite unseen,4,6,10,40,60
+RoboCasa,Composite unseen,17,83,100,17,83
 RoboCasa,Atomic,17,108,125,14,86
-RoboTwin,RoboTwin (50 tasks),38,67,105,36,64
+RoboTwin,RoboTwin (50 tasks),34,66,100,34,66

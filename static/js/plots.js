@@ -494,7 +494,7 @@
 
     try {
       const [finisher, method, vlaInvoke] = await Promise.all([
-        loadCSV("finisher_attribution.csv"),
+        loadCSV("finisher_attribution.csv?v=finisher-20260715"),
         loadCSV("method_comparison.csv"),
         loadCSV("vla_invoke_success.csv?v=vla-invoke-paper-v1"),
       ]);
