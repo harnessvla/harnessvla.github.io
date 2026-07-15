@@ -1232,24 +1232,43 @@ tr.best td {
 }
 
 .author-contact {
-  display: flex;
-  margin-top: 0.42rem;
-}
-
-.author-contact span {
   display: inline-flex;
   align-items: center;
-  padding: 0.28rem 0.58rem 0.3rem 0.68rem;
-  border-left: 3px solid #67d7ff;
-  background: rgba(103, 215, 255, 0.14);
+  flex-wrap: wrap;
+  max-width: 100%;
+  gap: 0.26rem 0.5rem;
+  width: fit-content;
+  margin-top: 0.5rem;
+  padding: 0.34rem 0.68rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(103, 215, 255, 0.15), rgba(255, 255, 255, 0.055)),
+    rgba(255, 255, 255, 0.045);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+.author-contact .contact-label {
   color: rgba(255, 255, 255, 0.9);
   font-size: clamp(0.78rem, 0.95vw, 0.9rem);
-  font-weight: 700;
+  font-weight: 650;
   line-height: 1.35;
 }
 
-.author-contact a {
+.hero-authors .author-contact a {
   color: #ffffff;
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 0.95vw, 0.9rem);
+  font-weight: 750;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.hero-authors .author-contact a:hover {
+  color: #8eeaff;
+  text-decoration: underline;
 }
 
 .hero-authors sup {
@@ -1874,11 +1893,13 @@ tr.best td {
   }
 
   .author-contact {
-    margin-top: 0.3rem;
+    margin-top: 0.32rem;
+    gap: 0.18rem 0.42rem;
+    padding: 0.26rem 0.48rem;
   }
 
-  .author-contact span {
-    padding: 0.24rem 0.45rem 0.25rem 0.52rem;
+  .author-contact .contact-label,
+  .hero-authors .author-contact a {
     font-size: 0.74rem;
   }
 
