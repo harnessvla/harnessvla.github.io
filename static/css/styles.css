@@ -1231,6 +1231,27 @@ tr.best td {
   color: rgba(255, 255, 255, 0.64);
 }
 
+.author-contact {
+  display: flex;
+  margin-top: 0.42rem;
+}
+
+.author-contact span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.58rem 0.3rem 0.68rem;
+  border-left: 3px solid #67d7ff;
+  background: rgba(103, 215, 255, 0.14);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.78rem, 0.95vw, 0.9rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.author-contact a {
+  color: #ffffff;
+}
+
 .hero-authors sup {
   font-size: 0.68em;
   line-height: 0;
@@ -1850,6 +1871,15 @@ tr.best td {
     margin-top: 0.22rem;
     font-size: 0.7rem;
     line-height: 1.3;
+  }
+
+  .author-contact {
+    margin-top: 0.3rem;
+  }
+
+  .author-contact span {
+    padding: 0.24rem 0.45rem 0.25rem 0.52rem;
+    font-size: 0.74rem;
   }
 
   .hero-claims {
